@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     right: 8,
     width: 32,
     height: 32,
-    backgroundColor: `${colors.parchmentLight}E6`, // 0.9 opacity via hex alpha
+    backgroundColor: 'rgba(250, 245, 238, 0.9)', // colors.parchmentLight (#FAF5EE) at 0.9 opacity
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',

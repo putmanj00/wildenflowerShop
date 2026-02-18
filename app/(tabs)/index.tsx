@@ -79,7 +79,6 @@ export default function HomeScreen() {
           favorites={featuredProducts.map(p => p.id).filter(id => isFavorite(id))}
         />
 
-        <View style={styles.bottomPad} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -96,8 +95,5 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingBottom: spacing.huge,
-  },
-  bottomPad: {
-    height: spacing.huge,
   },
 });

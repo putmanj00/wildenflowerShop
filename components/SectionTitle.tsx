@@ -12,7 +12,11 @@ export default function SectionTitle({ title, action }: SectionTitleProps) {
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       {action && (
-        <TouchableOpacity onPress={action.onPress}>
+        <TouchableOpacity
+          onPress={action.onPress}
+          accessibilityRole="button"
+          accessibilityLabel={action.label}
+        >
           <Text style={styles.action}>{action.label}</Text>
         </TouchableOpacity>
       )}
