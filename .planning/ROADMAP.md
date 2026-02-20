@@ -142,8 +142,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 07-01-PLAN.md — Build Cart screen (CartLineRow, qty stepper, order summary, checkout button, empty state with CTA)
-- [ ] 07-02-PLAN.md — Human verification: Cart screen brand fidelity and full browse-to-checkout path checkpoint
+- [x] 07-01-PLAN.md — Build Cart screen (CartLineRow, qty stepper, order summary, checkout button, empty state with CTA)
+- [x] 07-02-PLAN.md — Human verification: Cart screen brand fidelity and full browse-to-checkout path checkpoint
 
 ### Phase 8: Favorites + Maker Profile
 **Goal**: Finders can save products they love across sessions, and can visit a maker's profile to see who made what — deepening the human connection the brand is built on
@@ -197,7 +197,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 4. Data Hooks + Checkout Wiring | 2/2 | Complete | 2026-02-20 |
 | 5. Home Screen | 3/3 | Complete | 2026-02-20 |
 | 6. Browse + Product Detail | 4/4 | Complete   | 2026-02-20 |
-| 7. Cart + Checkout | 0/2 | Not started | - |
+| 7. Cart + Checkout | 2/2 | Complete | 2026-02-20 |
 | 8. Favorites + Maker Profile | 0/TBD | Not started | - |
 | 9. Content Screens + Assets | 0/TBD | Not started | - |
 | 10. Customer Authentication | 0/TBD | Not started | - |
