@@ -14,6 +14,7 @@
  */
 
 import { Tabs } from 'expo-router';
+import { Platform } from 'react-native';
 import { colors, fonts, fontSizes, spacing, copy } from '../../constants/theme';
 import { useCart } from '../../context/CartContext';
 import TabIcon from '../../components/TabIcon';
@@ -33,11 +34,18 @@ export default function TabLayout() {
           height: spacing.tabBarHeight,   // 80px
           paddingTop: spacing.sm,         // 8px
           paddingBottom: spacing.xl,      // 24px — space above home indicator
-          shadowColor: colors.earth,
-          shadowOffset: { width: 0, height: -2 },
-          shadowOpacity: 0.08,
-          shadowRadius: 8,
-          elevation: 8,
+          ...Platform.select({
+            web: {
+              boxShadow: '0px -2px 8px rgba(59, 47, 47, 0.08)',
+            },
+            default: {
+              shadowColor: colors.earth,
+              shadowOffset: { width: 0, height: -2 },
+              shadowOpacity: 0.08,
+              shadowRadius: 8,
+              elevation: 8,
+            },
+          }),
         },
         tabBarActiveTintColor: colors.terracotta,
         tabBarInactiveTintColor: colors.earthLight,
