@@ -32,6 +32,7 @@ import {
 } from '@expo-google-fonts/lora';
 import { useFonts } from 'expo-font';
 import { CartProvider } from '../context/CartContext';
+import { FavoritesProvider } from '../context/FavoritesContext';
 import { colors } from '../constants/theme';
 import FontErrorScreen from '../components/layout/FontErrorScreen';
 
@@ -82,22 +83,24 @@ export default function RootLayout() {
     // key={retryKey} ensures the CartProvider tree remounts on retry,
     // which re-triggers useFonts inside this same RootLayout component.
     <CartProvider key={retryKey}>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: colors.parchment },
-          animation: 'fade',
-        }}
-      >
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="product/[id]" />
-        <Stack.Screen name="blog/index" />
-        <Stack.Screen name="blog/[id]" />
-        <Stack.Screen name="maker/[id]" />
-        <Stack.Screen name="checkout" />
-        <Stack.Screen name="about" />
-        <Stack.Screen name="faq" />
-      </Stack>
+      <FavoritesProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: colors.parchment },
+            animation: 'fade',
+          }}
+        >
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="product/[id]" />
+          <Stack.Screen name="blog/index" />
+          <Stack.Screen name="blog/[id]" />
+          <Stack.Screen name="maker/[id]" />
+          <Stack.Screen name="checkout" />
+          <Stack.Screen name="about" />
+          <Stack.Screen name="faq" />
+        </Stack>
+      </FavoritesProvider>
     </CartProvider>
   );
 }
