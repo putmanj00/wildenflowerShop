@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
-**Current focus:** Phase 4 — (Phase 3 complete)
+**Current focus:** Phase 4 — Data Hooks + Checkout Wiring (in progress)
 
 ## Current Position
 
-Phase: 3 of 10 (CartContext Upgrade) — COMPLETE
-Plan: 3 of 3 in current phase — COMPLETE
-Status: Phase 3 Complete
-Last activity: 2026-02-20 — Plan 03-03 complete: CartContext fully rewritten with Shopify mutations, AsyncStorage hydration, expired-cart silent recovery; old useReducer/Product API removed; call sites (index.tsx, ProductGrid.tsx) updated to use FavoritesContext for favorites
+Phase: 4 of 10 (Data Hooks + Checkout Wiring) — IN PROGRESS
+Plan: 1 of 2 in current phase — COMPLETE
+Status: Plan 04-01 Complete — useShopifyQuery base hook + 3 public hooks + CartContext checkout wiring
+Last activity: 2026-02-20 — Plan 04-01 complete: useShopifyQuery<T> base hook, useProducts/useCollections/useProduct public hooks, CartContext checkoutUrl + openCheckout fully wired
 
-Progress: [████░░░░░░] 30%
+Progress: [████░░░░░░] 32%
 
 ## Performance Metrics
 
@@ -37,6 +37,7 @@ Progress: [████░░░░░░] 30%
 | 03-cartcontext-upgrade P01 | ~10 min | 4 tasks | 3 files |
 | 03-cartcontext-upgrade P02 | 2 min | 2 tasks | 2 files |
 | 03-cartcontext-upgrade P03 | ~10 min | 1 task + 2 deviations | 3 files |
+| 04-data-hooks-checkout-wiring P01 | ~3 min | 2 tasks | 5 files |
 
 **Recent Trend:**
 - Last 5 plans: ~10 min, 2 min, ~10 min, 2 min, ~10 min
@@ -85,6 +86,11 @@ Recent decisions affecting current work:
 - [Phase 03-cartcontext-upgrade P03]: No optimistic updates — state updates only after confirmed Shopify response; rollback on failure
 - [Phase 03-cartcontext-upgrade P03]: updateQuantity routes quantity <= 0 to removeCartLines — avoids Shopify INVALID user error on cartLinesUpdate with quantity 0
 - [Phase 03-cartcontext-upgrade P03]: index.tsx and ProductGrid.tsx updated to use useFavorites() — auto-fix required because CartContext no longer exposes toggleFavorite/isFavorite
+- [Phase 04-data-hooks-checkout-wiring P01]: queryFn excluded from useShopifyQuery useEffect deps — callers must provide stable useCallback reference (documented in JSDoc)
+- [Phase 04-data-hooks-checkout-wiring P01]: loading vs isRefetching: loading=true only when data===null AND error===null (initial fetch); isRefetching=true on all subsequent refetch() calls
+- [Phase 04-data-hooks-checkout-wiring P01]: Screens import hooks only — never lib/shopify-client directly (established abstraction boundary)
+- [Phase 04-data-hooks-checkout-wiring P01]: openCheckout uses Platform.OS check: web uses window.location.href, native uses Linking.openURL
+- [Phase 04-data-hooks-checkout-wiring P01]: updateCartState() helper ensures checkoutUrl stays in sync after every cart mutation
 
 ### Pending Todos
 
@@ -99,5 +105,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 03-03-PLAN.md — Phase 3 complete. CartContext rewritten (Shopify-backed, AsyncStorage-persisted); call sites updated to use FavoritesContext for favorites. Ready for Phase 4.
+Stopped at: Completed 04-01-PLAN.md — useShopifyQuery base hook, 3 public data hooks (useProducts, useCollections, useProduct), CartContext checkoutUrl + openCheckout fully wired. Ready for Phase 4 Plan 02.
 Resume file: None

@@ -179,7 +179,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 1. Prerequisites | 4/4 | Complete | 2026-02-20 |
 | 2. Shopify Service Layer | 3/3 | Complete | 2026-02-20 |
 | 3. CartContext Upgrade | 3/3 | Complete | 2026-02-20 |
-| 4. Data Hooks + Checkout Wiring | 0/2 | Not started | - |
+| 4. Data Hooks + Checkout Wiring | 1/2 | In Progress|  |
 | 5. Home Screen | 0/TBD | Not started | - |
 | 6. Browse + Product Detail | 0/TBD | Not started | - |
 | 7. Cart + Checkout | 0/TBD | Not started | - |
