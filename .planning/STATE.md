@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
-**Current focus:** Phase 4 — Data Hooks + Checkout Wiring (in progress)
+**Current focus:** Phase 5 — Home Screen (in progress)
 
 ## Current Position
 
-Phase: 4 of 10 (Data Hooks + Checkout Wiring) — COMPLETE
-Plan: 2 of 2 in current phase — COMPLETE
-Status: Phase 4 Complete — useShopifyQuery base hook + 3 public hooks + CartContext checkout wiring
-Last activity: 2026-02-20 — Plan 04-02 complete: CartContext extended with checkoutUrl state and openCheckout action; updateCartState helper ensures checkoutUrl stays in sync on every mutation and hydration path
+Phase: 5 of 10 (Home Screen) — IN PROGRESS
+Plan: 2 of 3 in current phase — IN PROGRESS
+Status: Phase 5 Plan 01 Complete — ScrollScreen refreshControl + HeroCard explore button + SkeletonProductCard
+Last activity: 2026-02-20 — Plan 05-01 complete: three component primitives enabling Plan 02 Home screen wiring
 
-Progress: [████░░░░░░] 34%
+Progress: [████░░░░░░] 37%
 
 ## Performance Metrics
 
@@ -39,12 +39,14 @@ Progress: [████░░░░░░] 34%
 | 03-cartcontext-upgrade P03 | ~10 min | 1 task + 2 deviations | 3 files |
 | 04-data-hooks-checkout-wiring P01 | ~3 min | 2 tasks | 5 files |
 | 04-data-hooks-checkout-wiring P02 | ~4 min | 1 task | 1 file |
+| 05-home-screen P01 | 2 min | 3 tasks | 3 files |
 
 **Recent Trend:**
 - Last 5 plans: ~10 min, 2 min, ~10 min, 2 min, ~10 min
 - Trend: Fast
 
 *Updated after each plan completion*
+| Phase 05-home-screen P01 | 2 min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -109,5 +111,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 04-02-PLAN.md — Phase 4 complete. CartContext extended with checkoutUrl state and openCheckout action (Platform-branched). All 2 Phase 4 plans done. Ready for Phase 5.
+Stopped at: Completed 05-01-PLAN.md — Phase 5 Plan 01 complete. ScrollScreen refreshControl forwarding + HeroCard Wander button + SkeletonProductCard created. Now executing Plan 02 (Home screen wiring).
 Resume file: None
