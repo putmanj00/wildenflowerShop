@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 ## Current Position
 
 Phase: 5 of 10 (Home Screen) — IN PROGRESS
-Plan: 2 of 3 in current phase — IN PROGRESS
-Status: Phase 5 Plan 01 Complete — ScrollScreen refreshControl + HeroCard explore button + SkeletonProductCard
-Last activity: 2026-02-20 — Plan 05-01 complete: three component primitives enabling Plan 02 Home screen wiring
+Plan: 3 of 3 in current phase — CHECKPOINT (human verification)
+Status: Phase 5 Plans 01–02 Complete — Awaiting human visual verification at Plan 03
+Last activity: 2026-02-20 — Plan 05-02 complete: Home screen fully wired to live Shopify data; ready for visual verification
 
-Progress: [████░░░░░░] 37%
+Progress: [████░░░░░░] 39%
 
 ## Performance Metrics
 
@@ -40,6 +40,7 @@ Progress: [████░░░░░░] 37%
 | 04-data-hooks-checkout-wiring P01 | ~3 min | 2 tasks | 5 files |
 | 04-data-hooks-checkout-wiring P02 | ~4 min | 1 task | 1 file |
 | 05-home-screen P01 | 2 min | 3 tasks | 3 files |
+| 05-home-screen P02 | 1 min | 1 task | 1 file |
 
 **Recent Trend:**
 - Last 5 plans: ~10 min, 2 min, ~10 min, 2 min, ~10 min
@@ -111,5 +112,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 05-01-PLAN.md — Phase 5 Plan 01 complete. ScrollScreen refreshControl forwarding + HeroCard Wander button + SkeletonProductCard created. Now executing Plan 02 (Home screen wiring).
+Stopped at: Completed 05-02-PLAN.md — Home screen wired to live Shopify data. Plans 01–02 done. Plan 03 is a human visual verification checkpoint. Start dev server and verify screen before marking Phase 5 complete.
 Resume file: None
