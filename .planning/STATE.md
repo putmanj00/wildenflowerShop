@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 ## Current Position
 
 Phase: 2 of 10 (Shopify Service Layer)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In Progress
-Last activity: 2026-02-20 — Plan 02-01 complete: Shopify credentials and type definitions
+Last activity: 2026-02-20 — Plan 02-02 complete: Shopify service layer (queries, mappers, client)
 
-Progress: [██░░░░░░░░] 15%
+Progress: [███░░░░░░░] 18%
 
 ## Performance Metrics
 
@@ -32,6 +32,7 @@ Progress: [██░░░░░░░░] 15%
 | 01-prerequisites P03 | 8 min | 2 tasks | 14 files |
 | 01-prerequisites P04 | ~10 min | 1 task (checkpoint) | 1 file |
 | 02-shopify-service-layer P01 | 2 min | 2 tasks | 3 files |
+| 02-shopify-service-layer P02 | ~2 min | 2 tasks | 3 files |
 
 **Recent Trend:**
 - Last 5 plans: 7 min, 2 min, 8 min, ~10 min, 2 min
@@ -62,6 +63,9 @@ Recent decisions affecting current work:
 - [Phase 01-prerequisites P04]: Remove accessibilityRole="button" from outer TouchableOpacity card containers — renders nested <button> elements on web (HTML validity violation)
 - [Phase 02-shopify-service-layer]: EXPO_PUBLIC_ + process.env pattern over Constants.expoConfig.extra — no extra dependency, TypeScript-typed, Expo SDK 49+ standard
 - [Phase 02-shopify-service-layer]: types/shopify.ts separate from types/index.ts — raw Shopify API shapes never mixed with app-domain types
+- [Phase 02-shopify-service-layer P02]: AppCollectionWithProducts uses plain interface extending ShopifyCollection (not conditional type) — simpler and TypeScript-compatible without as-any casts
+- [Phase 02-shopify-service-layer P02]: shopifyFetch not exported — only the five service functions are the public API; internal implementation detail
+- [Phase 02-shopify-service-layer P02]: Startup validation uses console.warn (not throw) — allows dev app to load and show clear message without crashing on placeholder credentials
 
 ### Pending Todos
 
@@ -76,5 +80,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 02-01-PLAN.md — Shopify credentials (.env.local) and type definitions (types/shopify.ts) created; Plan 02 (shopify-client.ts) is next
+Stopped at: Completed 02-02-PLAN.md — Shopify service layer (lib/shopify-queries.ts, lib/shopify-mappers.ts, lib/shopify-client.ts) created; Plan 03 (smoke testing) is next
 Resume file: None

@@ -9,9 +9,9 @@
 
 - [x] **SHOP-01**: App reads Shopify credentials from `EXPO_PUBLIC_` environment variables configured in `app.json` extra
 - [x] **SHOP-02**: TypeScript types for all Shopify API shapes exist in `types/shopify.ts` (ShopifyProduct, ShopifyCart, ShopifyCollection, etc.)
-- [ ] **SHOP-03**: Product catalog fetched from Shopify Storefront API (getProducts, getProductByHandle)
-- [ ] **SHOP-04**: Collections fetched from Shopify Storefront API (getCollections, getCollectionByHandle)
-- [ ] **SHOP-05**: Product search executes via Shopify Search API
+- [x] **SHOP-03**: Product catalog fetched from Shopify Storefront API (getProducts, getProductByHandle)
+- [x] **SHOP-04**: Collections fetched from Shopify Storefront API (getCollections, getCollectionByHandle)
+- [x] **SHOP-05**: Product search executes via Shopify Search API
 - [ ] **SHOP-06**: Cart created and managed via Shopify cart mutations (create, addLines, updateLines, removeLines)
 - [ ] **SHOP-07**: Cart ID persisted to AsyncStorage; app re-hydrates cart on launch; expired carts (null response) handled gracefully with recovery
 - [ ] **SHOP-08**: Checkout initiates by opening Shopify's `cart.checkoutUrl` in browser (web: window.location, native: Linking.openURL)
@@ -100,9 +100,9 @@
 | PLAT-02 | Phase 1 | Complete |
 | SHOP-01 | Phase 2 | Complete |
 | SHOP-02 | Phase 2 | Complete |
-| SHOP-03 | Phase 2 | Pending |
-| SHOP-04 | Phase 2 | Pending |
-| SHOP-05 | Phase 2 | Pending |
+| SHOP-03 | Phase 2 | Complete |
+| SHOP-04 | Phase 2 | Complete |
+| SHOP-05 | Phase 2 | Complete |
 | SHOP-06 | Phase 3 | Pending |
 | SHOP-07 | Phase 3 | Pending |
 | SHOP-08 | Phase 4 | Pending |
