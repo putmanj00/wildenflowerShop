@@ -34,7 +34,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Playfair Display and Lora fonts render correctly on every screen that displays text; the font-error fallback state is handled so the app never freezes
   3. All screens use `SafeAreaView` from `react-native-safe-area-context` — no screen clips behind a notch or browser chrome on web
   4. Shadows render visibly on web via `Platform.select` with `boxShadow` CSS fallbacks alongside React Native shadow props
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Fix font loading freeze bug + create on-brand FontErrorScreen component
+- [ ] 01-02-PLAN.md — Add Platform.select web shadow fallbacks to theme.ts and tab bar layout
+- [ ] 01-03-PLAN.md — Create Screen/ScrollScreen layout components; update all 12 screens
+- [ ] 01-04-PLAN.md — Human validation of Expo Web baseline across all screens (checkpoint)
 
 ### Phase 2: Shopify Service Layer
 **Goal**: Live Shopify data is accessible from any file in the app — the service layer exists, environment variables are wired, GraphQL queries work, and TypeScript types are in place
@@ -156,7 +162,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Prerequisites | 0/TBD | Not started | - |
+| 1. Prerequisites | 0/4 | Not started | - |
 | 2. Shopify Service Layer | 0/TBD | Not started | - |
 | 3. CartContext Upgrade | 0/TBD | Not started | - |
 | 4. Data Hooks + Checkout Wiring | 0/TBD | Not started | - |
