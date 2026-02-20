@@ -15,7 +15,7 @@
  */
 
 import React from 'react';
-import { View, Text, RefreshControl, StyleSheet } from 'react-native';
+import { View, Text, RefreshControl, StyleSheet, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
 
 import { colors, copy, fonts, fontSizes, productCategories, spacing } from '../../constants/theme';
@@ -154,7 +154,10 @@ export default function HomeScreen() {
 
       <HeroCard onExplorePress={handleExplorePress} />
 
-      <SectionTitle title={copy.categories} />
+      <SectionTitle
+        title={copy.categories}
+        action={Platform.OS === 'web' ? { label: 'Refresh', onPress: handleRefresh } : undefined}
+      />
       <CategoryRow
         categories={productCategories}
         activeCategory={null}
