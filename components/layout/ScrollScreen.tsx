@@ -19,7 +19,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, spacing } from '../../constants/theme';
 
 interface ScrollScreenProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   style?: ViewStyle;
   contentContainerStyle?: ViewStyle;
 }
