@@ -52,7 +52,12 @@ Plans:
   3. `types/shopify.ts` contains `ShopifyProduct`, `ShopifyCart`, `ShopifyCollection`, `ShopifyCartLine`, and related types — all screens can import Shopify types without `any` casts
   4. `getCollections` and `getCollectionByHandle` return real Shopify collections; collection handles match the category names used in the app
   5. `searchProducts` returns relevant results for a test search term against the live store
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Env var setup (.env.local) + Shopify TypeScript types (types/shopify.ts)
+- [ ] 02-02-PLAN.md — GraphQL queries, authenticated fetch client, and data transformation mappers (lib/)
+- [ ] 02-03-PLAN.md — Smoke test script + human verification against live Shopify store (checkpoint)
 
 ### Phase 3: CartContext Upgrade
 **Goal**: Adding items to cart creates and manages a real Shopify cart; the cart ID survives app restarts and expired carts recover gracefully
@@ -163,7 +168,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Prerequisites | 4/4 | Complete | 2026-02-20 |
-| 2. Shopify Service Layer | 0/TBD | Not started | - |
+| 2. Shopify Service Layer | 0/3 | Not started | - |
 | 3. CartContext Upgrade | 0/TBD | Not started | - |
 | 4. Data Hooks + Checkout Wiring | 0/TBD | Not started | - |
 | 5. Home Screen | 0/TBD | Not started | - |
