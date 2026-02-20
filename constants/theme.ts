@@ -8,6 +8,8 @@
  *   import { colors, fonts, spacing, radii, shadows } from './theme';
  */
 
+import { Platform } from 'react-native';
+
 // ─────────────────────────────────────────────
 // COLORS
 // ─────────────────────────────────────────────
@@ -157,33 +159,61 @@ export const radii = {
 
 export const shadows = {
   sm: {
-    shadowColor: colors.earth,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 2,
+    ...Platform.select({
+      web: {
+        boxShadow: '0px 2px 4px rgba(59, 47, 47, 0.08)',
+      },
+      default: {
+        shadowColor: colors.earth,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.08,
+        shadowRadius: 4,
+        elevation: 2,
+      },
+    }),
   },
   md: {
-    shadowColor: colors.earth,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
+    ...Platform.select({
+      web: {
+        boxShadow: '0px 4px 8px rgba(59, 47, 47, 0.10)',
+      },
+      default: {
+        shadowColor: colors.earth,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 4,
+      },
+    }),
   },
   lg: {
-    shadowColor: colors.earth,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.12,
-    shadowRadius: 16,
-    elevation: 8,
+    ...Platform.select({
+      web: {
+        boxShadow: '0px 8px 16px rgba(59, 47, 47, 0.12)',
+      },
+      default: {
+        shadowColor: colors.earth,
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.12,
+        shadowRadius: 16,
+        elevation: 8,
+      },
+    }),
   },
   // Special: warm golden glow for highlighted/featured items
   glow: {
-    shadowColor: colors.gold,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 12,
-    elevation: 6,
+    ...Platform.select({
+      web: {
+        boxShadow: '0px 4px 12px rgba(201, 166, 66, 0.20)',
+      },
+      default: {
+        shadowColor: colors.gold,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 12,
+        elevation: 6,
+      },
+    }),
   },
 };
 
