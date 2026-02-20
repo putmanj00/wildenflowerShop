@@ -192,7 +192,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 3. CartContext Upgrade | 3/3 | Complete | 2026-02-20 |
 | 4. Data Hooks + Checkout Wiring | 2/2 | Complete | 2026-02-20 |
 | 5. Home Screen | 3/3 | Complete | 2026-02-20 |
-| 6. Browse + Product Detail | 0/TBD | In Progress | - |
+| 6. Browse + Product Detail | 1/4 | In Progress|  |
 | 7. Cart + Checkout | 0/TBD | Not started | - |
 | 8. Favorites + Maker Profile | 0/TBD | Not started | - |
 | 9. Content Screens + Assets | 0/TBD | Not started | - |

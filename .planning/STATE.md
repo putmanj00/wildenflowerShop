@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
-**Current focus:** Phase 6 — Browse + Product Detail (starting)
+**Current focus:** Phase 6 — Browse + Product Detail (in progress, plan 1 of 4 complete)
 
 ## Current Position
 
 Phase: 6 of 10 (Browse + Product Detail) — IN PROGRESS
-Plan: 0 of TBD in current phase — STARTING
-Status: Phase 5 Complete — Beginning Phase 6 planning
-Last activity: 2026-02-20 — Phase 5 closed: Home screen live, images activated, human-verified
+Plan: 1 of 4 in current phase — COMPLETE
+Status: Phase 6 Plan 01 Complete — useProducts pagination + productCategories fix done
+Last activity: 2026-02-20 — 06-01: useProducts cursor pagination, productCategories corrected to live Shopify handles
 
 Progress: [█████░░░░░] 50%
 
@@ -53,6 +53,7 @@ Progress: [█████░░░░░] 50%
 
 *Updated after each plan completion*
 | Phase 05-home-screen P03 | ~10 min | 1 checkpoint + 1 fix | 2 files |
+| Phase 06-browse-product-detail P01 | 2 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -103,6 +104,9 @@ Recent decisions affecting current work:
 - [Phase 04-data-hooks-checkout-wiring P02]: checkoutUrl never persisted to AsyncStorage — Shopify checkout URLs expire; always re-derived from live cart response
 - [Phase 04-data-hooks-checkout-wiring P02]: openCheckout() is synchronous void — critical for web popup-blocker compliance; no async/await
 - [Phase 04-data-hooks-checkout-wiring P02]: Rollback parity — every setCart(previousCart) rollback paired with setCheckoutUrl(previousCart?.checkoutUrl ?? null)
+- [Phase 06-browse-product-detail]: useProducts manages its own product/cursor/pageInfo state directly — useShopifyQuery only handles single fetch results and cannot accumulate pages
+- [Phase 06-browse-product-detail]: productCategories corrected to 4 confirmed Shopify handles (tie-dye, leather, jewelry, art); crystals/ceramics removed, artwork renamed to art; resolves pre-Phase 6 collection handle mismatch blocker
+- [Phase 06-browse-product-detail]: loadMore returned as null (not undefined) when no next page; consumers use loadMore and Button pattern without extra hasNextPage check
 
 ### Pending Todos
 
@@ -110,12 +114,12 @@ None yet.
 
 ### Blockers/Concerns
 
-- [Pre-Phase 6 — CONFIRMED BLOCKER]: Shopify collection handle mismatch — smoke test confirmed Shopify store bgh9hd-rq.myshopify.com has handles [frontpage, tie-dye, leather, jewelry, art]; app's Browse FilterChips expect [earth, woven, light, crafted]; all 4 expected handles are missing. Must resolve before Phase 6 Browse screen work. Options: (1) add collections in Shopify Admin matching expected handles, (2) update app FilterChips to use actual Shopify handles, (3) add a mapping layer in service layer. Decision required pre-Phase 6.
+- [Pre-Phase 6 — RESOLVED in 06-01]: Shopify collection handle mismatch — resolved by updating productCategories to use confirmed handles (tie-dye, leather, jewelry, art). Option 2 chosen: app updated to use actual Shopify handles.
 - [Pre-Phase 3 — CARRY FORWARD]: Shopify cart expiry null-response shape needs validation with a real test cart (documented as null but unconfirmed) — CartContext recovery logic depends on this; monitor in Phase 5 Cart Screen work.
 - [Pre-Phase 6]: `react-native-reanimated-carousel` web compatibility in Reanimated 3.16.x — verify before committing to it in Phase 6; fallback is gesture-handler ScrollView with prev/next buttons
 
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed Phase 5 — Home Screen fully verified. Product images activated in ProductCard.tsx. Phase 6 (Browse + Product Detail) is next. Key pre-Phase 6 decision needed: collection handle mismatch (see Blockers).
+Stopped at: Completed 06-01-PLAN.md — useProducts cursor pagination + product accumulation; productCategories corrected to confirmed Shopify handles. Pre-Phase 6 collection handle blocker resolved. Next: 06-02 Browse screen.
 Resume file: None
