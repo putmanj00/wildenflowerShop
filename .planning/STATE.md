@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 
 ## Current Position
 
-Phase: 2 of 10 (Shopify Service Layer)
-Plan: 3 of 3 in current phase
-Status: Phase Complete
-Last activity: 2026-02-20 — Plan 02-03 complete: Smoke test verified against live Shopify store; collection handle mismatch documented
+Phase: 3 of 10 (CartContext Upgrade)
+Plan: 2 of 3 in current phase
+Status: In Progress
+Last activity: 2026-02-20 — Plan 03-02 complete: FavoritesContext extracted from CartContext into memory-only standalone context; FavoritesProvider wired into root layout
 
-Progress: [████░░░░░░] 22%
+Progress: [████░░░░░░] 26%
 
 ## Performance Metrics
 
@@ -34,9 +34,11 @@ Progress: [████░░░░░░] 22%
 | 02-shopify-service-layer P01 | 2 min | 2 tasks | 3 files |
 | 02-shopify-service-layer P02 | ~2 min | 2 tasks | 3 files |
 | 02-shopify-service-layer P03 | ~30 min | 2 tasks | 2 files |
+| 03-cartcontext-upgrade P01 | ~10 min | 4 tasks | 3 files |
+| 03-cartcontext-upgrade P02 | 2 min | 2 tasks | 2 files |
 
 **Recent Trend:**
-- Last 5 plans: 7 min, 2 min, 8 min, ~10 min, 2 min
+- Last 5 plans: 8 min, ~10 min, 2 min, ~10 min, 2 min
 - Trend: Fast
 
 *Updated after each plan completion*
@@ -69,6 +71,9 @@ Recent decisions affecting current work:
 - [Phase 02-shopify-service-layer P02]: Startup validation uses console.warn (not throw) — allows dev app to load and show clear message without crashing on placeholder credentials
 - [Phase 02-shopify-service-layer P03]: Dynamic import used for shopify-client in smoke test — static import caused dotenv race condition; dynamic import guarantees env vars are set before module evaluation
 - [Phase 02-shopify-service-layer P03]: Collection handle mismatch flagged as pre-Phase 6 blocker (not Phase 5): Browse FilterChips map to Shopify collection handles; Home screen does not use collection filtering
+- [Phase 03-cartcontext-upgrade P02]: FavoritesProvider nested inside CartProvider — either order works since they are independent; this matches CONTEXT.md research pattern
+- [Phase 03-cartcontext-upgrade P02]: favorites stored as string[] not Set — consistent with existing CartContext.favorites shape, simpler for AsyncStorage serialization in Phase 8
+- [Phase 03-cartcontext-upgrade P02]: No AsyncStorage in FavoritesContext — memory-only clean receptacle; Phase 8 adds persistence
 
 ### Pending Todos
 
@@ -83,5 +88,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 02-03-PLAN.md — Phase 2 (Shopify Service Layer) complete; live Shopify connection confirmed; collection handle mismatch documented as pre-Phase 6 blocker; Phase 3 (CartContext Upgrade) is next
+Stopped at: Completed 03-02-PLAN.md — FavoritesContext extracted from CartContext; FavoritesProvider wired into root layout; Plan 03-03 (CartContext rewrite to use Shopify cart API) is next
 Resume file: None

@@ -12,7 +12,7 @@
 - [x] **SHOP-03**: Product catalog fetched from Shopify Storefront API (getProducts, getProductByHandle)
 - [x] **SHOP-04**: Collections fetched from Shopify Storefront API (getCollections, getCollectionByHandle)
 - [x] **SHOP-05**: Product search executes via Shopify Search API
-- [ ] **SHOP-06**: Cart created and managed via Shopify cart mutations (create, addLines, updateLines, removeLines)
+- [x] **SHOP-06**: Cart created and managed via Shopify cart mutations (create, addLines, updateLines, removeLines)
 - [ ] **SHOP-07**: Cart ID persisted to AsyncStorage; app re-hydrates cart on launch; expired carts (null response) handled gracefully with recovery
 - [ ] **SHOP-08**: Checkout initiates by opening Shopify's `cart.checkoutUrl` in browser (web: window.location, native: Linking.openURL)
 
@@ -103,7 +103,7 @@
 | SHOP-03 | Phase 2 | Complete |
 | SHOP-04 | Phase 2 | Complete |
 | SHOP-05 | Phase 2 | Complete |
-| SHOP-06 | Phase 3 | Pending |
+| SHOP-06 | Phase 3 | Complete |
 | SHOP-07 | Phase 3 | Pending |
 | SHOP-08 | Phase 4 | Pending |
 | COMM-01 | Phase 5 | Pending |
