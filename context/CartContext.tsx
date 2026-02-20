@@ -201,6 +201,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return true;
     } catch {
       setCart(previousCart);
+      setCheckoutUrl(previousCart?.checkoutUrl ?? null);
       return false;
     } finally {
       setIsRemovingFromCart(false);
@@ -226,6 +227,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return true;
     } catch {
       setCart(previousCart);
+      setCheckoutUrl(previousCart?.checkoutUrl ?? null);
       return false;
     } finally {
       setIsUpdatingQuantity(false);
@@ -239,6 +241,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       await AsyncStorage.multiRemove([STORAGE_CART_ID, STORAGE_CART_SNAPSHOT]).catch(() => {});
       setCartId(null);
       setCart(null);
+      setCheckoutUrl(null);
     } finally {
       setIsLoading(false);
     }
