@@ -29,17 +29,21 @@ const ACCESS_TOKEN = process.env.EXPO_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 const API_VERSION = '2026-01';
 
 // Startup validation — fail fast with a clear message rather than silent undefined
-if (!STORE_DOMAIN || STORE_DOMAIN === 'your-store.myshopify.com') {
-  console.warn(
+if (!STORE_DOMAIN) {
+  throw new Error(
     '[Shopify] EXPO_PUBLIC_SHOPIFY_STORE_DOMAIN is not set. ' +
     'Add it to .env.local and restart the dev server.'
   );
+} else if (STORE_DOMAIN === 'your-store.myshopify.com') {
+  console.warn('[Shopify] EXPO_PUBLIC_SHOPIFY_STORE_DOMAIN is still the placeholder value. Update .env.local.');
 }
-if (!ACCESS_TOKEN || ACCESS_TOKEN === 'your-public-storefront-access-token') {
-  console.warn(
+if (!ACCESS_TOKEN) {
+  throw new Error(
     '[Shopify] EXPO_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN is not set. ' +
     'Add it to .env.local and restart the dev server.'
   );
+} else if (ACCESS_TOKEN === 'your-public-storefront-access-token') {
+  console.warn('[Shopify] EXPO_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN is still the placeholder value. Update .env.local.');
 }
 
 const SHOPIFY_ENDPOINT = `https://${STORE_DOMAIN}/api/${API_VERSION}/graphql.json`;
