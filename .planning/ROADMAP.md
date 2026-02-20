@@ -101,7 +101,12 @@ Plans:
   3. CategoryRow scrolls horizontally; tapping a category navigates to Browse pre-filtered to that collection
   4. Tapping a product card navigates to the correct Product Detail screen
   5. Home screen renders without errors on Expo Web and passes an architect review for brand fidelity
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 05-01-PLAN.md — Extend ScrollScreen (refreshControl), add HeroCard explore button, create SkeletonProductCard
+- [ ] 05-02-PLAN.md — Wire Home screen: live Shopify data, type adapter, loading/error states, pull-to-refresh, category navigation
+- [ ] 05-03-PLAN.md — Human visual verification: brand fidelity and live data checkpoint
 
 ### Phase 6: Browse + Product Detail
 **Goal**: A finder can browse all products filtered by collection, open a product, view multiple images, select a variant, and add it to the Shopify cart — completing the browse-to-cart flow
