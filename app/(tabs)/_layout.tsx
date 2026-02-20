@@ -33,7 +33,7 @@ export default function TabLayout() {
           borderTopWidth: 1,
           height: spacing.tabBarHeight,   // 80px
           paddingTop: spacing.sm,         // 8px
-          paddingBottom: spacing.xl,      // 24px — space above home indicator
+          paddingBottom: Platform.OS === 'web' ? spacing.sm : spacing.xl, // 24px clearance for iOS, tighter on web
           ...Platform.select({
             web: {
               boxShadow: '0px -2px 8px rgba(59, 47, 47, 0.08)',

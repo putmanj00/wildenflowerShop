@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodyBold,
     fontSize: fontSizes.body,
     color: colors.earth,
+    minHeight: 44, // Enforce 2-line height for horizontal row alignment
   },
   price: {
     fontFamily: fonts.bodyBold,
