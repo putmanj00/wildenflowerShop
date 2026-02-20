@@ -1,16 +1,27 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { colors, fonts, fontSizes, spacing, radii, shadows, copy } from '../constants/theme';
+import PrimaryButton from './PrimaryButton';
 
 interface HeroCardProps {
   tagline?: string;
+  onExplorePress?: () => void;
 }
 
-export default function HeroCard({ tagline = copy.tagline }: HeroCardProps) {
+export default function HeroCard({ tagline = copy.tagline, onExplorePress }: HeroCardProps) {
   return (
     <View style={styles.card}>
       <View style={styles.textCol}>
         <Text style={styles.tagline}>{tagline}</Text>
+        {onExplorePress && (
+          <View style={styles.exploreButton}>
+            <PrimaryButton
+              label="Wander the Shop"
+              onPress={onExplorePress}
+              variant="gold"
+            />
+          </View>
+        )}
       </View>
       <View style={styles.imageCol}>
         {/* ASSET: featured product hero image */}
@@ -44,6 +55,9 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.h2,
     color: colors.parchment,
     lineHeight: fontSizes.h2 * 1.4,
+  },
+  exploreButton: {
+    marginTop: spacing.lg,
   },
   imageCol: {
     flex: 45,
