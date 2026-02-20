@@ -12,7 +12,7 @@ Wildenflower migrates from a styled app skeleton with mock data to a live Shopif
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Prerequisites** - Fix font loading, SafeAreaView imports, and validate Expo Web baseline before any feature work
+- [x] **Phase 1: Prerequisites** - Fix font loading, SafeAreaView imports, and validate Expo Web baseline before any feature work
 - [ ] **Phase 2: Shopify Service Layer** - Port Shopify client, GraphQL queries, TypeScript types, and env var configuration from shopSite
 - [ ] **Phase 3: CartContext Upgrade** - Replace mock CartContext with Shopify cart mutations and AsyncStorage cart ID persistence
 - [ ] **Phase 4: Data Hooks + Checkout Wiring** - Build useProducts/useCollections/useProduct hooks and pre-fetch checkoutUrl into cart state
@@ -40,7 +40,7 @@ Plans:
 - [x] 01-01-PLAN.md — Fix font loading freeze bug + create on-brand FontErrorScreen component
 - [x] 01-02-PLAN.md — Add Platform.select web shadow fallbacks to theme.ts and tab bar layout
 - [x] 01-03-PLAN.md — Create Screen/ScrollScreen layout components; update all 12 screens
-- [ ] 01-04-PLAN.md — Human validation of Expo Web baseline across all screens (checkpoint)
+- [x] 01-04-PLAN.md — Human validation of Expo Web baseline across all screens (checkpoint)
 
 ### Phase 2: Shopify Service Layer
 **Goal**: Live Shopify data is accessible from any file in the app — the service layer exists, environment variables are wired, GraphQL queries work, and TypeScript types are in place
@@ -162,7 +162,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Prerequisites | 3/4 | In Progress|  |
+| 1. Prerequisites | 4/4 | Complete | 2026-02-20 |
 | 2. Shopify Service Layer | 0/TBD | Not started | - |
 | 3. CartContext Upgrade | 0/TBD | Not started | - |
 | 4. Data Hooks + Checkout Wiring | 0/TBD | Not started | - |

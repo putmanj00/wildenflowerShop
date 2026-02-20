@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
-**Current focus:** Phase 1 — Prerequisites
+**Current focus:** Phase 2 — Shopify Service Layer
 
 ## Current Position
 
-Phase: 1 of 10 (Prerequisites)
-Plan: 3 of TBD in current phase
-Status: In Progress
-Last activity: 2026-02-20 — Plan 01-03 complete: Screen/ScrollScreen layout components; all 12 screens migrated
+Phase: 2 of 10 (Shopify Service Layer)
+Plan: 0 of TBD in current phase
+Status: Ready to Start
+Last activity: 2026-02-20 — Plan 01-04 complete: Web baseline validated by human; Phase 1 complete
 
-Progress: [░░░░░░░░░░] 6%
+Progress: [█░░░░░░░░░] 10%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 6 min
-- Total execution time: 0.22 hours
+- Total plans completed: 4
+- Average duration: 7 min
+- Total execution time: 0.28 hours
 
 **By Phase:**
 
@@ -30,9 +30,10 @@ Progress: [░░░░░░░░░░] 6%
 | 01-prerequisites P01 | 7 min | 2 tasks | 2 files |
 | 01-prerequisites P02 | 2 min | 2 tasks | 2 files |
 | 01-prerequisites P03 | 8 min | 2 tasks | 14 files |
+| 01-prerequisites P04 | ~10 min | 1 task (checkpoint) | 1 file |
 
 **Recent Trend:**
-- Last 5 plans: 7 min, 2 min, 8 min
+- Last 5 plans: 7 min, 2 min, 8 min, ~10 min
 - Trend: Fast
 
 *Updated after each plan completion*
@@ -56,6 +57,8 @@ Recent decisions affecting current work:
 - [Phase 01-prerequisites P03]: Screen (not ScrollScreen) for stub screens — avoids double-wrapping ScrollView when screens add their own scroll in future phases
 - [Phase 01-prerequisites P03]: Parchment applied to both SafeAreaView and ScrollView in ScrollScreen — prevents color flash on iOS overscroll bounce
 - [Phase 01-prerequisites P03]: blog/[id], checkout, about, faq use ScrollScreen — definitively long-form scrollable content per design specs
+- [Phase 01-prerequisites P04]: pointerEvents must be in style prop not View prop — react-native-web deprecation; fix applied to ProductCard
+- [Phase 01-prerequisites P04]: Remove accessibilityRole="button" from outer TouchableOpacity card containers — renders nested <button> elements on web (HTML validity violation)
 
 ### Pending Todos
 
@@ -70,5 +73,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 01-03-PLAN.md — Screen/ScrollScreen layout components created; all 12 screens migrated to use them
+Stopped at: Completed 01-04-PLAN.md — Expo Web baseline validated by human; Phase 1 complete; Phase 2 (Shopify Service Layer) is next
 Resume file: None
