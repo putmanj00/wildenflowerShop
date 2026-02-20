@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
-**Current focus:** Phase 3 — CartContext Upgrade (Phase 2 complete)
+**Current focus:** Phase 4 — (Phase 3 complete)
 
 ## Current Position
 
-Phase: 3 of 10 (CartContext Upgrade)
-Plan: 2 of 3 in current phase
-Status: In Progress
-Last activity: 2026-02-20 — Plan 03-02 complete: FavoritesContext extracted from CartContext into memory-only standalone context; FavoritesProvider wired into root layout
+Phase: 3 of 10 (CartContext Upgrade) — COMPLETE
+Plan: 3 of 3 in current phase — COMPLETE
+Status: Phase 3 Complete
+Last activity: 2026-02-20 — Plan 03-03 complete: CartContext fully rewritten with Shopify mutations, AsyncStorage hydration, expired-cart silent recovery; old useReducer/Product API removed; call sites (index.tsx, ProductGrid.tsx) updated to use FavoritesContext for favorites
 
-Progress: [████░░░░░░] 26%
+Progress: [████░░░░░░] 30%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 9.8 min
-- Total execution time: 0.98 hours
+- Total plans completed: 9
+- Average duration: 9.0 min
+- Total execution time: 1.35 hours
 
 **By Phase:**
 
@@ -36,9 +36,10 @@ Progress: [████░░░░░░] 26%
 | 02-shopify-service-layer P03 | ~30 min | 2 tasks | 2 files |
 | 03-cartcontext-upgrade P01 | ~10 min | 4 tasks | 3 files |
 | 03-cartcontext-upgrade P02 | 2 min | 2 tasks | 2 files |
+| 03-cartcontext-upgrade P03 | ~10 min | 1 task + 2 deviations | 3 files |
 
 **Recent Trend:**
-- Last 5 plans: 8 min, ~10 min, 2 min, ~10 min, 2 min
+- Last 5 plans: ~10 min, 2 min, ~10 min, 2 min, ~10 min
 - Trend: Fast
 
 *Updated after each plan completion*
@@ -78,6 +79,12 @@ Recent decisions affecting current work:
 - [Phase 03-cartcontext-upgrade P02]: FavoritesProvider nested inside CartProvider — either order works since they are independent; this matches CONTEXT.md research pattern
 - [Phase 03-cartcontext-upgrade P02]: favorites stored as string[] not Set — consistent with existing CartContext.favorites shape, simpler for AsyncStorage serialization in Phase 8
 - [Phase 03-cartcontext-upgrade P02]: No AsyncStorage in FavoritesContext — memory-only clean receptacle; Phase 8 adds persistence
+- [Phase 03-cartcontext-upgrade P03]: CartContext rewritten from useReducer/mock to Shopify-backed useState with AsyncStorage persistence — core Phase 3 deliverable
+- [Phase 03-cartcontext-upgrade P03]: addToCart(variantId, quantity?) is the new public API — old addToCart(product: Product) removed intentionally
+- [Phase 03-cartcontext-upgrade P03]: No persistent error state on CartContext — mutations return boolean; screens own error handling
+- [Phase 03-cartcontext-upgrade P03]: No optimistic updates — state updates only after confirmed Shopify response; rollback on failure
+- [Phase 03-cartcontext-upgrade P03]: updateQuantity routes quantity <= 0 to removeCartLines — avoids Shopify INVALID user error on cartLinesUpdate with quantity 0
+- [Phase 03-cartcontext-upgrade P03]: index.tsx and ProductGrid.tsx updated to use useFavorites() — auto-fix required because CartContext no longer exposes toggleFavorite/isFavorite
 
 ### Pending Todos
 
@@ -86,11 +93,11 @@ None yet.
 ### Blockers/Concerns
 
 - [Pre-Phase 6 — CONFIRMED BLOCKER]: Shopify collection handle mismatch — smoke test confirmed Shopify store bgh9hd-rq.myshopify.com has handles [frontpage, tie-dye, leather, jewelry, art]; app's Browse FilterChips expect [earth, woven, light, crafted]; all 4 expected handles are missing. Must resolve before Phase 6 Browse screen work. Options: (1) add collections in Shopify Admin matching expected handles, (2) update app FilterChips to use actual Shopify handles, (3) add a mapping layer in service layer. Decision required pre-Phase 6.
-- [Pre-Phase 3]: Shopify cart expiry null-response shape needs validation with a real test cart (documented as null but unconfirmed)
+- [Pre-Phase 3 — CARRY FORWARD]: Shopify cart expiry null-response shape needs validation with a real test cart (documented as null but unconfirmed) — CartContext recovery logic depends on this; monitor in Phase 5 Cart Screen work.
 - [Pre-Phase 6]: `react-native-reanimated-carousel` web compatibility in Reanimated 3.16.x — verify before committing to it in Phase 6; fallback is gesture-handler ScrollView with prev/next buttons
 
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 03-01-PLAN.md — cart service layer added (five service functions, CartLineSnapshot/CartUserError types, five query/mutation strings); Plan 03-03 (CartContext rewrite to use Shopify cart API) is next
+Stopped at: Completed 03-03-PLAN.md — Phase 3 complete. CartContext rewritten (Shopify-backed, AsyncStorage-persisted); call sites updated to use FavoritesContext for favorites. Ready for Phase 4.
 Resume file: None

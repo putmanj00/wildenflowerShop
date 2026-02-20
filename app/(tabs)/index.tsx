@@ -18,7 +18,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'expo-router';
 
 import { copy, productCategories } from '../../constants/theme';
-import { useCart } from '../../context/CartContext';
+import { useFavorites } from '../../context/FavoritesContext';
 import { products } from '../../data/mock-data';
 import { Product } from '../../types';
 
@@ -32,7 +32,7 @@ import ProductGrid from '../../components/ProductGrid';
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { toggleFavorite, isFavorite } = useCart();
+  const { toggleFavorite, isFavorite } = useFavorites();
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   const featuredProducts = products.slice(0, 6);

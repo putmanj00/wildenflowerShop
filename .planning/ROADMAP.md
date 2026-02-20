@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Prerequisites** - Fix font loading, SafeAreaView imports, and validate Expo Web baseline before any feature work
 - [x] **Phase 2: Shopify Service Layer** - Port Shopify client, GraphQL queries, TypeScript types, and env var configuration from shopSite
-- [ ] **Phase 3: CartContext Upgrade** - Replace mock CartContext with Shopify cart mutations and AsyncStorage cart ID persistence
+- [x] **Phase 3: CartContext Upgrade** - Replace mock CartContext with Shopify cart mutations and AsyncStorage cart ID persistence
 - [ ] **Phase 4: Data Hooks + Checkout Wiring** - Build useProducts/useCollections/useProduct hooks and pre-fetch checkoutUrl into cart state
 - [ ] **Phase 5: Home Screen** - Implement Home screen against projectVision mockup with live Shopify featured products
 - [ ] **Phase 6: Browse + Product Detail** - Implement Browse screen with collection filtering and Product Detail with variant selection and image carousel
@@ -72,9 +72,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Cart service layer (CartLineSnapshot type, cart mutations + GET_CART_QUERY, five service functions in shopify-client.ts)
-- [ ] 03-02-PLAN.md — FavoritesContext (memory-only) + wire FavoritesProvider into _layout.tsx
-- [ ] 03-03-PLAN.md — CartContext rewrite (Shopify mutations, AsyncStorage hydration, expired-cart recovery)
+- [x] 03-01-PLAN.md — Cart service layer (CartLineSnapshot type, cart mutations + GET_CART_QUERY, five service functions in shopify-client.ts)
+- [x] 03-02-PLAN.md — FavoritesContext (memory-only) + wire FavoritesProvider into _layout.tsx
+- [x] 03-03-PLAN.md — CartContext rewrite (Shopify mutations, AsyncStorage hydration, expired-cart recovery)
 
 ### Phase 4: Data Hooks + Checkout Wiring
 **Goal**: Screens can fetch Shopify products, collections, and individual products through thin hooks with loading/error state; the checkoutUrl is pre-fetched so checkout can open synchronously without popup-blocking
@@ -174,7 +174,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 |-------|----------------|--------|-----------|
 | 1. Prerequisites | 4/4 | Complete | 2026-02-20 |
 | 2. Shopify Service Layer | 3/3 | Complete | 2026-02-20 |
-| 3. CartContext Upgrade | 2/3 | In Progress|  |
+| 3. CartContext Upgrade | 3/3 | Complete | 2026-02-20 |
 | 4. Data Hooks + Checkout Wiring | 0/TBD | Not started | - |
 | 5. Home Screen | 0/TBD | Not started | - |
 | 6. Browse + Product Detail | 0/TBD | Not started | - |

@@ -11,7 +11,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { spacing } from '../constants/theme';
-import { useCart } from '../context/CartContext';
+import { useFavorites } from '../context/FavoritesContext';
 import { Product } from '../types';
 import ProductCard from './ProductCard';
 
@@ -34,7 +34,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   onFavoriteToggle,
   favorites,
 }) => {
-  const { isFavorite, toggleFavorite } = useCart();
+  const { isFavorite, toggleFavorite } = useFavorites();
 
   // Split into left (even indices) and right (odd indices) columns so each
   // column can be a simple vertical stack — no flexWrap edge cases.
