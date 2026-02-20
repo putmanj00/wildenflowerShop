@@ -5,19 +5,20 @@
 // Purpose: Verify credentials, data shapes, and collection handle alignment.
 // Keep this script permanently — it's useful for onboarding and env var debugging.
 
-// Load .env.local BEFORE any imports that read process.env
-// (Metro bundler inlines EXPO_PUBLIC_ vars; Node does not — dotenv bridges the gap)
+// Load .env.local BEFORE the Shopify client module evaluates its module-level constants.
+// Static imports are hoisted before any code runs, so we use dynamic import inside main()
+// to guarantee dotenv loads first.
 import { config } from 'dotenv';
 config({ path: '.env.local' });
-
-// Import service functions AFTER dotenv loads env vars
-import { getProducts, getProductByHandle, getCollections, searchProducts } from '../lib/shopify-client';
 
 // The category handles the Wildenflower app uses for Browse screen filtering.
 // These must exist as collection handles in Shopify — update this list as the app evolves.
 const APP_EXPECTED_HANDLES = ['earth', 'woven', 'light', 'crafted'];
 
 async function main() {
+  // Dynamic import ensures env vars are already set when shopify-client evaluates
+  const { getProducts, getProductByHandle, getCollections, searchProducts } =
+    await import('../lib/shopify-client');
   console.log('='.repeat(60));
   console.log('Wildenflower — Shopify Service Layer Smoke Test');
   console.log('='.repeat(60));
