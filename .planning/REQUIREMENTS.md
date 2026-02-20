@@ -47,7 +47,7 @@
 
 ### Platform & Navigation
 
-- [ ] **PLAT-01**: `npx expo start --web` builds and runs without errors; all screens render in browser
+- [x] **PLAT-01**: `npx expo start --web` builds and runs without errors; all screens render in browser
 - [ ] **PLAT-02**: SafeAreaView imported from `react-native-safe-area-context` (not `react-native`) on all screens
 - [ ] **PLAT-03**: Tab navigation works on Expo Web (no broken gestures or native-only APIs)
 - [ ] **PLAT-04**: Product, maker, and blog deep links resolve correctly in web browser
@@ -96,7 +96,7 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | ASSET-01 | Phase 1 | Complete |
-| PLAT-01 | Phase 1 | Pending |
+| PLAT-01 | Phase 1 | Complete |
 | PLAT-02 | Phase 1 | Pending |
 | SHOP-01 | Phase 2 | Pending |
 | SHOP-02 | Phase 2 | Pending |

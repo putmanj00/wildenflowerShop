@@ -48,8 +48,10 @@ Recent decisions affecting current work:
 - [Roadmap]: Customer auth deliberately deferred to Phase 10 — app must be fully usable as guest before auth is added
 - [Roadmap]: Classic Customer API (email/password) used for v1 auth; OAuth2/PKCE deferred to v2
 - [Roadmap]: `EXPO_PUBLIC_` prefix required for all Shopify env vars — highest-probability porting failure, must be resolved in Phase 2
-- [Phase 01-prerequisites]: Native retry uses key-reset (retryKey state) on CartProvider — expo-updates not installed; best-effort remount approach
-- [Phase 01-prerequisites]: FontErrorScreen uses system serif fallbacks only — fonts.* tokens unavailable when custom fonts fail to load
+- [Phase 01-prerequisites P01]: Native retry uses key-reset (retryKey state) on CartProvider — expo-updates not installed; best-effort remount approach
+- [Phase 01-prerequisites P01]: FontErrorScreen uses system serif fallbacks only — fonts.* tokens unavailable when custom fonts fail to load
+- [Phase 01-prerequisites P02]: Use Platform.select with web/default keys rather than RN 0.76 native boxShadow prop (known Expo SDK 52 dev build issues)
+- [Phase 01-prerequisites P02]: Bake opacity into rgba strings for CSS boxShadow — CSS has no separate shadow opacity property
 
 ### Pending Todos
 
@@ -64,5 +66,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 01-prerequisites-01-PLAN.md — font error handling + FontErrorScreen
+Stopped at: Completed 01-02-PLAN.md — Platform.select shadow fallbacks added to theme.ts and tabs layout
 Resume file: None
