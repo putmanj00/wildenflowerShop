@@ -48,7 +48,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       style={[styles.card, style]}
       onPress={onPress}
       activeOpacity={0.85}
-      accessibilityRole="button"
       accessibilityLabel={`${product.name}, $${product.price.toFixed(2)}`}
     >
       {/* ── Image Area ─────────────────────── */}
@@ -64,10 +63,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <Text style={styles.imagePlaceholderLabel}>{product.category}</Text>
 
         {/* Corner overlays — botanical decoration */}
-        <View style={styles.cornerTopLeft} pointerEvents="none">
+        <View style={styles.cornerTopLeft}>
           {/* ASSET: card-corner-topleft.png — small botanical vine/fern corner detail */}
         </View>
-        <View style={styles.cornerBottomRight} pointerEvents="none">
+        <View style={styles.cornerBottomRight}>
           {/* ASSET: card-corner-bottomright.png — small botanical mushroom/flower corner detail */}
         </View>
 
@@ -133,6 +132,7 @@ const styles = StyleSheet.create({
     height: 24,
     backgroundColor: colors.sage,
     borderRadius: 12,
+    pointerEvents: 'none',
   },
   cornerBottomRight: {
     position: 'absolute',
@@ -142,6 +142,7 @@ const styles = StyleSheet.create({
     height: 24,
     backgroundColor: colors.terracotta,
     borderRadius: 12,
+    pointerEvents: 'none',
   },
 
   // Favorite button
