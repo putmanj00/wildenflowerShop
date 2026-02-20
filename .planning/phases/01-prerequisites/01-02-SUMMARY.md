@@ -67,7 +67,7 @@ Each task was committed atomically:
 1. **Task 1: Add Platform.select web fallbacks to shadow tokens in theme.ts** - `b6d9b65` (feat)
 2. **Task 2: Fix inline tab bar shadow in tabs layout** - `5613bea` (feat)
 
-**Plan metadata:** _(pending final commit)_
+**Plan metadata:** `b7b7005` (docs: complete plan)
 
 ## Files Created/Modified
 - `constants/theme.ts` - Added Platform import; replaced shadows export with Platform.select variants for all four shadow tokens (sm, md, lg, glow)

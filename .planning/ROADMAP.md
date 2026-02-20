@@ -13,7 +13,7 @@ Wildenflower migrates from a styled app skeleton with mock data to a live Shopif
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Prerequisites** - Fix font loading, SafeAreaView imports, and validate Expo Web baseline before any feature work
-- [ ] **Phase 2: Shopify Service Layer** - Port Shopify client, GraphQL queries, TypeScript types, and env var configuration from shopSite
+- [x] **Phase 2: Shopify Service Layer** - Port Shopify client, GraphQL queries, TypeScript types, and env var configuration from shopSite
 - [ ] **Phase 3: CartContext Upgrade** - Replace mock CartContext with Shopify cart mutations and AsyncStorage cart ID persistence
 - [ ] **Phase 4: Data Hooks + Checkout Wiring** - Build useProducts/useCollections/useProduct hooks and pre-fetch checkoutUrl into cart state
 - [ ] **Phase 5: Home Screen** - Implement Home screen against projectVision mockup with live Shopify featured products
@@ -55,9 +55,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Env var setup (.env.local) + Shopify TypeScript types (types/shopify.ts)
-- [ ] 02-02-PLAN.md — GraphQL queries, authenticated fetch client, and data transformation mappers (lib/)
-- [ ] 02-03-PLAN.md — Smoke test script + human verification against live Shopify store (checkpoint)
+- [x] 02-01-PLAN.md — Env var setup (.env.local) + Shopify TypeScript types (types/shopify.ts)
+- [x] 02-02-PLAN.md — GraphQL queries, authenticated fetch client, and data transformation mappers (lib/)
+- [x] 02-03-PLAN.md — Smoke test script + human verification against live Shopify store (checkpoint)
 
 ### Phase 3: CartContext Upgrade
 **Goal**: Adding items to cart creates and manages a real Shopify cart; the cart ID survives app restarts and expired carts recover gracefully
@@ -168,7 +168,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Prerequisites | 4/4 | Complete | 2026-02-20 |
-| 2. Shopify Service Layer | 1/3 | In Progress|  |
+| 2. Shopify Service Layer | 3/3 | Complete | 2026-02-20 |
 | 3. CartContext Upgrade | 0/TBD | Not started | - |
 | 4. Data Hooks + Checkout Wiring | 0/TBD | Not started | - |
 | 5. Home Screen | 0/TBD | Not started | - |
