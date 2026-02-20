@@ -2,9 +2,20 @@
  * Wildenflower — Root Layout
  * ==========================
  * Wraps the entire app in providers and loads fonts.
+ *
+ * Font loading states:
+ *   1. Loading  — `!fontsLoaded && !fontError` → return null (splash still visible)
+ *   2. Error    — `fontError` is truthy         → show FontErrorScreen
+ *   3. Success  — `fontsLoaded` is true         → render the full Stack navigator
+ *
+ * Retry mechanism:
+ *   - Web:    window.location.reload() — full page reload re-triggers font fetch
+ *   - Native: increment retryKey → remounts CartProvider tree, re-triggering useFonts
+ *             (best-effort; if fonts remain unavailable, FontErrorScreen re-appears)
  */
 
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Platform } from 'react-native';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import {
@@ -22,11 +33,14 @@ import {
 import { useFonts } from 'expo-font';
 import { CartProvider } from '../context/CartContext';
 import { colors } from '../constants/theme';
+import FontErrorScreen from '../components/layout/FontErrorScreen';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({
+  const [retryKey, setRetryKey] = useState(0);
+
+  const [fontsLoaded, fontError] = useFonts({
     PlayfairDisplay_400Regular,
     PlayfairDisplay_700Bold,
     PlayfairDisplay_400Regular_Italic,
@@ -38,17 +52,36 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (fontsLoaded) {
+    if (fontsLoaded || fontError) {
       SplashScreen.hideAsync();
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded, fontError]);
 
-  if (!fontsLoaded) {
+  // Waiting for font load result — keep splash screen visible
+  if (!fontsLoaded && !fontError) {
     return null;
   }
 
+  // Fonts failed to load — show on-brand error screen with retry
+  if (fontError) {
+    const handleRetry = () => {
+      if (Platform.OS === 'web') {
+        // @ts-ignore — window is available on web
+        window.location.reload();
+      } else {
+        // Remount CartProvider tree to re-trigger useFonts on native
+        setRetryKey(k => k + 1);
+      }
+    };
+
+    return <FontErrorScreen onRetry={handleRetry} />;
+  }
+
+  // Fonts loaded successfully — render the full app
   return (
-    <CartProvider>
+    // key={retryKey} ensures the CartProvider tree remounts on retry,
+    // which re-triggers useFonts inside this same RootLayout component.
+    <CartProvider key={retryKey}>
       <Stack
         screenOptions={{
           headerShown: false,
