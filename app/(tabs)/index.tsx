@@ -39,7 +39,7 @@ import PrimaryButton from '../../components/PrimaryButton';
 // Screen-local until a future phase consolidates types.
 function mapAppProductToProduct(p: AppProduct): Product {
   return {
-    id: p.id,
+    id: p.handle,  // handle used as route param; useProduct(handle) expects this
     name: p.title,
     price: parseFloat(p.priceRange.minVariantPrice.amount),
     description: p.description,
@@ -116,6 +116,8 @@ export default function HomeScreen() {
 
   // ─── Handlers ──────────────────────────────────────────────────────────────
   function handleProductPress(product: Product) {
+    // product.id holds the Shopify handle (set in mapAppProductToProduct above).
+    // The [id] route param is named "id" but useProduct() treats it as a handle.
     router.push(`/product/${product.id}`);
   }
 
