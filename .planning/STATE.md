@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 
 ## Current Position
 
-Phase: 4 of 10 (Data Hooks + Checkout Wiring) — IN PROGRESS
-Plan: 1 of 2 in current phase — COMPLETE
-Status: Plan 04-01 Complete — useShopifyQuery base hook + 3 public hooks + CartContext checkout wiring
-Last activity: 2026-02-20 — Plan 04-01 complete: useShopifyQuery<T> base hook, useProducts/useCollections/useProduct public hooks, CartContext checkoutUrl + openCheckout fully wired
+Phase: 4 of 10 (Data Hooks + Checkout Wiring) — COMPLETE
+Plan: 2 of 2 in current phase — COMPLETE
+Status: Phase 4 Complete — useShopifyQuery base hook + 3 public hooks + CartContext checkout wiring
+Last activity: 2026-02-20 — Plan 04-02 complete: CartContext extended with checkoutUrl state and openCheckout action; updateCartState helper ensures checkoutUrl stays in sync on every mutation and hydration path
 
-Progress: [████░░░░░░] 32%
+Progress: [████░░░░░░] 34%
 
 ## Performance Metrics
 
@@ -38,6 +38,7 @@ Progress: [████░░░░░░] 32%
 | 03-cartcontext-upgrade P02 | 2 min | 2 tasks | 2 files |
 | 03-cartcontext-upgrade P03 | ~10 min | 1 task + 2 deviations | 3 files |
 | 04-data-hooks-checkout-wiring P01 | ~3 min | 2 tasks | 5 files |
+| 04-data-hooks-checkout-wiring P02 | ~4 min | 1 task | 1 file |
 
 **Recent Trend:**
 - Last 5 plans: ~10 min, 2 min, ~10 min, 2 min, ~10 min
@@ -91,6 +92,9 @@ Recent decisions affecting current work:
 - [Phase 04-data-hooks-checkout-wiring P01]: Screens import hooks only — never lib/shopify-client directly (established abstraction boundary)
 - [Phase 04-data-hooks-checkout-wiring P01]: openCheckout uses Platform.OS check: web uses window.location.href, native uses Linking.openURL
 - [Phase 04-data-hooks-checkout-wiring P01]: updateCartState() helper ensures checkoutUrl stays in sync after every cart mutation
+- [Phase 04-data-hooks-checkout-wiring P02]: checkoutUrl never persisted to AsyncStorage — Shopify checkout URLs expire; always re-derived from live cart response
+- [Phase 04-data-hooks-checkout-wiring P02]: openCheckout() is synchronous void — critical for web popup-blocker compliance; no async/await
+- [Phase 04-data-hooks-checkout-wiring P02]: Rollback parity — every setCart(previousCart) rollback paired with setCheckoutUrl(previousCart?.checkoutUrl ?? null)
 
 ### Pending Todos
 
@@ -105,5 +109,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 04-01-PLAN.md — useShopifyQuery base hook, 3 public data hooks (useProducts, useCollections, useProduct), CartContext checkoutUrl + openCheckout fully wired. Ready for Phase 4 Plan 02.
+Stopped at: Completed 04-02-PLAN.md — Phase 4 complete. CartContext extended with checkoutUrl state and openCheckout action (Platform-branched). All 2 Phase 4 plans done. Ready for Phase 5.
 Resume file: None
