@@ -93,45 +93,43 @@
 
 ## Traceability
 
-*Populated during roadmap creation.*
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SHOP-01 | Phase 1 | Pending |
-| SHOP-02 | Phase 1 | Pending |
-| SHOP-03 | Phase 1 | Pending |
-| SHOP-04 | Phase 1 | Pending |
-| SHOP-05 | Phase 1 | Pending |
-| SHOP-06 | Phase 1 | Pending |
-| SHOP-07 | Phase 1 | Pending |
-| SHOP-08 | Phase 1 | Pending |
 | ASSET-01 | Phase 1 | Pending |
 | PLAT-01 | Phase 1 | Pending |
 | PLAT-02 | Phase 1 | Pending |
-| COMM-01 | Phase 2 | Pending |
-| COMM-02 | Phase 2 | Pending |
-| COMM-03 | Phase 2 | Pending |
-| COMM-04 | Phase 2 | Pending |
-| COMM-05 | Phase 2 | Pending |
-| CONT-01 | Phase 3 | Pending |
-| CONT-02 | Phase 3 | Pending |
-| CONT-03 | Phase 3 | Pending |
-| CONT-04 | Phase 3 | Pending |
-| CONT-05 | Phase 3 | Pending |
-| ASSET-02 | Phase 3 | Pending |
-| ASSET-03 | Phase 3 | Pending |
-| PLAT-03 | Phase 3 | Pending |
-| PLAT-04 | Phase 3 | Pending |
-| AUTH-01 | Phase 4 | Pending |
-| AUTH-02 | Phase 4 | Pending |
-| AUTH-03 | Phase 4 | Pending |
-| AUTH-04 | Phase 4 | Pending |
+| SHOP-01 | Phase 2 | Pending |
+| SHOP-02 | Phase 2 | Pending |
+| SHOP-03 | Phase 2 | Pending |
+| SHOP-04 | Phase 2 | Pending |
+| SHOP-05 | Phase 2 | Pending |
+| SHOP-06 | Phase 3 | Pending |
+| SHOP-07 | Phase 3 | Pending |
+| SHOP-08 | Phase 4 | Pending |
+| COMM-01 | Phase 5 | Pending |
+| COMM-02 | Phase 6 | Pending |
+| COMM-03 | Phase 6 | Pending |
+| COMM-04 | Phase 7 | Pending |
+| COMM-05 | Phase 8 | Pending |
+| CONT-01 | Phase 8 | Pending |
+| CONT-02 | Phase 9 | Pending |
+| CONT-03 | Phase 9 | Pending |
+| CONT-04 | Phase 9 | Pending |
+| CONT-05 | Phase 9 | Pending |
+| ASSET-02 | Phase 9 | Pending |
+| ASSET-03 | Phase 9 | Pending |
+| PLAT-03 | Phase 9 | Pending |
+| PLAT-04 | Phase 9 | Pending |
+| AUTH-01 | Phase 10 | Pending |
+| AUTH-02 | Phase 10 | Pending |
+| AUTH-03 | Phase 10 | Pending |
+| AUTH-04 | Phase 10 | Pending |
 
 **Coverage:**
 - v1 requirements: 27 total
 - Mapped to phases: 27
-- Unmapped: 0 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-19*
-*Last updated: 2026-02-19 after initial definition*
+*Last updated: 2026-02-19 — traceability updated to 10-phase comprehensive roadmap*
