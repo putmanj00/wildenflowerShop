@@ -71,6 +71,10 @@ Recent decisions affecting current work:
 - [Phase 02-shopify-service-layer P02]: Startup validation uses console.warn (not throw) — allows dev app to load and show clear message without crashing on placeholder credentials
 - [Phase 02-shopify-service-layer P03]: Dynamic import used for shopify-client in smoke test — static import caused dotenv race condition; dynamic import guarantees env vars are set before module evaluation
 - [Phase 02-shopify-service-layer P03]: Collection handle mismatch flagged as pre-Phase 6 blocker (not Phase 5): Browse FilterChips map to Shopify collection handles; Home screen does not use collection filtering
+- [Phase 03-cartcontext-upgrade P01]: CartLineSnapshot stores only variantId+quantity — full ShopifyCart too large and immediately stale for AsyncStorage recovery
+- [Phase 03-cartcontext-upgrade P01]: getCart returns null for expired carts (not ShopifyError) — null is Shopify's documented contract for missing cart IDs, not an error
+- [Phase 03-cartcontext-upgrade P01]: CART_LINES_FRAGMENT is private (not exported) — embedded via template literal interpolation; each mutation is self-contained over the wire
+- [Phase 03-cartcontext-upgrade P01]: Cart service functions throw ShopifyError on userErrors — HTTP 200 cart mutations can still contain errors; callers must not rely on HTTP status alone
 - [Phase 03-cartcontext-upgrade P02]: FavoritesProvider nested inside CartProvider — either order works since they are independent; this matches CONTEXT.md research pattern
 - [Phase 03-cartcontext-upgrade P02]: favorites stored as string[] not Set — consistent with existing CartContext.favorites shape, simpler for AsyncStorage serialization in Phase 8
 - [Phase 03-cartcontext-upgrade P02]: No AsyncStorage in FavoritesContext — memory-only clean receptacle; Phase 8 adds persistence
@@ -88,5 +92,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 03-02-PLAN.md — FavoritesContext extracted from CartContext; FavoritesProvider wired into root layout; Plan 03-03 (CartContext rewrite to use Shopify cart API) is next
+Stopped at: Completed 03-01-PLAN.md — cart service layer added (five service functions, CartLineSnapshot/CartUserError types, five query/mutation strings); Plan 03-03 (CartContext rewrite to use Shopify cart API) is next
 Resume file: None
