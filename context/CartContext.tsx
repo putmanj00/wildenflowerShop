@@ -7,6 +7,7 @@
  */
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { Platform, Linking } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { ShopifyCart, CartLineSnapshot } from '../types/shopify';
 import {
@@ -41,6 +42,9 @@ interface CartContextType {
   // Derived
   cartCount: number;
   cartTotal: number;
+  // Checkout
+  checkoutUrl: string | null;
+  openCheckout: () => void;
 }
 
 // ─── Context ─────────────────────────────────────────────────────────────────
@@ -75,6 +79,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isRemovingFromCart, setIsRemovingFromCart] = useState(false);
   const [isUpdatingQuantity, setIsUpdatingQuantity] = useState(false);
+  const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
 
   // ─── Startup Hydration ─────────────────────────────────────────────────────
 
@@ -106,7 +111,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         if (existingCart) {
           // Cart is alive — use it
           setCartId(existingCart.id);
-          setCart(existingCart);
+          updateCartState(existingCart);
         } else {
           // Cart expired (Shopify returned null) — silent recovery
           try {
@@ -114,7 +119,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             if (!cancelled) {
               await persistCart(newCart);
               setCartId(newCart.id);
-              setCart(newCart);
+              updateCartState(newCart);
             }
           } catch {
             // Recovery failed — start fresh, clear storage, no error surfaced
@@ -140,6 +145,17 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return () => { cancelled = true; };
   }, []);
 
+  // ─── Cart State Helper ────────────────────────────────────────────────────
+
+  /**
+   * Single point for updating cart state — always extracts checkoutUrl alongside cart.
+   * Use this instead of bare setCart() calls to guarantee checkoutUrl stays in sync.
+   */
+  function updateCartState(newCart: ShopifyCart): void {
+    setCart(newCart);
+    setCheckoutUrl(newCart.checkoutUrl);
+  }
+
   // ─── Mutations ────────────────────────────────────────────────────────────
 
   const addToCart = async (variantId: string, quantity: number = 1): Promise<boolean> => {
@@ -157,7 +173,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
       await persistCart(newCart);
       setCartId(newCart.id);
-      setCart(newCart);
+      updateCartState(newCart);
       return true;
     } catch {
       // Rollback — restore previous state (no optimistic update to undo)
@@ -178,7 +194,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       const newCart = await removeCartLines(cartId, [lineId]);
       await persistCart(newCart);
-      setCart(newCart);
+      updateCartState(newCart);
       return true;
     } catch {
       setCart(previousCart);
@@ -203,7 +219,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         newCart = await updateCartLines(cartId, [{ id: lineId, quantity }]);
       }
       await persistCart(newCart);
-      setCart(newCart);
+      updateCartState(newCart);
       return true;
     } catch {
       setCart(previousCart);
@@ -222,6 +238,26 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       setCart(null);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // ─── Checkout ─────────────────────────────────────────────────────────────
+
+  /**
+   * Opens the Shopify-hosted checkout URL.
+   * - Web: window.location.href (full page navigation per CONTEXT.md)
+   * - Native: Linking.openURL (opens in system browser)
+   * No-ops if checkoutUrl is null (button should be disabled in that case).
+   */
+  const openCheckout = (): void => {
+    if (!checkoutUrl) return;
+    if (Platform.OS === 'web') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).location.href = checkoutUrl;
+    } else {
+      Linking.openURL(checkoutUrl).catch((err) => {
+        console.error('[CartContext] Failed to open checkout URL:', err);
+      });
     }
   };
 
@@ -247,6 +283,8 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         clearCart,
         cartCount,
         cartTotal,
+        checkoutUrl,
+        openCheckout,
       }}
     >
       {children}
