@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
-**Current focus:** Phase 6 — Browse + Product Detail (in progress, plan 1 of 4 complete)
+**Current focus:** Phase 6 — Browse + Product Detail (in progress, plan 2 of 4 complete)
 
 ## Current Position
 
 Phase: 6 of 10 (Browse + Product Detail) — IN PROGRESS
-Plan: 1 of 4 in current phase — COMPLETE
-Status: Phase 6 Plan 01 Complete — useProducts pagination + productCategories fix done
-Last activity: 2026-02-20 — 06-01: useProducts cursor pagination, productCategories corrected to live Shopify handles
+Plan: 2 of 4 in current phase — COMPLETE
+Status: Phase 6 Plan 02 Complete — Browse screen fully implemented with FilterChipRow, skeleton loading, live ProductGrid, and cursor pagination
+Last activity: 2026-02-20 — 06-02: Complete Browse screen built; COMM-02 complete
 
 Progress: [█████░░░░░] 50%
 
@@ -54,6 +54,7 @@ Progress: [█████░░░░░] 50%
 *Updated after each plan completion*
 | Phase 05-home-screen P03 | ~10 min | 1 checkpoint + 1 fix | 2 files |
 | Phase 06-browse-product-detail P01 | 2 | 2 tasks | 2 files |
+| Phase 06-browse-product-detail P02 | 2 min | 1 task | 1 file |
 
 ## Accumulated Context
 
@@ -107,6 +108,9 @@ Recent decisions affecting current work:
 - [Phase 06-browse-product-detail]: useProducts manages its own product/cursor/pageInfo state directly — useShopifyQuery only handles single fetch results and cannot accumulate pages
 - [Phase 06-browse-product-detail]: productCategories corrected to 4 confirmed Shopify handles (tie-dye, leather, jewelry, art); crystals/ceramics removed, artwork renamed to art; resolves pre-Phase 6 collection handle mismatch blocker
 - [Phase 06-browse-product-detail]: loadMore returned as null (not undefined) when no next page; consumers use loadMore and Button pattern without extra hasNextPage check
+- [Phase 06-browse-product-detail P02]: BotanicalHeader variant='small' used for Browse compact header — component only accepts 'large'|'small', not 'compact'
+- [Phase 06-browse-product-detail P02]: mapAppProductToProduct stores handle in id field for correct /product/[handle] routing (Browse); home screen index.tsx still uses GID — plan 03 will align
+- [Phase 06-browse-product-detail P02]: FilterChipRow is inline in browse.tsx with rgba(208,139,122,0.4) active chip background (dustyRose at 40% opacity)
 
 ### Pending Todos
 
@@ -121,5 +125,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 06-01-PLAN.md — useProducts cursor pagination + product accumulation; productCategories corrected to confirmed Shopify handles. Pre-Phase 6 collection handle blocker resolved. Next: 06-02 Browse screen.
+Stopped at: Completed 06-02-PLAN.md — Browse screen fully implemented with FilterChipRow, SkeletonGrid, live ProductGrid, cursor pagination, and brand-voiced empty/error states. COMM-02 complete. Next: 06-03 Product Detail screen.
 Resume file: None
