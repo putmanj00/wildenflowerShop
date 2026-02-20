@@ -327,11 +327,13 @@ export const faqCategories = [
 // PRODUCT CATEGORIES
 // ─────────────────────────────────────────────
 
+// Handles confirmed against live Shopify store (smoke test, Phase 2).
+// 'frontpage' omitted — treated as "All" (unfiltered) by Browse screen, not a chip.
+// 'crystals' and 'ceramics' removed — no matching Shopify collections exist.
+// 'artwork' label kept (user-facing); 'art' is the Shopify collection handle (slug).
 export const productCategories = [
-  { id: 'tie-dye',  label: 'Tie-Dye',   description: 'Color & Light',  icon: 'wildflower' },
-  { id: 'leather',  label: 'Leather',   description: 'Hand Crafted',   icon: 'fern'       },
-  { id: 'jewelry',  label: 'Jewelry',   description: 'Worn & Found',   icon: 'vine'       },
-  { id: 'crystals', label: 'Crystals',  description: 'Light & Stone',  icon: 'crystal'    },
-  { id: 'artwork',  label: 'Artwork',   description: 'Made by Hand',   icon: 'sunburst'   },
-  { id: 'ceramics', label: 'Ceramics',  description: 'From the Earth', icon: 'mushroom'   },
+  { id: 'tie-dye',  label: 'Tie-Dye',  description: 'Color & Light',  icon: 'wildflower' },
+  { id: 'leather',  label: 'Leather',  description: 'Hand Crafted',   icon: 'fern'       },
+  { id: 'jewelry',  label: 'Jewelry',  description: 'Worn & Found',   icon: 'vine'       },
+  { id: 'art',      label: 'Artwork',  description: 'Made by Hand',   icon: 'sunburst'   },
 ];
