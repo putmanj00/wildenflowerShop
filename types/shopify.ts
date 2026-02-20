@@ -106,3 +106,18 @@ export interface ShopifyPaginatedResult<T> {
   items: T[];
   pageInfo: ShopifyPageInfo;
 }
+
+// Minimal snapshot stored in AsyncStorage for expired-cart recovery.
+// Only { variantId, quantity } — never the full ShopifyCart (too large, immediately stale).
+export interface CartLineSnapshot {
+  variantId: string;   // gid://shopify/ProductVariant/...
+  quantity: number;
+}
+
+// Shopify mutation user errors — returned in mutation response bodies alongside cart data.
+// HTTP status is 200 even when userErrors is non-empty; check this field explicitly.
+export interface CartUserError {
+  code: string;
+  field: string[] | null;
+  message: string;
+}
