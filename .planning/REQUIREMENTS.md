@@ -20,7 +20,7 @@
 
 - [x] **COMM-01**: Home screen implemented to match `projectVision/wildenflowerHomeScreen.png` with live featured products from Shopify
 - [x] **COMM-02**: Browse screen implemented to match `projectVision/wildenflowerProductListing.png` with collection-based filtering and Shopify products
-- [ ] **COMM-03**: Product detail screen with swipeable image gallery, variant selection (maps selected options to correct variantId), and Add to Cart
+- [x] **COMM-03**: Product detail screen with swipeable image gallery, variant selection (maps selected options to correct variantId), and Add to Cart
 - [ ] **COMM-04**: Cart screen with line items, quantity controls, order summary, and gold "Proceed to Checkout" button that opens Shopify checkout
 - [ ] **COMM-05**: Favorites screen with product grid; favorites persisted to AsyncStorage across sessions
 
@@ -108,7 +108,7 @@
 | SHOP-08 | Phase 4 | Complete |
 | COMM-01 | Phase 5 | Complete |
 | COMM-02 | Phase 6 | Complete |
-| COMM-03 | Phase 6 | Pending |
+| COMM-03 | Phase 6 | Complete |
 | COMM-04 | Phase 7 | Pending |
 | COMM-05 | Phase 8 | Pending |
 | CONT-01 | Phase 8 | Pending |
