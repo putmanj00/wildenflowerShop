@@ -7,8 +7,8 @@
 
 ### Shopify Integration
 
-- [ ] **SHOP-01**: App reads Shopify credentials from `EXPO_PUBLIC_` environment variables configured in `app.json` extra
-- [ ] **SHOP-02**: TypeScript types for all Shopify API shapes exist in `types/shopify.ts` (ShopifyProduct, ShopifyCart, ShopifyCollection, etc.)
+- [x] **SHOP-01**: App reads Shopify credentials from `EXPO_PUBLIC_` environment variables configured in `app.json` extra
+- [x] **SHOP-02**: TypeScript types for all Shopify API shapes exist in `types/shopify.ts` (ShopifyProduct, ShopifyCart, ShopifyCollection, etc.)
 - [ ] **SHOP-03**: Product catalog fetched from Shopify Storefront API (getProducts, getProductByHandle)
 - [ ] **SHOP-04**: Collections fetched from Shopify Storefront API (getCollections, getCollectionByHandle)
 - [ ] **SHOP-05**: Product search executes via Shopify Search API
@@ -98,8 +98,8 @@
 | ASSET-01 | Phase 1 | Complete |
 | PLAT-01 | Phase 1 | Complete |
 | PLAT-02 | Phase 1 | Complete |
-| SHOP-01 | Phase 2 | Pending |
-| SHOP-02 | Phase 2 | Pending |
+| SHOP-01 | Phase 2 | Complete |
+| SHOP-02 | Phase 2 | Complete |
 | SHOP-03 | Phase 2 | Pending |
 | SHOP-04 | Phase 2 | Pending |
 | SHOP-05 | Phase 2 | Pending |
