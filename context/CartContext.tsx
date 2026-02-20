@@ -127,6 +127,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             if (!cancelled) {
               setCartId(null);
               setCart(null);
+              setCheckoutUrl(null);
             }
           }
         }
@@ -135,6 +136,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         if (!cancelled) {
           setCartId(null);
           setCart(null);
+          setCheckoutUrl(null);
         }
       } finally {
         if (!cancelled) setIsLoading(false);
@@ -179,6 +181,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       // Rollback — restore previous state (no optimistic update to undo)
       setCartId(previousCartId);
       setCart(previousCart);
+      setCheckoutUrl(previousCart?.checkoutUrl ?? null);
       return false;
     } finally {
       setIsAddingToCart(false);
