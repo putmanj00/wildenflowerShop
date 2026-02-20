@@ -10,28 +10,29 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 ## Current Position
 
 Phase: 1 of 10 (Prerequisites)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-02-19 — Roadmap created; 10 phases derived from 27 v1 requirements
+Plan: 2 of TBD in current phase
+Status: In Progress
+Last activity: 2026-02-20 — Plan 01-02 complete: Platform.select shadow fallbacks for web
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [░░░░░░░░░░] 4%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: — min
-- Total execution time: 0 hours
+- Total plans completed: 2
+- Average duration: 5 min
+- Total execution time: 0.15 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 01-prerequisites P01 | 7 min | 2 tasks | 2 files |
+| 01-prerequisites P02 | 2 min | 2 tasks | 2 files |
 
 **Recent Trend:**
-- Last 5 plans: —
-- Trend: —
+- Last 5 plans: 7 min, 2 min
+- Trend: Fast
 
 *Updated after each plan completion*
 
@@ -47,6 +48,8 @@ Recent decisions affecting current work:
 - [Roadmap]: Customer auth deliberately deferred to Phase 10 — app must be fully usable as guest before auth is added
 - [Roadmap]: Classic Customer API (email/password) used for v1 auth; OAuth2/PKCE deferred to v2
 - [Roadmap]: `EXPO_PUBLIC_` prefix required for all Shopify env vars — highest-probability porting failure, must be resolved in Phase 2
+- [Phase 01-prerequisites]: Native retry uses key-reset (retryKey state) on CartProvider — expo-updates not installed; best-effort remount approach
+- [Phase 01-prerequisites]: FontErrorScreen uses system serif fallbacks only — fonts.* tokens unavailable when custom fonts fail to load
 
 ### Pending Todos
 
@@ -60,6 +63,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-19
-Stopped at: Roadmap written; REQUIREMENTS.md traceability updated; STATE.md initialized
+Last session: 2026-02-20
+Stopped at: Completed 01-prerequisites-01-PLAN.md — font error handling + FontErrorScreen
 Resume file: None

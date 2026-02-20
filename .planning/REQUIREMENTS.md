@@ -41,7 +41,7 @@
 
 ### Assets & Fonts
 
-- [ ] **ASSET-01**: Playfair Display (Regular, Bold, Italic) and Lora (Regular) fonts loaded via expo-font; font error state handled to prevent frozen splash
+- [x] **ASSET-01**: Playfair Display (Regular, Bold, Italic) and Lora (Regular) fonts loaded via expo-font; font error state handled to prevent frozen splash
 - [ ] **ASSET-02**: All botanical illustrated assets wired into screens (replacing placeholder Views with `<Image>` sources from `assets/images/`)
 - [ ] **ASSET-03**: Tab bar uses botanical icon illustrations from `assets/images/icons/tabs/`
 
@@ -95,7 +95,7 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ASSET-01 | Phase 1 | Pending |
+| ASSET-01 | Phase 1 | Complete |
 | PLAT-01 | Phase 1 | Pending |
 | PLAT-02 | Phase 1 | Pending |
 | SHOP-01 | Phase 2 | Pending |
