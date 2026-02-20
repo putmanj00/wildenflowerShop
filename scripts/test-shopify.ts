@@ -13,7 +13,7 @@ config({ path: '.env.local' });
 
 // The category handles the Wildenflower app uses for Browse screen filtering.
 // These must exist as collection handles in Shopify — update this list as the app evolves.
-const APP_EXPECTED_HANDLES = ['earth', 'woven', 'light', 'crafted'];
+const APP_EXPECTED_HANDLES = ['tie-dye', 'leather', 'jewelry', 'crystals', 'artwork', 'ceramics'];
 
 async function main() {
   // Dynamic import ensures env vars are already set when shopify-client evaluates

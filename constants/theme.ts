@@ -328,9 +328,10 @@ export const faqCategories = [
 // ─────────────────────────────────────────────
 
 export const productCategories = [
-  { id: 'earth', label: 'From the Earth', icon: 'mushroom' },
-  { id: 'woven', label: 'Worn & Woven', icon: 'vine' },
-  { id: 'light', label: 'Light & Stone', icon: 'crystal' },
-  { id: 'color', label: 'Color & Dye', icon: 'wildflower' },
-  { id: 'crafted', label: 'Hand Crafted', icon: 'fern' },
+  { id: 'tie-dye',  label: 'Tie-Dye',   description: 'Color & Light',  icon: 'wildflower' },
+  { id: 'leather',  label: 'Leather',   description: 'Hand Crafted',   icon: 'fern'       },
+  { id: 'jewelry',  label: 'Jewelry',   description: 'Worn & Found',   icon: 'vine'       },
+  { id: 'crystals', label: 'Crystals',  description: 'Light & Stone',  icon: 'crystal'    },
+  { id: 'artwork',  label: 'Artwork',   description: 'Made by Hand',   icon: 'sunburst'   },
+  { id: 'ceramics', label: 'Ceramics',  description: 'From the Earth', icon: 'mushroom'   },
 ];
