@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 ## Current Position
 
 Phase: 1 of 10 (Prerequisites)
-Plan: 2 of TBD in current phase
+Plan: 3 of TBD in current phase
 Status: In Progress
-Last activity: 2026-02-20 — Plan 01-02 complete: Platform.select shadow fallbacks for web
+Last activity: 2026-02-20 — Plan 01-03 complete: Screen/ScrollScreen layout components; all 12 screens migrated
 
-Progress: [░░░░░░░░░░] 4%
+Progress: [░░░░░░░░░░] 6%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 5 min
-- Total execution time: 0.15 hours
+- Total plans completed: 3
+- Average duration: 6 min
+- Total execution time: 0.22 hours
 
 **By Phase:**
 
@@ -29,9 +29,10 @@ Progress: [░░░░░░░░░░] 4%
 |-------|-------|-------|----------|
 | 01-prerequisites P01 | 7 min | 2 tasks | 2 files |
 | 01-prerequisites P02 | 2 min | 2 tasks | 2 files |
+| 01-prerequisites P03 | 8 min | 2 tasks | 14 files |
 
 **Recent Trend:**
-- Last 5 plans: 7 min, 2 min
+- Last 5 plans: 7 min, 2 min, 8 min
 - Trend: Fast
 
 *Updated after each plan completion*
@@ -52,6 +53,9 @@ Recent decisions affecting current work:
 - [Phase 01-prerequisites P01]: FontErrorScreen uses system serif fallbacks only — fonts.* tokens unavailable when custom fonts fail to load
 - [Phase 01-prerequisites P02]: Use Platform.select with web/default keys rather than RN 0.76 native boxShadow prop (known Expo SDK 52 dev build issues)
 - [Phase 01-prerequisites P02]: Bake opacity into rgba strings for CSS boxShadow — CSS has no separate shadow opacity property
+- [Phase 01-prerequisites P03]: Screen (not ScrollScreen) for stub screens — avoids double-wrapping ScrollView when screens add their own scroll in future phases
+- [Phase 01-prerequisites P03]: Parchment applied to both SafeAreaView and ScrollView in ScrollScreen — prevents color flash on iOS overscroll bounce
+- [Phase 01-prerequisites P03]: blog/[id], checkout, about, faq use ScrollScreen — definitively long-form scrollable content per design specs
 
 ### Pending Todos
 
@@ -66,5 +70,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 01-02-PLAN.md — Platform.select shadow fallbacks added to theme.ts and tabs layout
+Stopped at: Completed 01-03-PLAN.md — Screen/ScrollScreen layout components created; all 12 screens migrated to use them
 Resume file: None

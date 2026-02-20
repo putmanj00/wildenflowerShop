@@ -37,9 +37,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 4 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Fix font loading freeze bug + create on-brand FontErrorScreen component
-- [ ] 01-02-PLAN.md — Add Platform.select web shadow fallbacks to theme.ts and tab bar layout
-- [ ] 01-03-PLAN.md — Create Screen/ScrollScreen layout components; update all 12 screens
+- [x] 01-01-PLAN.md — Fix font loading freeze bug + create on-brand FontErrorScreen component
+- [x] 01-02-PLAN.md — Add Platform.select web shadow fallbacks to theme.ts and tab bar layout
+- [x] 01-03-PLAN.md — Create Screen/ScrollScreen layout components; update all 12 screens
 - [ ] 01-04-PLAN.md — Human validation of Expo Web baseline across all screens (checkpoint)
 
 ### Phase 2: Shopify Service Layer
@@ -162,7 +162,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Prerequisites | 2/4 | In Progress|  |
+| 1. Prerequisites | 3/4 | In Progress|  |
 | 2. Shopify Service Layer | 0/TBD | Not started | - |
 | 3. CartContext Upgrade | 0/TBD | Not started | - |
 | 4. Data Hooks + Checkout Wiring | 0/TBD | Not started | - |
