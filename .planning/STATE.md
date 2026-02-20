@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
-**Current focus:** Phase 5 — Home Screen (in progress)
+**Current focus:** Phase 6 — Browse + Product Detail (starting)
 
 ## Current Position
 
-Phase: 5 of 10 (Home Screen) — IN PROGRESS
-Plan: 3 of 3 in current phase — CHECKPOINT (human verification)
-Status: Phase 5 Plans 01–02 Complete — Awaiting human visual verification at Plan 03
-Last activity: 2026-02-20 — Plan 05-02 complete: Home screen fully wired to live Shopify data; ready for visual verification
+Phase: 6 of 10 (Browse + Product Detail) — IN PROGRESS
+Plan: 0 of TBD in current phase — STARTING
+Status: Phase 5 Complete — Beginning Phase 6 planning
+Last activity: 2026-02-20 — Phase 5 closed: Home screen live, images activated, human-verified
 
-Progress: [████░░░░░░] 39%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
@@ -41,13 +41,18 @@ Progress: [████░░░░░░] 39%
 | 04-data-hooks-checkout-wiring P02 | ~4 min | 1 task | 1 file |
 | 05-home-screen P01 | 2 min | 3 tasks | 3 files |
 | 05-home-screen P02 | 1 min | 1 task | 1 file |
+| 05-home-screen P03 | ~10 min | 1 checkpoint + 1 fix | 2 files |
+
+- Total plans completed: 10
+- Average duration: 8.7 min
+- Total execution time: ~1.45 hours
 
 **Recent Trend:**
 - Last 5 plans: ~10 min, 2 min, ~10 min, 2 min, ~10 min
 - Trend: Fast
 
 *Updated after each plan completion*
-| Phase 05-home-screen P01 | 2 min | 3 tasks | 3 files |
+| Phase 05-home-screen P03 | ~10 min | 1 checkpoint + 1 fix | 2 files |
 
 ## Accumulated Context
 
@@ -112,5 +117,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 05-02-PLAN.md — Home screen wired to live Shopify data. Plans 01–02 done. Plan 03 is a human visual verification checkpoint. Start dev server and verify screen before marking Phase 5 complete.
+Stopped at: Completed Phase 5 — Home Screen fully verified. Product images activated in ProductCard.tsx. Phase 6 (Browse + Product Detail) is next. Key pre-Phase 6 decision needed: collection handle mismatch (see Blockers).
 Resume file: None

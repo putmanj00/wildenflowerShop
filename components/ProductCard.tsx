@@ -9,6 +9,7 @@ import React from 'react';
 import {
   View,
   Text,
+  Image,
   TouchableOpacity,
   StyleSheet,
   ViewStyle,
@@ -52,15 +53,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     >
       {/* ── Image Area ─────────────────────── */}
       <View style={styles.imageArea}>
-        {/* ASSET: product image — product.images[0], full-width crop */}
-        {/* Replace with:
+        {product.images[0] ? (
           <Image
             source={{ uri: product.images[0] }}
             style={styles.productImage}
             resizeMode="cover"
           />
-        */}
-        <Text style={styles.imagePlaceholderLabel}>{product.category}</Text>
+        ) : (
+          <Text style={styles.imagePlaceholderLabel}>{product.category}</Text>
+        )}
 
         {/* Corner overlays — botanical decoration */}
         <View style={styles.cornerTopLeft}>
@@ -114,8 +115,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // Uncomment when real images are available:
-  // productImage: { width: '100%', height: spacing.productCardImageHeight },
+  productImage: { width: '100%', height: spacing.productCardImageHeight },
   imagePlaceholderLabel: {
     fontFamily: fonts.body,
     fontSize: 11,

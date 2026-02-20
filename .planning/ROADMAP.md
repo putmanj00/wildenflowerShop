@@ -88,8 +88,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — useShopifyQuery base hook + useProducts/useCollections/useProduct public hooks (hooks/)
-- [ ] 04-02-PLAN.md — CartContext extension: checkoutUrl state + openCheckout() action (context/CartContext.tsx)
+- [x] 04-01-PLAN.md — useShopifyQuery base hook + useProducts/useCollections/useProduct public hooks (hooks/)
+- [x] 04-02-PLAN.md — CartContext extension: checkoutUrl state + openCheckout() action (context/CartContext.tsx)
 
 ### Phase 5: Home Screen
 **Goal**: The Home screen faithfully matches the projectVision mockup and shows live Shopify featured products — a real finder can arrive at the app, see artisan products, and navigate to product detail
@@ -104,9 +104,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 05-01-PLAN.md — Extend ScrollScreen (refreshControl), add HeroCard explore button, create SkeletonProductCard
-- [ ] 05-02-PLAN.md — Wire Home screen: live Shopify data, type adapter, loading/error states, pull-to-refresh, category navigation
-- [ ] 05-03-PLAN.md — Human visual verification: brand fidelity and live data checkpoint
+- [x] 05-01-PLAN.md — Extend ScrollScreen (refreshControl), add HeroCard explore button, create SkeletonProductCard
+- [x] 05-02-PLAN.md — Wire Home screen: live Shopify data, type adapter, loading/error states, pull-to-refresh, category navigation
+- [x] 05-03-PLAN.md — Human visual verification: brand fidelity and live data checkpoint
 
 ### Phase 6: Browse + Product Detail
 **Goal**: A finder can browse all products filtered by collection, open a product, view multiple images, select a variant, and add it to the Shopify cart — completing the browse-to-cart flow
@@ -184,9 +184,9 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 1. Prerequisites | 4/4 | Complete | 2026-02-20 |
 | 2. Shopify Service Layer | 3/3 | Complete | 2026-02-20 |
 | 3. CartContext Upgrade | 3/3 | Complete | 2026-02-20 |
-| 4. Data Hooks + Checkout Wiring | 1/2 | In Progress|  |
-| 5. Home Screen | 0/TBD | Not started | - |
-| 6. Browse + Product Detail | 0/TBD | Not started | - |
+| 4. Data Hooks + Checkout Wiring | 2/2 | Complete | 2026-02-20 |
+| 5. Home Screen | 3/3 | Complete | 2026-02-20 |
+| 6. Browse + Product Detail | 0/TBD | In Progress | - |
 | 7. Cart + Checkout | 0/TBD | Not started | - |
 | 8. Favorites + Maker Profile | 0/TBD | Not started | - |
 | 9. Content Screens + Assets | 0/TBD | Not started | - |

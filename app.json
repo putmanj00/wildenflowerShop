@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Wildenflower",
+    "slug": "wildenflower",
+    "version": "1.0.0",
+    "scheme": "wildenflower",
+    "orientation": "portrait",
+    "icon": "./assets/images/icons/app-icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#F5EDD6",
+      "resizeMode": "contain"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.wildenflower.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F5EDD6"
+      },
+      "package": "com.wildenflower.app"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-asset"
+    ]
+  }
+}

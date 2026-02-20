@@ -145,6 +145,14 @@ This is documented in STATE.md as a pre-Phase 6 blocker. Phase 3, 4, and 5 are u
 - Phase 3 can start immediately — all five service functions confirmed working
 - Pre-Phase 6 action required: resolve collection handle mismatch before Browse screen filtering is built
 
+## Self-Check: PASSED
+
+- FOUND: .planning/phases/02-shopify-service-layer/02-03-SUMMARY.md
+- FOUND: scripts/test-shopify.ts
+- FOUND commit: 9589c6a (feat — smoke test script)
+- FOUND commit: 07b3940 (fix — dynamic import)
+- FOUND commit: 960bc65 (docs — metadata commit)
+
 ---
 *Phase: 02-shopify-service-layer*
 *Completed: 2026-02-20*
