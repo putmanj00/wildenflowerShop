@@ -85,7 +85,11 @@ Plans:
   2. `useCollections()` and `useProduct(handle)` follow the same pattern; all three hooks are usable from any screen
   3. Checkout opens Shopify's `cart.checkoutUrl` without popup-blocking on web: on `Platform.OS === 'web'`, `window.location.href` is used synchronously; on native, `Linking.openURL` is called synchronously with the pre-fetched URL
   4. Loading and error states are handled uniformly across all hooks — screens can destructure `{ loading, error }` and render appropriate states
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — useShopifyQuery base hook + useProducts/useCollections/useProduct public hooks (hooks/)
+- [ ] 04-02-PLAN.md — CartContext extension: checkoutUrl state + openCheckout() action (context/CartContext.tsx)
 
 ### Phase 5: Home Screen
 **Goal**: The Home screen faithfully matches the projectVision mockup and shows live Shopify featured products — a real finder can arrive at the app, see artisan products, and navigate to product detail
@@ -175,7 +179,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 1. Prerequisites | 4/4 | Complete | 2026-02-20 |
 | 2. Shopify Service Layer | 3/3 | Complete | 2026-02-20 |
 | 3. CartContext Upgrade | 3/3 | Complete | 2026-02-20 |
-| 4. Data Hooks + Checkout Wiring | 0/TBD | Not started | - |
+| 4. Data Hooks + Checkout Wiring | 0/2 | Not started | - |
 | 5. Home Screen | 0/TBD | Not started | - |
 | 6. Browse + Product Detail | 0/TBD | Not started | - |
 | 7. Cart + Checkout | 0/TBD | Not started | - |
