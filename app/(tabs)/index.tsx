@@ -15,14 +15,14 @@
  */
 
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, View, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 
-import { colors, spacing, copy, productCategories } from '../../constants/theme';
+import { copy, productCategories } from '../../constants/theme';
 import { useCart } from '../../context/CartContext';
 import { products } from '../../data/mock-data';
 import { Product } from '../../types';
 
+import ScrollScreen from '../../components/layout/ScrollScreen';
 import BotanicalHeader from '../../components/BotanicalHeader';
 import HeroCard from '../../components/HeroCard';
 import SectionTitle from '../../components/SectionTitle';
@@ -46,54 +46,34 @@ export default function HomeScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView
-        style={styles.scroll}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.content}
-      >
-        <BotanicalHeader variant="large" />
+    <ScrollScreen>
+      <BotanicalHeader variant="large" />
 
-        <HeroCard />
+      <HeroCard />
 
-        <SectionTitle title={copy.categories} />
-        <CategoryRow
-          categories={productCategories}
-          activeCategory={activeCategory}
-          onCategoryPress={handleCategoryPress}
-        />
+      <SectionTitle title={copy.categories} />
+      <CategoryRow
+        categories={productCategories}
+        activeCategory={activeCategory}
+        onCategoryPress={handleCategoryPress}
+      />
 
-        <BotanicalDivider variant="fern-mushroom" />
+      <BotanicalDivider variant="fern-mushroom" />
 
-        <SectionTitle
-          title={copy.featured}
-          action={{
-            label: copy.viewAll,
-            onPress: () => router.push('/(tabs)/browse'),
-          }}
-        />
-        <ProductGrid
-          products={featuredProducts}
-          onProductPress={handleProductPress}
-          onFavoriteToggle={toggleFavorite}
-          favorites={featuredProducts.map(p => p.id).filter(id => isFavorite(id))}
-        />
+      <SectionTitle
+        title={copy.featured}
+        action={{
+          label: copy.viewAll,
+          onPress: () => router.push('/(tabs)/browse'),
+        }}
+      />
+      <ProductGrid
+        products={featuredProducts}
+        onProductPress={handleProductPress}
+        onFavoriteToggle={toggleFavorite}
+        favorites={featuredProducts.map(p => p.id).filter(id => isFavorite(id))}
+      />
 
-      </ScrollView>
-    </SafeAreaView>
+    </ScrollScreen>
   );
 }
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: colors.parchment,
-  },
-  scroll: {
-    flex: 1,
-    backgroundColor: colors.parchment,
-  },
-  content: {
-    paddingBottom: spacing.huge,
-  },
-});
