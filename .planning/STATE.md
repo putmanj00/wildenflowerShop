@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
-**Current focus:** Phase 6 — Browse + Product Detail (in progress, plan 3 of 4 complete)
+**Current focus:** Phase 6 — Browse + Product Detail (COMPLETE) — Beginning Phase 7 planning
 
 ## Current Position
 
-Phase: 6 of 10 (Browse + Product Detail) — IN PROGRESS
-Plan: 3 of 4 in current phase — COMPLETE
-Status: Phase 6 Plan 03 Complete — Product Detail screen fully implemented with gallery, variant selector, sticky Add to Cart bar; Home navigation fix (handle not GID); COMM-03 complete
-Last activity: 2026-02-20 — 06-03: Complete Product Detail screen; Home navigation fixed to use product.handle
+Phase: 6 of 10 (Browse + Product Detail) — COMPLETE
+Plan: 4 of 4 in current phase — COMPLETE
+Status: Phase 6 Complete — Browse + Product Detail verified by human; all 20 checklist items passed; ProductFragment bug fixed; COMM-02 and COMM-03 complete
+Last activity: 2026-02-20 — 06-04: Phase 6 closed — Browse + Product Detail human-verified end-to-end on Expo Web
 
-Progress: [█████░░░░░] 50%
+Progress: [██████░░░░] 60%
 
 ## Performance Metrics
 
@@ -56,6 +56,7 @@ Progress: [█████░░░░░] 50%
 | Phase 06-browse-product-detail P01 | 2 | 2 tasks | 2 files |
 | Phase 06-browse-product-detail P02 | 2 min | 1 task | 1 file |
 | Phase 06-browse-product-detail P03 | 2 min | 2 tasks | 2 files |
+| Phase 06-browse-product-detail P04 | 5 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -116,6 +117,8 @@ Recent decisions affecting current work:
 - [Phase 06-browse-product-detail P03]: Product options derived from variant.selectedOptions since ShopifyProduct type has no options field
 - [Phase 06-browse-product-detail P03]: Single-variant products (title==='Default Title') auto-select and skip option picker UI — standard Shopify pattern for non-configurable products
 - [Phase 06-browse-product-detail P03]: Product Detail uses Screen + internal ScrollView (not ScrollScreen) to allow sticky bottom bar outside scroll area
+- [Phase 06-browse-product-detail P04]: GET_COLLECTION_BY_HANDLE_QUERY must use ...ProductFragment — minimal inline product shape caused mapProduct to throw at runtime; all product-fetching queries must spread the shared fragment
+- [Phase 06-browse-product-detail]: GET_COLLECTION_BY_HANDLE_QUERY must use ...ProductFragment — minimal inline product shape caused mapProduct to throw at runtime; all product-fetching queries must spread the shared fragment
 
 ### Pending Todos
 
@@ -130,5 +133,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 06-03-PLAN.md — Product Detail screen built with swipeable gallery, multi-option variant selector, sticky Add to Cart bar; Home navigation fix applied. COMM-03 complete. Next: 06-04 (final plan of phase 6).
+Stopped at: Completed 06-04-PLAN.md — Phase 6 human verification approved; all 20 checklist items passed; ProductFragment bug fix committed (249743b). Phase 6 complete. Next: Phase 7 — Cart Screen.
 Resume file: None
