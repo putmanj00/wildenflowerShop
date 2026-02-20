@@ -120,7 +120,13 @@ Plans:
   5. Variant selector maps selected option combinations to the correct Shopify `variantId`; the Add to Cart button is disabled if no valid variant is selected
   6. Tapping Add to Cart calls `CartContext.addToCart(variantId)` and shows a confirmation state; the cart badge updates
   7. Both screens render without errors on Expo Web
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 06-01-PLAN.md — Upgrade useProducts cursor pagination + fix productCategories handles
+- [ ] 06-02-PLAN.md — Build Browse screen (FilterChipRow, ProductGrid, skeleton loading, pagination)
+- [ ] 06-03-PLAN.md — Build Product Detail screen (gallery, variant selector, sticky Add to Cart bar)
+- [ ] 06-04-PLAN.md — Human verification: Browse + Product Detail brand fidelity checkpoint
 
 ### Phase 7: Cart + Checkout
 **Goal**: A finder can view their cart with live Shopify line items, adjust quantities, and reach Shopify checkout — completing the end-to-end purchase path
