@@ -134,24 +134,7 @@ export const GET_COLLECTION_BY_HANDLE_QUERY = `
     collection(handle: $handle) {
       ...CollectionFragment
       products(first: $first, after: $after) {
-        nodes {
-          id
-          title
-          handle
-          availableForSale
-          featuredImage { ...ImageFragment }
-          priceRange {
-            minVariantPrice { ...MoneyFragment }
-          }
-          variants(first: 5) {
-            nodes {
-              id
-              availableForSale
-              price { ...MoneyFragment }
-              selectedOptions { name value }
-            }
-          }
-        }
+        nodes { ...ProductFragment }
         pageInfo {
           hasNextPage
           endCursor
@@ -160,8 +143,8 @@ export const GET_COLLECTION_BY_HANDLE_QUERY = `
     }
   }
   ${COLLECTION_FRAGMENT}
-  ${IMAGE_FRAGMENT}
-  ${MONEY_FRAGMENT}
+  ${PRODUCT_FRAGMENT}
+  ${PRODUCT_FRAGMENT_DEPS}
 `;
 
 export const SEARCH_PRODUCTS_QUERY = `
