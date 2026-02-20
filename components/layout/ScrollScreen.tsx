@@ -22,12 +22,14 @@ interface ScrollScreenProps {
   children?: React.ReactNode;
   style?: ViewStyle;
   contentContainerStyle?: ViewStyle;
+  refreshControl?: React.ReactElement;
 }
 
 export default function ScrollScreen({
   children,
   style,
   contentContainerStyle,
+  refreshControl,
 }: ScrollScreenProps) {
   return (
     <SafeAreaView style={[styles.safe, style]}>
@@ -35,6 +37,7 @@ export default function ScrollScreen({
         style={styles.scroll}
         contentContainerStyle={[styles.content, contentContainerStyle]}
         showsVerticalScrollIndicator={false}
+        refreshControl={refreshControl}
       >
         {children}
       </ScrollView>
