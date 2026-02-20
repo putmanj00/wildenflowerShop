@@ -190,3 +190,103 @@ export const SEARCH_PRODUCTS_QUERY = `
   ${IMAGE_FRAGMENT}
   ${MONEY_FRAGMENT}
 `;
+
+// ─── Cart ─────────────────────────────────────────────────────────────────────
+// Reusable fragment for all cart operations.
+// nodes shorthand matches ShopifyCart type (lines: { nodes: ShopifyCartLine[] }).
+// lines(first: 100) — safe upper bound; cartLinesRemove/Update require lineIds which
+// come from the cart lines, so the entire list must be fetched.
+
+const CART_LINES_FRAGMENT = `
+  fragment CartLinesFragment on Cart {
+    id
+    checkoutUrl
+    totalQuantity
+    lines(first: 100) {
+      nodes {
+        id
+        quantity
+        merchandise {
+          ... on ProductVariant {
+            id
+            title
+            price { amount currencyCode }
+            product {
+              id
+              title
+              handle
+              featuredImage { url altText width height }
+            }
+            selectedOptions { name value }
+          }
+        }
+        cost {
+          totalAmount { amount currencyCode }
+        }
+      }
+    }
+    cost {
+      subtotalAmount { amount currencyCode }
+      totalAmount { amount currencyCode }
+      totalTaxAmount { amount currencyCode }
+    }
+  }
+`;
+
+export const CART_CREATE_MUTATION = `
+  mutation CartCreate($lines: [CartLineInput!]) {
+    cartCreate(input: { lines: $lines }) {
+      cart { ...CartLinesFragment }
+      userErrors { code field message }
+    }
+  }
+  ${CART_LINES_FRAGMENT}
+`;
+// Variables: { lines: [{ merchandiseId: string, quantity: number }] }
+// Empty cart: pass lines: [] or omit lines entirely
+
+export const CART_LINES_ADD_MUTATION = `
+  mutation CartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
+    cartLinesAdd(cartId: $cartId, lines: $lines) {
+      cart { ...CartLinesFragment }
+      userErrors { code field message }
+    }
+  }
+  ${CART_LINES_FRAGMENT}
+`;
+// Variables: { cartId: string, lines: [{ merchandiseId: string, quantity: number }] }
+
+export const CART_LINES_REMOVE_MUTATION = `
+  mutation CartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
+    cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+      cart { ...CartLinesFragment }
+      userErrors { code field message }
+    }
+  }
+  ${CART_LINES_FRAGMENT}
+`;
+// Variables: { cartId: string, lineIds: [CartLine.id, ...] }
+// IMPORTANT: lineIds is CartLine.id (gid://shopify/CartLine/...) NOT merchandise.id (variantId)
+
+export const CART_LINES_UPDATE_MUTATION = `
+  mutation CartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+    cartLinesUpdate(cartId: $cartId, lines: $lines) {
+      cart { ...CartLinesFragment }
+      userErrors { code field message }
+    }
+  }
+  ${CART_LINES_FRAGMENT}
+`;
+// Variables: { cartId: string, lines: [{ id: CartLine.id, quantity: number }] }
+// Do NOT call with quantity: 0 — call cartLinesRemove instead (cartLinesUpdate may error)
+
+export const GET_CART_QUERY = `
+  query GetCart($cartId: ID!) {
+    cart(id: $cartId) {
+      ...CartLinesFragment
+    }
+  }
+  ${CART_LINES_FRAGMENT}
+`;
+// Returns: { cart: ShopifyCart } or { cart: null } when cart is expired/not found.
+// null is NOT a GraphQL error — check data.cart === null to trigger recovery.
