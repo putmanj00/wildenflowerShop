@@ -69,7 +69,12 @@ Plans:
   3. When a persisted cart ID references an expired Shopify cart (null response), the app automatically creates a new cart and re-adds the lines — the user never sees a broken cart state
   4. `removeFromCart` and `updateQuantity` correctly call the corresponding Shopify mutations (`cartLinesRemove`, `cartLinesUpdate`) and update local state
   5. `CartContext` exports `cartId`, `cart` (ShopifyCart or null), `isLoading`, and mutation methods — all typed against `types/shopify.ts`
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Cart service layer (CartLineSnapshot type, cart mutations + GET_CART_QUERY, five service functions in shopify-client.ts)
+- [ ] 03-02-PLAN.md — FavoritesContext (memory-only) + wire FavoritesProvider into _layout.tsx
+- [ ] 03-03-PLAN.md — CartContext rewrite (Shopify mutations, AsyncStorage hydration, expired-cart recovery)
 
 ### Phase 4: Data Hooks + Checkout Wiring
 **Goal**: Screens can fetch Shopify products, collections, and individual products through thin hooks with loading/error state; the checkoutUrl is pre-fetched so checkout can open synchronously without popup-blocking
