@@ -5,19 +5,20 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
-**Current focus:** Phase 8 — Favorites + Maker Profile — **COMPLETE** — Beginning Phase 9 planning
+**Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
+**Current focus:** Phase 9 — Content Screens + Assets — **CODE COMPLETE, AWAITING HUMAN CHECKPOINT**
 
 ## Current Position
 
-Phase: 8 of 10 (Favorites + Maker Profile) — COMPLETE
+Phase: 9 of 10 (Content Screens + Assets) — CODE COMPLETE
 Plan: 4 of 4 in current phase — COMPLETE
-Status: Phase 8 Complete — Favorites + Maker Profile human-verified; COMM-05 + CONT-01 satisfied
-Last activity: 2026-02-20 — 08-04: Phase 8 closed — all 20 verification items approved
+Status: All 4 content screens built + committed; awaiting 20-item human verification
+Last activity: 2026-02-20 — 09-04: Blog, About, FAQ, tab icons, deep links — tsc 0 errors, 7/7 deep links pass
 
 
 
 
-Progress: [██████░░░░] 60%
+Progress: [███████░░░] 70%
 
 ## Performance Metrics
 
