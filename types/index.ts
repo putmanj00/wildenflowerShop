@@ -44,7 +44,7 @@ export interface BlogPost {
   title: string;
   excerpt: string;
   content: string;
-  coverImage: string;
+  coverImage: string | number;  // string for URLs, number for require() assets
   category: 'maker-stories' | 'behind-the-craft' | 'community';
   author: string;
   publishedAt: string;

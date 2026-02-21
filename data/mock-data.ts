@@ -4,7 +4,7 @@
  * Sample data for development. Replace with API calls in production.
  */
 
-import { Product, Maker, BlogPost, FAQItem } from '../types';
+import { Product, Maker, BlogPost, FAQItem, BrandPillar } from '../types';
 
 // ─── Makers ─────────────────────────────────
 
@@ -202,15 +202,22 @@ export const products: Product[] = [
   },
 ];
 
-// ─── Blog Posts ─────────────────────────────
+// Blog cover images — generated botanical illustrations matching the brand visual language
+const blogCovers = {
+  clay:      require('../assets/images/blog/blog-cover-hands-clay.png'),
+  naturalDye: require('../assets/images/blog/blog-cover-natural-dye.png'),
+  makerFair: require('../assets/images/blog/blog-cover-maker-fair.png'),
+  raku:      require('../assets/images/blog/blog-cover-raku.png'),
+};
 
 export const blogPosts: BlogPost[] = [
   {
     id: 'blog-1',
     title: 'The Hands Behind the Clay',
     excerpt: 'We spent a morning in River Clay Studio watching Sarah shape something from nothing. Here\'s what we learned about patience.',
-    content: '',
-    coverImage: '',
+    content:
+      'There is a particular quiet in a pottery studio at seven in the morning. The wheel is still. The kiln is cooling from an overnight firing. Sarah arrives before the light is fully formed, wraps her hands around a mug of tea, and begins.\n\nWatching someone throw clay is watching someone negotiate with the present moment. The clay has opinions. It will tell you when you\'re rushing, when your hands are too tense, when your intentions are wrong. Sarah has been listening to clay for eleven years, and what she hears now is mostly kindness.\n\n\'I made ugly things for three years,\' she tells us, centering a new piece with effortless confidence. \'Then one morning something shifted. I stopped fighting it and started listening. That\'s when it got interesting.\' The mug she\'s shaping now — generous, slightly lopsided in a way that feels intentional — will end up in someone\'s hands every morning for years. It will hold coffee and tea and quiet moments. It already knows this. You can feel it in the clay.',
+    coverImage: blogCovers.clay,
     category: 'maker-stories',
     author: 'Wildenflower',
     publishedAt: '2026-02-10',
@@ -221,8 +228,9 @@ export const blogPosts: BlogPost[] = [
     id: 'blog-2',
     title: 'Why Natural Dye Changes Everything',
     excerpt: 'The colours from plants are alive in a way synthetic dyes can never be. Meadow & Thread explains why they\'ll never go back.',
-    content: '',
-    coverImage: '',
+    content:
+      'Marcus holds a skein of silk up to the afternoon light. The colour shifts from marigold gold at the surface to a deeper amber in the depths, and neither word quite captures it — which is exactly the point.\n\n\'A synthetic dye is a statement,\' he says. \'It says: this is orange. A natural dye is a conversation. It says: this is what orange looked like when we soaked this silk in this vat on this day in September, with this water, in this light.\' Every batch differs. The same flowers, the same recipe, a week apart — different results. He finds this joyful.\n\nThe process takes days when synthetic equivalents take hours. The marigolds must be harvested at peak bloom, simmered low and slow, the silk mordanted with alum for the colour to hold. \'You can\'t rush it,\' Marcus says. \'And the moment you accept that, the colour becomes something else entirely. It becomes a record of time.\' We\'re wearing time, when we wear his work. That changes how it feels against the skin.',
+    coverImage: blogCovers.naturalDye,
     category: 'behind-the-craft',
     author: 'Wildenflower',
     publishedAt: '2026-02-05',
@@ -233,8 +241,9 @@ export const blogPosts: BlogPost[] = [
     id: 'blog-3',
     title: 'Our First Maker Fair',
     excerpt: 'Last weekend we gathered twelve makers, two hundred finders, and one very sunny afternoon. It was everything we hoped it would be.',
-    content: '',
-    coverImage: '',
+    content:
+      'We didn\'t know if anyone would come. That\'s the honest version. We\'d sent invitations, posted signs, told everyone we knew — but on the morning of the fair, setting up tables in the meadow while the dew was still on the grass, we genuinely didn\'t know.\n\nThey came. Two hundred of them over the course of an afternoon, drawn by curiosity and the scent of wildflowers and something harder to name — the quiet pull of things made by hand. Children crouched to look at crystals. A woman spent forty minutes talking to a ceramicist about glazes and left with three pieces. A teenager, dragged there by her grandmother, found a leather journal and wrote three pages before they made it to the next table.\n\nTwelve makers. Their stories, standing right there alongside their work. What we learned: the connection is the product. The object is just the excuse to hand something human across a table and say: I made this. I hope it finds you well.',
+    coverImage: blogCovers.makerFair,
     category: 'community',
     author: 'Wildenflower',
     publishedAt: '2026-01-28',
@@ -244,8 +253,9 @@ export const blogPosts: BlogPost[] = [
     id: 'blog-4',
     title: 'How Raku Changed My Relationship with Control',
     excerpt: 'Kiln & Spirit\'s founder on why pulling a glowing pot from a kiln and letting fire decide the finish taught her to let go.',
-    content: '',
-    coverImage: '',
+    content:
+      'The first time Else pulled a piece from the kiln — orange-glowing, incandescent, impossibly itself — and plunged it into a steel drum of newspaper to smoke and crackle and become whatever the fire wanted it to be, she wept.\n\n\'I had planned it so carefully,\' she says. \'I knew exactly what I wanted. And then I watched the fire override every single decision I\'d made, and what came out was so much more interesting than my plan.\' The dramatic crackle pattern of raku — the unpredictable swirls of copper and crimson, the silvery flash where reduction starved the glaze of oxygen — cannot be controlled. Can only be invited.\n\nShe makes ten pieces knowing that three will crack, two will be surprising, one will be extraordinary, and she won\'t know which is which until the smoke clears. \'I\'ve applied that to everything now,\' she tells us, cradling a finished cup with both hands. \'Design the conditions. Trust the process. Get out of the way.\' The cup is extraordinary. She has no idea why. That\'s exactly right.',
+    coverImage: blogCovers.raku,
     category: 'maker-stories',
     author: 'Wildenflower',
     publishedAt: '2026-01-20',
@@ -298,5 +308,34 @@ export const faqItems: FAQItem[] = [
     question: 'How do I care for handmade items?',
     answer: 'Each product listing includes specific care instructions from the maker. In general: handmade pieces reward gentle treatment. Hand wash ceramics, keep leather out of direct sun, store crystals with intention. These items were made slowly — they deserve to be cared for slowly too.',
     category: 'returns',
+  },
+];
+// ─── Brand Pillars ───────────────────────────
+// Used on the About screen to show Wildenflower's core values.
+
+export const brandPillars: BrandPillar[] = [
+  {
+    id: 'pillar-1',
+    title: 'Made by Hand',
+    icon: 'icon-mushroom',
+    description: 'Every piece on Wildenflower was shaped, stitched, thrown, or carved by a real person. No factories. No shortcuts.',
+  },
+  {
+    id: 'pillar-2',
+    title: 'Found by Heart',
+    icon: 'icon-wildflower',
+    description: 'We built Wildenflower for the finders — the people who look for things that mean something. You know the feeling.',
+  },
+  {
+    id: 'pillar-3',
+    title: 'Stories in Every Stitch',
+    icon: 'icon-vine',
+    description: 'Behind each piece is a studio, a maker, and a practice built over years. We tell those stories so they travel with the work.',
+  },
+  {
+    id: 'pillar-4',
+    title: 'Community First',
+    icon: 'icon-fern',
+    description: 'Makers and finders are family here. We take care of both — because a marketplace is only as good as the relationships inside it.',
   },
 ];
