@@ -45,7 +45,6 @@ function FavoriteCard({ snapshot, onPress, onRemove }: FavoriteCardProps) {
       style={cardStyles.card}
       onPress={onPress}
       activeOpacity={0.88}
-      accessibilityRole="button"
       accessibilityLabel={snapshot.title}
     >
       {/* Product image */}
