@@ -25,15 +25,16 @@ import {
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 
-import { colors, fonts, fontSizes, radii, spacing } from '../../constants/theme';
-import { getMakerByVendor } from '../../data/mock-data';
-import { useProducts } from '../../hooks/useProducts';
-import type { AppProduct } from '../../lib/shopify-mappers';
-import type { Product } from '../../types';
+import { colors, fonts, fontSizes, radii, spacing } from '../../../constants/theme';
+import { getMakerByVendor } from '../../../data/mock-data';
+import { useProducts } from '../../../hooks/useProducts';
+import type { AppProduct } from '../../../lib/shopify-mappers';
+import type { Product } from '../../../types';
 
-import Screen from '../../components/layout/Screen';
-import BotanicalDivider from '../../components/BotanicalDivider';
-import ProductGrid from '../../components/ProductGrid';
+import Screen from '../../../components/layout/Screen';
+import BotanicalDivider from '../../../components/BotanicalDivider';
+import ProductGrid from '../../../components/ProductGrid';
+import TopNav from '../../../components/layout/TopNav';
 
 // ─── Local Type Adapter ──────────────────────────────────────────────────────
 // Same pattern as browse.tsx — bridges AppProduct → Product UI shape.
@@ -74,19 +75,11 @@ export default function MakerProfileScreen() {
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
     <Screen>
+      <TopNav title={makerName} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        {/* Back button */}
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => router.back()}
-          accessibilityRole="button"
-          accessibilityLabel="Go back"
-        >
-          <Text style={styles.backText}>‹ Back</Text>
-        </TouchableOpacity>
 
         {/* Maker header */}
         <View style={styles.header}>

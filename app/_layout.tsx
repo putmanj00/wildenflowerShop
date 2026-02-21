@@ -92,13 +92,7 @@ export default function RootLayout() {
           }}
         >
           <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="product/[id]" />
-          <Stack.Screen name="blog/index" />
-          <Stack.Screen name="blog/[id]" />
-          <Stack.Screen name="maker/[id]" />
           <Stack.Screen name="checkout" />
-          <Stack.Screen name="about" />
-          <Stack.Screen name="faq" />
         </Stack>
       </FavoritesProvider>
     </CartProvider>

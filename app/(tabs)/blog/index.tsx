@@ -21,9 +21,11 @@ import {
   View,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { blogPosts } from '../../data/mock-data';
-import { colors, fonts, fontSizes, spacing } from '../../constants/theme';
-import { BlogPost } from '../../types';
+import { blogPosts } from '../../../data/mock-data';
+import { colors, fonts, fontSizes, spacing } from '../../../constants/theme';
+import { BlogPost } from '../../../types';
+import TopNav from '../../../components/layout/TopNav';
+import BotanicalHeader from '../../../components/BotanicalHeader';
 
 // ─── Category filter config ─────────────────
 
@@ -131,52 +133,57 @@ export default function BlogScreen() {
   const [featured, ...rest] = filtered;
 
   return (
-    <ScrollView
-      style={styles.screen}
-      contentContainerStyle={styles.content}
-      showsVerticalScrollIndicator={false}
-    >
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Stories</Text>
-        <Text style={styles.headerSubtitle}>From the makers, for the finders.</Text>
-      </View>
-
-      {/* Category Filter Chips */}
+    <View style={styles.screen}>
+      <TopNav />
       <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.filterRow}
-        style={styles.filterScroll}
+        style={{ flex: 1 }}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
       >
-        {CATEGORY_FILTERS.map(({ key, label }) => (
-          <Pressable
-            key={key}
-            style={[styles.filterChip, activeCategory === key && styles.filterChipActive]}
-            onPress={() => setActiveCategory(key)}
-            accessibilityRole="button"
-            accessibilityLabel={`Filter: ${label}`}
-          >
-            <Text style={[styles.filterChipLabel, activeCategory === key && styles.filterChipLabelActive]}>
-              {label}
-            </Text>
-          </Pressable>
+        <BotanicalHeader variant="blog" />
+
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Stories</Text>
+          <Text style={styles.headerSubtitle}>From the makers, for the finders.</Text>
+        </View>
+
+        {/* Category Filter Chips */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.filterRow}
+          style={styles.filterScroll}
+        >
+          {CATEGORY_FILTERS.map(({ key, label }) => (
+            <Pressable
+              key={key}
+              style={[styles.filterChip, activeCategory === key && styles.filterChipActive]}
+              onPress={() => setActiveCategory(key)}
+              accessibilityRole="button"
+              accessibilityLabel={`Filter: ${label}`}
+            >
+              <Text style={[styles.filterChipLabel, activeCategory === key && styles.filterChipLabelActive]}>
+                {label}
+              </Text>
+            </Pressable>
+          ))}
+        </ScrollView>
+
+        {/* Featured Article */}
+        {featured && <FeaturedCard post={featured} />}
+
+        {/* Divider */}
+        {rest.length > 0 && <View style={styles.divider} />}
+
+        {/* Remaining Posts */}
+        {rest.map(post => (
+          <BlogPostCard key={post.id} post={post} />
         ))}
+
+        <View style={styles.bottomPad} />
       </ScrollView>
-
-      {/* Featured Article */}
-      {featured && <FeaturedCard post={featured} />}
-
-      {/* Divider */}
-      {rest.length > 0 && <View style={styles.divider} />}
-
-      {/* Remaining Posts */}
-      {rest.map(post => (
-        <BlogPostCard key={post.id} post={post} />
-      ))}
-
-      <View style={styles.bottomPad} />
-    </ScrollView>
+    </View>
   );
 }
 

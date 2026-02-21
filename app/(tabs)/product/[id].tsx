@@ -28,14 +28,15 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { colors, fonts, fontSizes, radii, spacing } from '../../constants/theme';
-import { useProduct } from '../../hooks/useProduct';
-import { useCart } from '../../context/CartContext';
-import { useFavorites } from '../../context/FavoritesContext';
-import type { FavoriteSnapshot } from '../../context/FavoritesContext';
-import type { ShopifyProductVariant } from '../../types/shopify';
-import Screen from '../../components/layout/Screen';
-import BotanicalDivider from '../../components/BotanicalDivider';
+import { colors, fonts, fontSizes, radii, spacing } from '../../../constants/theme';
+import { useProduct } from '../../../hooks/useProduct';
+import { useCart } from '../../../context/CartContext';
+import { useFavorites } from '../../../context/FavoritesContext';
+import type { FavoriteSnapshot } from '../../../context/FavoritesContext';
+import type { ShopifyProductVariant } from '../../../types/shopify';
+import Screen from '../../../components/layout/Screen';
+import BotanicalDivider from '../../../components/BotanicalDivider';
+import TopNav from '../../../components/layout/TopNav';
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -217,6 +218,7 @@ export default function ProductDetailScreen() {
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
     <Screen>
+      <TopNav />
       {/* Scrollable content */}
       <ScrollView
         style={styles.scroll}

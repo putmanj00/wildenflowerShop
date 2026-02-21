@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
 import { colors, fonts, fontSizes, spacing } from '../constants/theme';
 import { Category } from '../types';
 
@@ -9,13 +9,29 @@ interface CategoryChipProps {
   isActive?: boolean;
 }
 
+// Explicit require() calls so Metro can statically bundle each asset.
+const CATEGORY_ICONS: Record<string, ReturnType<typeof require>> = {
+  mushroom: require('../assets/images/icons/categories/icon-mushroom.png'),
+  vine: require('../assets/images/icons/categories/icon-vine.png'),
+  crystal: require('../assets/images/icons/categories/icon-crystal.png'),
+  wildflower: require('../assets/images/icons/categories/icon-wildflower.png'),
+  fern: require('../assets/images/icons/categories/icon-fern.png'),
+  sunburst: require('../assets/images/icons/categories/icon-sunburst.png'),
+  'vines-circle': require('../assets/images/icons/categories/icon-vines-circle.png'),
+  seedling: require('../assets/images/icons/categories/icon-seedling.png'),
+};
+
 export default function CategoryChip({ category, onPress, isActive = false }: CategoryChipProps) {
+  const iconSource = CATEGORY_ICONS[category.icon];
+
   return (
     <TouchableOpacity style={styles.container} onPress={onPress} activeOpacity={0.75}>
       <View style={[styles.circle, isActive && styles.circleActive]}>
-        {/* ASSET: icon-{category.icon}.png — Circular botanical category icon */}
-        {/* Replace with: <Image source={require(`../assets/images/icons/categories/icon-${category.icon}.png`)} style={styles.icon} /> */}
-        <Text style={styles.iconPlaceholder}>{category.icon[0].toUpperCase()}</Text>
+        {iconSource ? (
+          <Image source={iconSource} style={styles.icon} resizeMode="contain" />
+        ) : (
+          <Text style={styles.iconFallback}>{category.icon[0].toUpperCase()}</Text>
+        )}
       </View>
       <Text style={[styles.label, isActive && styles.labelActive]} numberOfLines={2}>
         {category.label}
@@ -23,6 +39,8 @@ export default function CategoryChip({ category, onPress, isActive = false }: Ca
     </TouchableOpacity>
   );
 }
+
+const ICON_SIZE = spacing.categoryIconSize * 0.62; // ~45px — comfortable within the 72px circle
 
 const styles = StyleSheet.create({
   container: {
@@ -40,8 +58,13 @@ const styles = StyleSheet.create({
   },
   circleActive: {
     borderColor: colors.terracotta,
+    backgroundColor: colors.roseLight,
   },
-  iconPlaceholder: {
+  icon: {
+    width: ICON_SIZE,
+    height: ICON_SIZE,
+  },
+  iconFallback: {
     fontFamily: fonts.bodyBold,
     fontSize: 20,
     color: colors.inkBrown,

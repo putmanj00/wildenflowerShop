@@ -253,8 +253,11 @@ export default function CartScreen() {
     return (
       <Screen>
         <View style={styles.emptyContainer}>
-          {/* ASSET: empty-cart-botanical.png — Watercolor botanical: trailing vines with small wildflowers */}
-          <View style={styles.emptyIllustration} />
+          <Image
+            source={require('../../assets/images/empty-states/empty-cart.png')}
+            style={styles.emptyIllustration}
+            resizeMode="contain"
+          />
           <Text style={styles.emptyHeading}>Nothing here yet</Text>
           <Text style={styles.emptySubtext}>
             But the best things take time.
@@ -359,8 +362,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: radii.lg,
-    backgroundColor: colors.parchmentDark,
-    ...shadows.sm,
+    overflow: 'hidden',
   },
   emptyHeading: {
     fontFamily: fonts.heading,

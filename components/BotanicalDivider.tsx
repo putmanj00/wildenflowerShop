@@ -1,18 +1,23 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import { colors, spacing } from '../constants/theme';
 
 interface BotanicalDividerProps {
   variant?: 'fern-mushroom' | 'wildflower' | 'vine-trail' | 'mushroom-cluster' | 'fern-spiral';
 }
 
+const DIVIDER_ASSETS = {
+  'fern-mushroom': require('../assets/images/dividers/divider-fern-mushroom.png'),
+  'wildflower': require('../assets/images/dividers/divider-wildflower.png'),
+  'vine-trail': require('../assets/images/dividers/divider-vine-trail.png'),
+  'mushroom-cluster': require('../assets/images/dividers/divider-mushroom-cluster.png'),
+  'fern-spiral': require('../assets/images/dividers/divider-fern-spiral.png'),
+};
+
 export default function BotanicalDivider({ variant = 'fern-mushroom' }: BotanicalDividerProps) {
   return (
     <View style={styles.container}>
-      {/* ASSET: divider-{variant}.png — Botanical horizontal divider illustration */}
-      {/* Replace with: <Image source={require(`../assets/images/dividers/divider-${variant}.png`)} style={styles.image} resizeMode="contain" /> */}
-      <View style={styles.line} />
-      <View style={styles.centerDot} />
+      <Image source={DIVIDER_ASSETS[variant]} style={styles.image} resizeMode="contain" />
     </View>
   );
 }
@@ -25,19 +30,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  line: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    height: 1,
-    backgroundColor: colors.divider,
-  },
-  centerDot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: colors.parchmentDark,
-    borderWidth: 1,
-    borderColor: colors.divider,
-  },
+  image: {
+    width: '80%',
+    height: '100%',
+  }
 });

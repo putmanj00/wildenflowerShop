@@ -153,10 +153,12 @@ export default function FavoritesScreen() {
     return (
       <Screen>
         <View style={styles.emptyContainer}>
-          {/* Botanical illustration placeholder */}
           <View style={styles.illustrationPlaceholder}>
-            {/* ASSET: Replace with <Image source={require('../../assets/images/botanical-heart.png')} /> */}
-            <Text style={styles.illustrationEmoji}>🌿</Text>
+            <Image
+              source={require('../../assets/images/empty-states/empty-favorites.png')}
+              style={{ width: '100%', height: '100%' }}
+              resizeMode="contain"
+            />
           </View>
 
           <Text style={styles.emptyHeading}>Your collection is{'\n'}just beginning.</Text>

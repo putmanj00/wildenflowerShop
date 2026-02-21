@@ -28,9 +28,9 @@ import Animated, {
   withTiming,
   Easing,
 } from 'react-native-reanimated';
-import { faqItems } from '../data/mock-data';
-import { colors, fonts, fontSizes, spacing } from '../constants/theme';
-import { FAQItem } from '../types';
+import { faqItems } from '../../data/mock-data';
+import { colors, fonts, fontSizes, spacing } from '../../constants/theme';
+import { FAQItem } from '../../types';
 
 // Enable LayoutAnimation on Android
 if (Platform.OS === 'android') {
@@ -38,7 +38,12 @@ if (Platform.OS === 'android') {
 }
 
 // ─── Assets ─────────────────────────────────
-const faqContactBorder = require('../assets/images/faq/faq-contact-border.png');
+const faqContactBorder = require('../../assets/images/faq/faq-contact-border.png');
+const fernExpand = require('../../assets/images/icons/ui/fern-expand.png');
+const fernCollapse = require('../../assets/images/icons/ui/fern-collapse.png');
+
+import BotanicalHeader from '../../components/BotanicalHeader';
+import TopNav from '../../components/layout/TopNav';
 
 // ─── Category filter config ─────────────────
 
@@ -66,13 +71,8 @@ function FaqAccordionItem({
   const [isOpen, setIsOpen] = useState(false);
 
   // Reanimated shared values
-  const chevronRotation = useSharedValue(0); // 0° = closed, 1 = open (90°)
   const answerHeight = useSharedValue(0);
   const answerOpacity = useSharedValue(0);
-
-  const chevronStyle = useAnimatedStyle(() => ({
-    transform: [{ rotate: `${chevronRotation.value * 90}deg` }],
-  }));
 
   const answerStyle = useAnimatedStyle(() => ({
     height: answerHeight.value,
@@ -86,16 +86,14 @@ function FaqAccordionItem({
 
     const easing = Easing.out(Easing.cubic);
     if (opening) {
-      chevronRotation.value = withTiming(1, { duration: ANIMATION_DURATION, easing });
       // We don't know the natural height so animate to a large value and clip
       answerHeight.value = withTiming(400, { duration: ANIMATION_DURATION, easing });
       answerOpacity.value = withTiming(1, { duration: ANIMATION_DURATION, easing });
     } else {
-      chevronRotation.value = withTiming(0, { duration: ANIMATION_DURATION, easing });
       answerHeight.value = withTiming(0, { duration: ANIMATION_DURATION, easing });
       answerOpacity.value = withTiming(0, { duration: Math.floor(ANIMATION_DURATION * 0.6), easing });
     }
-  }, [isOpen, chevronRotation, answerHeight, answerOpacity]);
+  }, [isOpen, answerHeight, answerOpacity]);
 
   return (
     <View style={[styles.accordionItem, isEven ? styles.rowEven : styles.rowOdd]}>
@@ -107,10 +105,10 @@ function FaqAccordionItem({
         accessibilityLabel={item.question}
       >
         <Text style={styles.question}>{item.question}</Text>
-        {/* Fern chevron — a › character that rotates to point down when open */}
-        <Animated.View style={[styles.chevron, chevronStyle]}>
-          <Text style={styles.chevronText}>›</Text>
-        </Animated.View>
+        {/* Fern chevron — unfurled when open, curled when closed */}
+        <View style={styles.chevron}>
+          <Image source={isOpen ? fernCollapse : fernExpand} style={{ width: 24, height: 24, tintColor: colors.earthLight }} resizeMode="contain" />
+        </View>
       </Pressable>
 
       <Animated.View style={answerStyle}>
@@ -132,74 +130,79 @@ export default function FaqScreen() {
     : faqItems.filter(item => item.category === activeCategory);
 
   return (
-    <ScrollView
-      style={styles.screen}
-      contentContainerStyle={styles.content}
-      showsVerticalScrollIndicator={false}
-    >
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Questions</Text>
-        <Text style={styles.headerSubtitle}>
-          Everything you might want to know — and a few things you didn't know you needed to.
-        </Text>
-      </View>
-
-      {/* Category Filter Chips */}
+    <View style={styles.screen}>
+      <TopNav />
       <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.filterRow}
-        style={styles.filterScroll}
+        style={{ flex: 1 }}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
       >
-        {CATEGORY_FILTERS.map(({ key, label }) => (
-          <Pressable
-            key={key}
-            style={[styles.filterChip, activeCategory === key && styles.filterChipActive]}
-            onPress={() => setActiveCategory(key)}
-            accessibilityRole="button"
-            accessibilityLabel={`Filter FAQ: ${label}`}
-          >
-            <Text style={[styles.filterChipLabel, activeCategory === key && styles.filterChipLabelActive]}>
-              {label}
-            </Text>
-          </Pressable>
-        ))}
-      </ScrollView>
+        <BotanicalHeader variant="faq" />
 
-      {/* Accordion Items */}
-      <View style={styles.accordionList}>
-        {filtered.map((item, index) => (
-          <FaqAccordionItem
-            key={item.id}
-            item={item}
-            isEven={index % 2 === 0}
-          />
-        ))}
-        {filtered.length === 0 && (
-          <Text style={styles.emptyText}>No questions in this category yet.</Text>
-        )}
-      </View>
-
-      {/* Contact border — "Still curious?" section */}
-      <View style={styles.contactSection}>
-        <Image
-          source={faqContactBorder}
-          style={styles.contactBorderImage}
-          resizeMode="stretch"
-        />
-        <View style={styles.contactContent}>
-          <Text style={styles.contactTitle}>Still curious?</Text>
-          <Text style={styles.contactBody}>
-            We love questions. Reach out at{' '}
-            <Text style={styles.contactEmail}>hello@wildenflower.com</Text>
-            {' '}and a real member of our team will write back.
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Questions</Text>
+          <Text style={styles.headerSubtitle}>
+            Everything you might want to know — and a few things you didn't know you needed to.
           </Text>
         </View>
-      </View>
 
-      <View style={styles.bottomPad} />
-    </ScrollView>
+        {/* Category Filter Chips */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.filterRow}
+          style={styles.filterScroll}
+        >
+          {CATEGORY_FILTERS.map(({ key, label }) => (
+            <Pressable
+              key={key}
+              style={[styles.filterChip, activeCategory === key && styles.filterChipActive]}
+              onPress={() => setActiveCategory(key)}
+              accessibilityRole="button"
+              accessibilityLabel={`Filter FAQ: ${label}`}
+            >
+              <Text style={[styles.filterChipLabel, activeCategory === key && styles.filterChipLabelActive]}>
+                {label}
+              </Text>
+            </Pressable>
+          ))}
+        </ScrollView>
+
+        {/* Accordion Items */}
+        <View style={styles.accordionList}>
+          {filtered.map((item, index) => (
+            <FaqAccordionItem
+              key={item.id}
+              item={item}
+              isEven={index % 2 === 0}
+            />
+          ))}
+          {filtered.length === 0 && (
+            <Text style={styles.emptyText}>No questions in this category yet.</Text>
+          )}
+        </View>
+
+        {/* Contact border — "Still curious?" section */}
+        <View style={styles.contactSection}>
+          <Image
+            source={faqContactBorder}
+            style={styles.contactBorderImage}
+            resizeMode="stretch"
+          />
+          <View style={styles.contactContent}>
+            <Text style={styles.contactTitle}>Still curious?</Text>
+            <Text style={styles.contactBody}>
+              We love questions. Reach out at{' '}
+              <Text style={styles.contactEmail}>hello@wildenflower.com</Text>
+              {' '}and a real member of our team will write back.
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.bottomPad} />
+      </ScrollView >
+    </View >
   );
 }
 

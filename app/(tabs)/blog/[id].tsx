@@ -22,11 +22,12 @@ import {
   View,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { blogPosts } from '../../data/mock-data';
-import { colors, fonts, fontSizes, spacing } from '../../constants/theme';
+import { blogPosts } from '../../../data/mock-data';
+import { colors, fonts, fontSizes, spacing } from '../../../constants/theme';
+import TopNav from '../../../components/layout/TopNav';
 
 // ─── Pull-quote frame asset ──────────────────
-const pullQuoteFrame = require('../../assets/images/blog/blog-pull-quote-frame.png');
+const pullQuoteFrame = require('../../../assets/images/blog/blog-pull-quote-frame.png');
 
 // ─── Category label map ──────────────────────
 const CATEGORY_LABELS: Record<string, string> = {
@@ -58,90 +59,84 @@ export default function BlogDetailScreen() {
   const pullQuoteInsertAfter = 1;
 
   return (
-    <ScrollView
-      style={styles.screen}
-      contentContainerStyle={styles.content}
-      showsVerticalScrollIndicator={false}
-    >
-      {/* Back button */}
-      <Pressable
-        style={styles.backButton}
-        onPress={() => router.back()}
-        accessibilityRole="button"
-        accessibilityLabel="Back to Stories"
+    <View style={styles.screen}>
+      <TopNav />
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.backLink}>← Back to Stories</Text>
-      </Pressable>
 
-      {/* Cover Image */}
-      {post.coverImage ? (
-        <Image
-          source={typeof post.coverImage === 'string' ? { uri: post.coverImage } : post.coverImage}
-          style={styles.coverImage}
-          resizeMode="cover"
-        />
-      ) : (
-        <View style={[styles.coverImage, styles.coverImagePlaceholder]} />
-      )}
+        {/* Cover Image */}
+        {post.coverImage ? (
+          <Image
+            source={typeof post.coverImage === 'string' ? { uri: post.coverImage } : post.coverImage}
+            style={styles.coverImage}
+            resizeMode="cover"
+          />
+        ) : (
+          <View style={[styles.coverImage, styles.coverImagePlaceholder]} />
+        )}
 
-      {/* Article header */}
-      <View style={styles.articleHeader}>
-        <View style={styles.categoryChip}>
-          <Text style={styles.categoryChipLabel}>
-            {CATEGORY_LABELS[post.category] ?? post.category}
+        {/* Article header */}
+        <View style={styles.articleHeader}>
+          <View style={styles.categoryChip}>
+            <Text style={styles.categoryChipLabel}>
+              {CATEGORY_LABELS[post.category] ?? post.category}
+            </Text>
+          </View>
+          <Text style={styles.title}>{post.title}</Text>
+          <View style={styles.metaRow}>
+            <Text style={styles.metaText}>{post.author}</Text>
+            <Text style={styles.metaDot}>·</Text>
+            <Text style={styles.metaText}>{post.readingTime} min read</Text>
+            <Text style={styles.metaDot}>·</Text>
+            <Text style={styles.metaText}>{post.publishedAt}</Text>
+          </View>
+        </View>
+
+        {/* Article body with optional pull-quote injection */}
+        <View style={styles.articleBody}>
+          {paragraphs.map((para, index) => (
+            <React.Fragment key={index}>
+              <Text style={styles.bodyText}>{para}</Text>
+              {/* Inject pull-quote after the specified paragraph */}
+              {index === pullQuoteInsertAfter && post.pullQuote && (
+                <View style={styles.pullQuoteContainer}>
+                  <ImageBackground
+                    source={pullQuoteFrame}
+                    style={styles.pullQuoteFrame}
+                    resizeMode="stretch"
+                  >
+                    <Text style={styles.pullQuoteText}>"{post.pullQuote}"</Text>
+                  </ImageBackground>
+                </View>
+              )}
+            </React.Fragment>
+          ))}
+        </View>
+
+        {/* Bottom divider */}
+        <View style={styles.bottomDivider} />
+
+        {/* Footer */}
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>
+            Written with love by the{'\n'}Wildenflower team.
           </Text>
+          <Pressable
+            style={styles.backButtonFooter}
+            onPress={() => router.back()}
+            accessibilityRole="button"
+            accessibilityLabel="Back to Stories"
+          >
+            <Text style={styles.backLinkFooter}>← Explore more stories</Text>
+          </Pressable>
         </View>
-        <Text style={styles.title}>{post.title}</Text>
-        <View style={styles.metaRow}>
-          <Text style={styles.metaText}>{post.author}</Text>
-          <Text style={styles.metaDot}>·</Text>
-          <Text style={styles.metaText}>{post.readingTime} min read</Text>
-          <Text style={styles.metaDot}>·</Text>
-          <Text style={styles.metaText}>{post.publishedAt}</Text>
-        </View>
-      </View>
 
-      {/* Article body with optional pull-quote injection */}
-      <View style={styles.articleBody}>
-        {paragraphs.map((para, index) => (
-          <React.Fragment key={index}>
-            <Text style={styles.bodyText}>{para}</Text>
-            {/* Inject pull-quote after the specified paragraph */}
-            {index === pullQuoteInsertAfter && post.pullQuote && (
-              <View style={styles.pullQuoteContainer}>
-                <ImageBackground
-                  source={pullQuoteFrame}
-                  style={styles.pullQuoteFrame}
-                  resizeMode="stretch"
-                >
-                  <Text style={styles.pullQuoteText}>"{post.pullQuote}"</Text>
-                </ImageBackground>
-              </View>
-            )}
-          </React.Fragment>
-        ))}
-      </View>
-
-      {/* Bottom divider */}
-      <View style={styles.bottomDivider} />
-
-      {/* Footer */}
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>
-          Written with love by the{'\n'}Wildenflower team.
-        </Text>
-        <Pressable
-          style={styles.backButtonFooter}
-          onPress={() => router.back()}
-          accessibilityRole="button"
-          accessibilityLabel="Back to Stories"
-        >
-          <Text style={styles.backLinkFooter}>← Explore more stories</Text>
-        </Pressable>
-      </View>
-
-      <View style={styles.bottomPad} />
-    </ScrollView>
+        <View style={styles.bottomPad} />
+      </ScrollView>
+    </View>
   );
 }
 

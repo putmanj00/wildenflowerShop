@@ -248,7 +248,7 @@ export const copy = {
   tabBrowse: 'Browse',
   tabFavorites: 'Favorites',
   tabCart: 'Cart',
-  tabProfile: 'Profile',
+  tabMenu: 'Menu',
 
   // Empty states
   emptyCart: 'Nothing here yet — but the best things take time.',

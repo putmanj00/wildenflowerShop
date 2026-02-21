@@ -24,6 +24,7 @@ export default function TabLayout() {
 
   return (
     <Tabs
+      backBehavior="history"
       screenOptions={{
         headerShown: false,
         tabBarHideOnKeyboard: true,
@@ -110,13 +111,60 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="menu"
         options={{
-          title: copy.tabProfile,
+          title: copy.tabMenu,
           tabBarIcon: ({ focused, size }) => (
-            <TabIcon route="profile" focused={focused} size={size} />
+            <TabIcon route="profile" focused={focused} size={size} /> // Keep using profile icon asset for now
           ),
-          tabBarAccessibilityLabel: 'Profile tab',
+          tabBarAccessibilityLabel: 'Menu tab',
+        }}
+      />
+
+      {/* ─── HIDDEN SCREENS ────────────────────────────────────────── */}
+      {/* These live inside the (tabs) folder so the bottom bar remains */}
+      {/* visible, but they are hiding from the tab bar itself by setting href to null. */}
+
+      <Tabs.Screen
+        name="about"
+        options={{
+          href: null,
+          title: 'About',
+        }}
+      />
+      <Tabs.Screen
+        name="faq"
+        options={{
+          href: null,
+          title: 'FAQ',
+        }}
+      />
+      <Tabs.Screen
+        name="blog/index"
+        options={{
+          href: null,
+          title: 'Field Notes',
+        }}
+      />
+      <Tabs.Screen
+        name="blog/[id]"
+        options={{
+          href: null,
+          title: 'Field Notes',
+        }}
+      />
+      <Tabs.Screen
+        name="product/[id]"
+        options={{
+          href: null,
+          title: 'Piece',
+        }}
+      />
+      <Tabs.Screen
+        name="maker/[id]"
+        options={{
+          href: null,
+          title: 'Maker',
         }}
       />
     </Tabs>

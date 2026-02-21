@@ -123,6 +123,8 @@ Recent decisions affecting current work:
 - [Phase 06-browse-product-detail P03]: Product Detail uses Screen + internal ScrollView (not ScrollScreen) to allow sticky bottom bar outside scroll area
 - [Phase 06-browse-product-detail P04]: GET_COLLECTION_BY_HANDLE_QUERY must use ...ProductFragment — minimal inline product shape caused mapProduct to throw at runtime; all product-fetching queries must spread the shared fragment
 - [Phase 06-browse-product-detail]: GET_COLLECTION_BY_HANDLE_QUERY must use ...ProductFragment — minimal inline product shape caused mapProduct to throw at runtime; all product-fetching queries must spread the shared fragment
+- [Phase 09-content-screens-assets]: Navigation redesign implemented. Content screens (about, faq, blog, product, maker) are moved inside `(tabs)` but hidden from bottom bar (`href: null`). They use a new `<TopNav />` component for consistent back navigation.
+- [Phase 09-content-screens-assets]: Profile tab renamed to Menu tab, acting as a standalone directory of links instead of a direct profile page.
 
 ### Pending Todos
 

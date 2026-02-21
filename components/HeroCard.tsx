@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import { colors, fonts, fontSizes, spacing, radii, shadows, copy } from '../constants/theme';
 import PrimaryButton from './PrimaryButton';
 
@@ -7,6 +7,10 @@ interface HeroCardProps {
   tagline?: string;
   onExplorePress?: () => void;
 }
+
+// The right column of the hero card uses the compact botanical header —
+// same illustration family as the top banner, cropped into the card.
+const HERO_IMAGE = require('../assets/images/headers/botanical-header-small.png');
 
 export default function HeroCard({ tagline = copy.tagline, onExplorePress }: HeroCardProps) {
   return (
@@ -24,9 +28,11 @@ export default function HeroCard({ tagline = copy.tagline, onExplorePress }: Her
         )}
       </View>
       <View style={styles.imageCol}>
-        {/* ASSET: featured product hero image */}
-        {/* Replace with: <Image source={...} style={styles.heroImage} resizeMode="cover" /> */}
-        <View style={styles.imagePlaceholder} />
+        <Image
+          source={HERO_IMAGE}
+          style={styles.heroImage}
+          resizeMode="cover"
+        />
       </View>
     </View>
   );
@@ -61,15 +67,11 @@ const styles = StyleSheet.create({
   },
   imageCol: {
     flex: 45,
-    padding: spacing.md,
-    justifyContent: 'center',
+    overflow: 'hidden',
   },
-  imagePlaceholder: {
+  heroImage: {
     flex: 1,
-    backgroundColor: colors.parchmentDark,
-    borderRadius: radii.image,
-    borderWidth: 1,
-    borderColor: colors.gold,
-    minHeight: 100,
+    width: '100%',
+    height: '100%',
   },
 });

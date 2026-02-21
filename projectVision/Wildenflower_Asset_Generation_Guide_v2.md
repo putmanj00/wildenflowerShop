@@ -1,16 +1,48 @@
 # Wildenflower — Asset Generation & Extraction Guide (v2)
 
-Generate every illustrated asset your app needs using Weavy.ai (Flux 2 Pro), then bring them into Figma to size and export for React Native.
+Generate every illustrated asset your app and website need using Weavy.ai (Flux 2 Pro), then bring them into Figma to size and export for both React Native (mobile) and web (Shopify / marketing site).
 
 ---
 
 ## The Workflow
 
 ```
-Weavy.ai → generate isolated element → remove.bg → Figma → size to frame → export @3x PNG
+Weavy.ai → generate isolated element → remove.bg → Figma → size to frame → export PNG
 ```
 
 That's it. One asset at a time. Each prompt produces one usable asset (or a small group you can quickly separate). No complex slicing from busy scenes.
+
+**You generate each illustration once, then export it at two sizes in Figma** — one for mobile (@3x for React Native) and one for web (2x for retina desktop). The same source image works for both; you're just cropping and scaling differently in Figma.
+
+---
+
+## Mobile vs. Web — What's Different?
+
+Most assets are **shared between mobile and web** — the same illustrations, same style, same prompts. The only difference is export dimensions.
+
+| | Mobile (React Native) | Web (Shopify / Browser) |
+|---|---|---|
+| **Base width** | 390pt (iPhone) | 1440px (desktop) |
+| **Export multiplier** | @3x (1170px wide) | @2x (2880px wide) |
+| **Headers** | 1170×600 max | 2880×800 (full-width hero) |
+| **Dividers** | 1170×96 | 2880×96 (stretches wider) |
+| **Icons, corners, UI** | Same for both | Same for both |
+| **Empty states** | Same for both | Same for both |
+| **Screen-specific** | Same for both | Same for both |
+| **Tab bar icons** | Mobile only | Not used on web (web uses text nav) |
+| **Splash bloom** | Mobile only | Not used on web |
+
+**The key takeaway:** Only **headers** and **dividers** need separate web exports. Everything else works at the mobile dimensions for both platforms — web icons, card corners, empty states, frames, etc. are all small enough that the @3x mobile export is plenty of resolution for web.
+
+---
+
+## Platform Tags
+
+Throughout this guide, each asset is tagged:
+
+- 📱 = Mobile only
+- 🖥️ = Web only
+- 📱🖥️ = Both (generate once, export at both sizes)
 
 ---
 
@@ -44,80 +76,84 @@ These are your "cookie cutters." Create empty frames at the exact export dimensi
 Press **F** to create a frame, then set the dimensions in the right sidebar.
 
 **Headers page — create these frames:**
-| Frame Name | Width | Height |
-|---|---|---|
-| `botanical-header-large` | 1170 | 600 |
-| `botanical-header-small` | 1170 | 360 |
-| `botanical-header-blog` | 1170 | 480 |
-| `botanical-header-faq` | 1170 | 400 |
+| Frame Name | Mobile (px) | Web (px) | Platform | Used For |
+|---|---|---|---|---|
+| `botanical-header-large` | 1170 × 600 | 2880 × 800 | 📱🖥️ | Home, Browse, Blog — main hero banner |
+| `botanical-header-small` | 1170 × 360 | 2880 × 480 | 📱🖥️ | Checkout, About, FAQ, Profile — compact header |
+| `botanical-header-blog` | 1170 × 480 | 2880 × 640 | 📱🖥️ | Blog detail — article header |
+| `botanical-header-faq` | 1170 × 400 | 2880 × 540 | 📱🖥️ | FAQ — whimsical centered header |
+
+> Create **two frames per header** in Figma — one at mobile dimensions, one at web. Paste the same generated image into both and scale/position to fit each frame. Name them `botanical-header-large-mobile` and `botanical-header-large-web` to keep exports separate.
 
 **Dividers page:**
-| Frame Name | Width | Height |
-|---|---|---|
-| `divider-fern-mushroom` | 1170 | 96 |
-| `divider-wildflower` | 1170 | 96 |
-| `divider-vine-trail` | 1170 | 96 |
-| `divider-mushroom-cluster` | 1170 | 96 |
-| `divider-fern-spiral` | 1170 | 96 |
+| Frame Name | Mobile (px) | Web (px) | Platform | Used For |
+|---|---|---|---|---|
+| `divider-fern-mushroom` | 1170 × 96 | 2880 × 96 | 📱🖥️ | Primary section divider — most screens |
+| `divider-wildflower` | 1170 × 96 | 2880 × 96 | 📱🖥️ | Alternate section divider |
+| `divider-vine-trail` | 1170 × 96 | 2880 × 96 | 📱🖥️ | Alternate section divider |
+| `divider-mushroom-cluster` | 1170 × 96 | 2880 × 96 | 📱🖥️ | Alternate section divider |
+| `divider-fern-spiral` | 1170 × 96 | 2880 × 96 | 📱🖥️ | Alternate section divider |
+
+> Same approach as headers — create two frames per divider. For web, the divider stretches wider but stays the same height. You may need to generate a wider source image for web dividers (see prompts below).
 
 **Icons page:**
-| Frame Name | Width | Height |
-|---|---|---|
-| `icon-mushroom` | 216 | 216 |
-| `icon-vine` | 216 | 216 |
-| `icon-crystal` | 216 | 216 |
-| `icon-wildflower` | 216 | 216 |
-| `icon-fern` | 216 | 216 |
-| `icon-sunburst` | 216 | 216 |
-| `icon-vines-circle` | 216 | 216 |
-| `icon-seedling` | 216 | 216 |
-| `card-corner-topleft` | 72 | 72 |
-| `card-corner-bottomright` | 72 | 72 |
-| `tab-home` | 72 | 72 |
-| `tab-browse` | 72 | 72 |
-| `tab-favorites` | 72 | 72 |
-| `tab-cart` | 72 | 72 |
-| `tab-profile` | 72 | 72 |
+| Frame Name | Size (px) | Platform | Used For |
+|---|---|---|---|
+| `icon-mushroom` | 216 × 216 | 📱🖥️ | "Ceramics" category icon |
+| `icon-vine` | 216 × 216 | 📱🖥️ | "Jewelry" category icon |
+| `icon-crystal` | 216 × 216 | 📱🖥️ | "Crystals" category icon |
+| `icon-wildflower` | 216 × 216 | 📱🖥️ | "Tie-Dye" category icon |
+| `icon-fern` | 216 × 216 | 📱🖥️ | "Leather" category icon |
+| `icon-sunburst` | 216 × 216 | 📱🖥️ | "Artwork" category icon |
+| `icon-vines-circle` | 216 × 216 | 📱🖥️ | "Connection" brand pillar (About) |
+| `icon-seedling` | 216 × 216 | 📱🖥️ | "Intentional Living" brand pillar (About) |
+| `card-corner-topleft` | 72 × 72 | 📱🖥️ | Top-left corner of product cards |
+| `card-corner-bottomright` | 72 × 72 | 📱🖥️ | Bottom-right corner of product cards |
+| `tab-home` | 72 × 72 | 📱 | Bottom tab bar — Home (inactive) |
+| `tab-browse` | 72 × 72 | 📱 | Bottom tab bar — Browse (inactive) |
+| `tab-favorites` | 72 × 72 | 📱 | Bottom tab bar — Favorites (inactive) |
+| `tab-cart` | 72 × 72 | 📱 | Bottom tab bar — Cart (inactive) |
+| `tab-profile` | 72 × 72 | 📱 | Bottom tab bar — Profile (inactive) |
 
 **UI Elements page:**
-| Frame Name | Width | Height |
-|---|---|---|
-| `fern-expand` | 72 | 72 |
-| `fern-collapse` | 72 | 72 |
-| `vine-arrow-right` | 48 | 48 |
-| `vine-back-arrow` | 48 | 48 |
-| `button-wreath` | 480 | 168 |
-| `parcel-illustration` | 240 | 240 |
-| `progress-vine-segment` | 96 | 12 | Extreme ratio — use Slice tool, see prompt notes |
+| Frame Name | Size (px) | Platform | Used For |
+|---|---|---|---|
+| `fern-expand` | 72 × 72 | 📱🖥️ | FAQ accordion — collapsed indicator |
+| `fern-collapse` | 72 × 72 | 📱🖥️ | FAQ accordion — expanded indicator |
+| `vine-arrow-right` | 48 × 48 | 📱 | Profile menu — "next" indicator |
+| `vine-back-arrow` | 48 × 48 | 📱 | Screen headers — back arrow |
+| `button-wreath` | 480 × 168 | 📱🖥️ | Behind primary CTA button text |
+| `parcel-illustration` | 240 × 240 | 📱🖥️ | Checkout — illustration near order total |
+| `progress-vine-segment` | 96 × 12 | 📱🖥️ | Checkout progress bar — vine between steps |
 
 **Screen-Specific page:**
-| Frame Name | Width | Height | Notes |
+| Frame Name | Size (px) | Platform | Used For |
 |---|---|---|---|
-| `checkout-garland` | 1170 | 120 | Extreme ratio — use Slice tool, see prompt notes |
-| `fern-border-vertical` | 36 | 600 | Extreme ratio — use Slice tool, see prompt notes |
-| `cartouche-frame` | 900 | 720 | |
-| `drop-cap-A` | 180 | 180 | |
-| `divider-fallen-log` | 1170 | 180 | |
-| `blog-pull-quote-frame` | 1050 | 300 | |
-| `faq-contact-border` | 1050 | 420 | |
+| `checkout-garland` | 1170 × 120 | 📱🖥️ | Checkout — delicate garland at top |
+| `fern-border-vertical` | 36 × 600 | 📱🖥️ | Checkout — left border on order summary |
+| `cartouche-frame` | 900 × 720 | 📱🖥️ | About — ornate oval frame around photo |
+| `drop-cap-A` | 180 × 180 | 📱🖥️ | About — decorative first letter |
+| `divider-fallen-log` | 1170 × 180 | 📱🖥️ | About — chapter divider |
+| `blog-pull-quote-frame` | 1050 × 300 | 📱🖥️ | Blog detail — frame behind pull quotes |
+| `faq-contact-border` | 1050 × 420 | 📱🖥️ | FAQ — frame around contact card |
 
 > **Note on extreme aspect ratios:** The `checkout-garland` (1170×120), `fern-border-vertical` (36×600), and `progress-vine-segment` (96×12) frames are unusually proportioned. Weavy's minimum generation size is 256×256, so you can't generate images that directly match these dimensions. Instead, generate at a normal aspect ratio with the content positioned strategically (centered band for the garland and vine segment, left edge for the fern border), then use Figma's **Slice tool** to cut out just the portion you need. See the prompts for those assets for detailed instructions.
 
 **Empty States page:**
-| Frame Name | Width | Height |
-|---|---|---|
-| `empty-state-botanical` | 360 | 360 |
-| `empty-cart` | 360 | 360 |
-| `empty-favorites` | 360 | 360 |
-| `empty-search` | 360 | 360 |
+| Frame Name | Size (px) | Platform | Used For |
+|---|---|---|---|
+| `empty-state-botanical` | 360 × 360 | 📱🖥️ | General empty state — no content loaded |
+| `empty-cart` | 360 × 360 | 📱🖥️ | Cart — empty cart |
+| `empty-favorites` | 360 × 360 | 📱🖥️ | Favorites — no saved items |
+| `empty-search` | 360 × 360 | 📱🖥️ | Search — no results |
 
 **Logo & Splash page:**
-| Frame Name | Width | Height |
-|---|---|---|
-| `logo-full` | 600 | 600 |
-| `logo-mark` | 300 | 300 |
-| `logo-mark-cream` | 300 | 300 |
-| `splash-bloom-elements` | 1170 | 1170 |
+| Frame Name | Size (px) | Platform | Used For |
+|---|---|---|---|
+| `logo-full` | 600 × 600 | 📱🖥️ | About, marketing — full logo with wordmark |
+| `logo-mark` | 300 × 300 | 📱🖥️ | Nav bar, favicon — circular mark only |
+| `logo-mark-cream` | 300 × 300 | 📱🖥️ | Dark backgrounds — cream version of mark |
+| `splash-bloom-elements` | 1170 × 1170 | 📱 | App splash/loading screen only |
 
 ### Step 4: On every frame, set up the export
 1. Select the frame
@@ -173,6 +209,7 @@ These are the minimum assets to see the Home Screen come alive.
 ### 1.1 — Large Botanical Header Banner
 
 **Filename:** `botanical-header-large.png`
+**Used on:** Home screen, Browse screen, Blog index — the main hero banner at the top of the page
 **Weavy prompt:**
 ```
 [STYLE ANCHOR] Wide panoramic scene of mushrooms growing from mossy earth — red-capped amanitas with white spots, golden chanterelles, brown speckled toadstools — surrounded by unfurling fern fronds, trailing vines, wildflowers in bloom, cosmos flowers, and curling vine tendrils. The scene flows horizontally from left to right across the full width. Dense and lush but with rhythm and flow. Botanical illustration quality. Isolated on the parchment background with no border or frame.
@@ -184,6 +221,7 @@ These are the minimum assets to see the Home Screen come alive.
 ### 1.2 — Botanical Divider (Primary)
 
 **Filename:** `divider-fern-mushroom.png`
+**Used on:** All screens — horizontal section break between content areas (e.g., between category row and product grid on Home)
 **Weavy prompt:**
 ```
 [STYLE ANCHOR] A single thin horizontal botanical divider: two small fern fronds flanking a tiny mushroom cluster in the center. Very minimal — just a few delicate elements spaced along a horizontal line. Lots of empty space above and below. The arrangement is centered and symmetrical. Delicate and airy, not dense.
@@ -194,6 +232,7 @@ These are the minimum assets to see the Home Screen come alive.
 ### 1.3 — Category Icon: Mushroom
 
 **Filename:** `icon-mushroom.png`
+**Used on:** Home screen category row and Browse filter chips — represents the "Ceramics" category. Also used on FAQ "Getting Started" section.
 **Weavy prompt:**
 ```
 [STYLE ANCHOR] A single red-capped amanita mushroom with white spots, growing from a small patch of moss with two tiny fern fronds at its base. Isolated specimen centered on the background. Simple, clean composition with generous empty space around it. Contained within an implied circular composition. Medium detail — readable at small sizes.
@@ -204,6 +243,7 @@ These are the minimum assets to see the Home Screen come alive.
 ### 1.4 — Category Icon: Vine
 
 **Filename:** `icon-vine.png`
+**Used on:** Home screen category row and Browse filter chips — represents the "Jewelry" category
 **Weavy prompt:**
 ```
 [STYLE ANCHOR] A single trailing vine with small leaves forming a loose spiral shape. Isolated specimen centered on the background. Simple, clean, readable at small sizes. Circular composition. Sage green and forest green watercolor.
@@ -213,6 +253,7 @@ These are the minimum assets to see the Home Screen come alive.
 ### 1.5 — Category Icon: Crystal
 
 **Filename:** `icon-crystal.png`
+**Used on:** Home screen category row and Browse filter chips — represents the "Crystals" category. Also used on FAQ "Our Makers" section.
 **Weavy prompt:**
 ```
 [STYLE ANCHOR] A small cluster of amethyst crystals — three or four pointed crystal formations — with a tiny fern sprig beside them. Isolated specimen centered on the background. Muted lavender and sage green watercolor. Simple, clean, readable at small sizes.
@@ -222,6 +263,7 @@ These are the minimum assets to see the Home Screen come alive.
 ### 1.6 — Category Icon: Wildflower
 
 **Filename:** `icon-wildflower.png`
+**Used on:** Home screen category row and Browse filter chips — represents the "Tie-Dye" category. Also used on FAQ "Returns & Care" section.
 **Weavy prompt:**
 ```
 [STYLE ANCHOR] A single wildflower bloom with a curved stem and one small leaf. The flower has open petals in dusty rose with a warm gold center. Isolated specimen centered on the background. Simple, clean, readable at small sizes.
@@ -231,6 +273,7 @@ These are the minimum assets to see the Home Screen come alive.
 ### 1.7 — Category Icon: Fern
 
 **Filename:** `icon-fern.png`
+**Used on:** Home screen category row and Browse filter chips — represents the "Leather" category. Also used on FAQ "Shipping" section.
 **Weavy prompt:**
 ```
 [STYLE ANCHOR] A single fern fiddlehead unfurling — the classic spiral shape of a young fern frond. Sage green and forest green watercolor. Isolated specimen centered on the background. Simple, clean, readable at small sizes.
@@ -240,6 +283,7 @@ These are the minimum assets to see the Home Screen come alive.
 ### 1.8 — Card Corner: Top Left
 
 **Filename:** `card-corner-topleft.png`
+**Used on:** Every product card in the app — small decorative fern overlay on the top-left corner of card images
 **Weavy prompt:**
 ```
 [STYLE ANCHOR] A very small, delicate fern frond curling into the top-left corner of the image. The fern enters from the top-left and curls inward. Only the fern and nothing else. Very minimal — just a single small botanical accent for a corner decoration. Sage green watercolor. Mostly empty space.
@@ -250,6 +294,7 @@ These are the minimum assets to see the Home Screen come alive.
 ### 1.9 — Card Corner: Bottom Right
 
 **Filename:** `card-corner-bottomright.png`
+**Used on:** Every product card in the app — small decorative mushroom overlay on the bottom-right corner of card images
 **Weavy prompt:**
 ```
 [STYLE ANCHOR] A very small, delicate tiny mushroom with a small fern sprig positioned in the bottom-right corner of the image. The elements sit at the bottom-right. Only the mushroom, fern, and nothing else. Very minimal — a single small botanical accent for a corner decoration. Terracotta cap, sage green fern. Mostly empty space.
@@ -257,6 +302,8 @@ These are the minimum assets to see the Home Screen come alive.
 - **Same process as 1.8**
 
 ### 1.10 — Tab Bar Icons (generate as a batch)
+
+**Used on:** Bottom tab bar — visible on every screen. These are the 5 navigation icons at the bottom of the app. Each has an inactive (earth brown) and active (colored) state.
 
 For tab icons, you need **very simple silhouettes** — these render at only 24×24 points on screen.
 
@@ -296,6 +343,7 @@ For tab icons, you need **very simple silhouettes** — these render at only 24�
 ### 2.1 — Compact Header Garland
 
 **Filename:** `botanical-header-small.png`
+**Used on:** Checkout, About, FAQ, Profile screens — a lighter, airier header for secondary pages
 **Weavy prompt:**
 ```
 [STYLE ANCHOR] A single elegant horizontal garland: trailing fern fronds, two small mushrooms (one amanita, one chanterelle), wildflower buds, tiny moss patches, and curling vine tendrils flowing gently from left to right. Airy and refined — much less dense than a full botanical scene. Breathing room between each element. A delicate ribbon of nature across the width of the image.
@@ -306,6 +354,7 @@ For tab icons, you need **very simple silhouettes** — these render at only 24�
 ### 2.2 — Blog Header
 
 **Filename:** `botanical-header-blog.png`
+**Used on:** Blog detail screen — immersive header at top of individual blog posts
 **Weavy prompt:**
 ```
 [STYLE ANCHOR] Dense mushroom forest floor scene: multiple mushrooms of different species growing from rich mossy earth, fern fronds unfurling upward, wildflowers blooming between them, trailing vines connecting the scene. Panoramic horizontal composition — like looking at a cross-section of a forest floor. Rich and immersive.
@@ -316,6 +365,7 @@ For tab icons, you need **very simple silhouettes** — these render at only 24�
 ### 2.3 — FAQ Header
 
 **Filename:** `botanical-header-faq.png`
+**Used on:** FAQ screen — whimsical centered mushroom cluster header
 **Weavy prompt:**
 ```
 [STYLE ANCHOR] A charming cluster of three mushrooms growing from a small mossy mound — one red-capped amanita with white spots, one golden chanterelle, one brown toadstool. Fern fiddleheads unfurl on either side. Tiny wildflowers sprout from the moss. Centered composition, whimsical and inviting. Generous empty space around the cluster.
@@ -325,24 +375,30 @@ For tab icons, you need **very simple silhouettes** — these render at only 24�
 
 ### 2.4 — Remaining Dividers
 
+**Used on:** All screens — rotated between sections for visual variety. The app picks different dividers for different section breaks so it doesn't feel repetitive.
+
 Use the same format as Divider 1.2 above, replacing the subject:
 
 **`divider-wildflower.png`:**
+**Used on:** Alternate section divider — rotated with other dividers for variety across screens.
 ```
 [STYLE ANCHOR] A single thin horizontal botanical divider: scattered wildflower sprigs and small buds arranged loosely along a horizontal line. Very minimal and airy. Lots of empty space above and below. Centered.
 ```
 
 **`divider-vine-trail.png`:**
+**Used on:** Alternate section divider — rotated with other dividers for variety across screens.
 ```
 [STYLE ANCHOR] A single thin horizontal botanical divider: one trailing vine with small leaves and tiny flower buds flowing gently from left to right across the width. Very minimal. A single delicate line of nature.
 ```
 
 **`divider-mushroom-cluster.png`:**
+**Used on:** Alternate section divider — rotated with other dividers for variety across screens.
 ```
 [STYLE ANCHOR] A single thin horizontal botanical divider: three small mushrooms of different species growing from a thin mossy base, centered in the image. Very minimal. Lots of empty space above and below.
 ```
 
 **`divider-fern-spiral.png`:**
+**Used on:** Alternate section divider — rotated with other dividers for variety across screens.
 ```
 [STYLE ANCHOR] A single thin horizontal botanical divider: two fern fiddleheads unfurling toward each other from opposite sides, nearly meeting in the center. Symmetrical. Very minimal and delicate.
 ```
@@ -354,6 +410,8 @@ Use the same format as Divider 1.2 above, replacing the subject:
 ## Priority 3 — UI Elements
 
 ### 3.1 — Fern Accordion Indicators
+
+**Used on:** FAQ screen — replaces standard chevron arrows on expandable/collapsible FAQ items. Closed = curled fiddlehead, Open = unfurled frond.
 
 **`fern-expand.png` (closed/collapsed state):**
 ```
@@ -368,6 +426,8 @@ Use the same format as Divider 1.2 above, replacing the subject:
 
 ### 3.2 — Vine Navigation Arrows
 
+**Used on:** Right arrow appears on Profile menu items as a "next" indicator. Left arrow appears in screen headers as a back button. Replaces standard chevron/arrow icons.
+
 **`vine-arrow-right.png`:**
 ```
 [STYLE ANCHOR] A single small vine tendril curling to the right, forming a natural arrow or chevron shape pointing right. Very simple — just one curving vine. Earth brown ink. Minimal. Isolated.
@@ -381,6 +441,8 @@ Use the same format as Divider 1.2 above, replacing the subject:
 
 ### 3.3 — Wrapped Parcel (Checkout)
 
+**Used on:** Checkout screen — decorative illustration displayed near the order total, reinforcing the handmade gift-giving feeling.
+
 **`parcel-illustration.png`:**
 ```
 [STYLE ANCHOR] A hand-drawn wrapped parcel or package tied with twine, with a single wildflower tucked into the string on top. Warm, charming, gift-like. Isolated on the background. The parcel has kraft brown paper texture rendered in ink crosshatching. The flower adds a pop of dusty rose color.
@@ -389,6 +451,8 @@ Use the same format as Divider 1.2 above, replacing the subject:
 
 ### 3.4 — Button Wreath
 
+**Used on:** Behind primary CTA buttons (e.g., "Add to Cabinet," "Complete Order") — a nearly invisible botanical frame that sits behind the button text, adding a whisper of handmade detail.
+
 **`button-wreath.png`:**
 ```
 [STYLE ANCHOR] A very subtle, delicate horizontal wreath or garland of tiny botanical elements — miniature vine tendrils, three tiny buds, two small leaves. Extremely minimal and light. The elements form a loose oval or elongated wreath shape, wider than it is tall. The center is empty (text goes here). Almost invisible — just a whisper of botanical detail. Ink only, very faint, no heavy watercolor.
@@ -396,6 +460,8 @@ Use the same format as Divider 1.2 above, replacing the subject:
 - **Weavy Image Size:** `Landscape 16 9` (widest option, closest to the elongated wreath shape), remove.bg → 480×168 frame
 
 ### 3.5 — Progress Vine Segment (Checkout)
+
+**Used on:** Checkout screen progress bar — replaces the standard straight line between step circles (Cart → Shipping → Payment → Confirm) with an organic hand-drawn vine.
 
 **`progress-vine-segment.png`:**
 ```
@@ -410,22 +476,28 @@ Use the same format as Divider 1.2 above, replacing the subject:
 
 ## Priority 4 — Empty States
 
+These illustrations appear centered on screen with a gentle message below them when there's nothing to show yet. They set the emotional tone — hopeful, not sad.
+
 **`empty-state-botanical.png`:**
+**Used on:** General fallback empty state — any screen/list that has no content loaded yet
 ```
 [STYLE ANCHOR] A small mushroom and wildflower growing together from bare earth with a tiny unfurling fern beside them. Hopeful, beginning-of-something feeling. Slightly muted, softer palette than usual — as if the watercolors were diluted. Isolated, centered, generous empty space around it. Quiet and tender.
 ```
 
 **`empty-cart.png`:**
+**Used on:** Cart screen — shown when the cart has no items, with message like "Your basket is waiting"
 ```
 [STYLE ANCHOR] An empty woven basket sitting in a small patch of grass with a single fern frond leaning against it. Waiting-to-be-filled feeling. Warm, inviting, not sad. The basket is rendered in ink crosshatching with warm brown and gold tones. Isolated, centered, generous empty space.
 ```
 
 **`empty-favorites.png`:**
+**Used on:** Favorites screen — shown when no items have been saved yet, with message like "Your cabinet of curiosities awaits"
 ```
 [STYLE ANCHOR] A small open leather-bound journal lying flat with a single pressed wildflower on the first page. Just beginning to collect. The journal has warm brown leather tones, the flower is dusty rose. Isolated, centered, generous empty space.
 ```
 
 **`empty-search.png`:**
+**Used on:** Browse/Search screen — shown when a search query returns no results, with message like "The path winds on — try a different trail"
 ```
 [STYLE ANCHOR] A winding dirt path through a tiny mushroom garden — two or three small mushrooms on either side of the path, a fern, the path curving away and disappearing. The thing you're looking for might be just around the bend. Whimsical, gentle. Isolated, centered, generous empty space.
 ```
@@ -438,6 +510,7 @@ Use the same format as Divider 1.2 above, replacing the subject:
 ### Checkout Screen
 
 **`checkout-garland.png`:**
+**Used on:** Checkout screen — delicate botanical garland running across the top of the page, below the nav bar. Lighter and simpler than the full headers.
 ```
 [STYLE ANCHOR] A single elegant horizontal garland centered vertically in the middle of the image, like a thin ribbon of nature crossing the page. Small ink-drawn fern fronds, two small mushrooms, trailing moss, and a few wildflower buds flowing left to right in a single narrow horizontal band across the center. Everything sits on one thin horizontal line. The top half and bottom half of the image are completely empty parchment. Muted terracotta and sage green only. Delicate and calming. Very airy. All botanical elements stay tightly grouped in a narrow horizontal strip.
 ```
@@ -446,6 +519,7 @@ Use the same format as Divider 1.2 above, replacing the subject:
 - **Why this works:** The prompt forces all the content into a narrow horizontal band in the center of the image, so when you crop tightly around it, you get a clean garland strip.
 
 **`fern-border-vertical.png`:**
+**Used on:** Checkout screen — decorative left border running down the side of the order summary card, like ferns climbing a page margin.
 ```
 [STYLE ANCHOR] A single narrow vertical column of climbing botanical elements growing upward along the left edge of the image only, like plants climbing a wall or page margin. Small fern fronds and tiny toadstools growing from bottom to top in a single narrow vertical line. The right three-quarters of the image is completely empty parchment. All elements are confined to a thin strip along the left edge. Sage green and earth brown. Delicate linework. The climbing elements form one continuous vertical vine-like arrangement.
 ```
@@ -457,6 +531,7 @@ Use the same format as Divider 1.2 above, replacing the subject:
 ### About Screen
 
 **`cartouche-frame.png`:**
+**Used on:** About screen — ornate oval botanical frame around the founder's photo. The photo sits behind the frame; the empty center shows through.
 ```
 [STYLE ANCHOR] An ornate oval frame made of intertwined mushrooms (amanitas, chanterelles, toadstools), ferns, wildflowers, and trailing vines. The oval center is completely empty — nothing inside the frame. The botanical elements form the border of the oval only. Full palette with rich watercolor fills. Decorative and beautiful, like a Victorian book plate frame.
 ```
@@ -464,12 +539,14 @@ Use the same format as Divider 1.2 above, replacing the subject:
 - **Important:** The empty center is where a photo will show through in the app
 
 **`drop-cap-A.png`:**
+**Used on:** About screen — decorative illuminated first letter of the opening paragraph, like a medieval manuscript.
 ```
 [STYLE ANCHOR] A large decorative capital letter "A" in serif font style, filled with and surrounded by tiny mushrooms, fern fronds, and small wildflowers growing within and around the letter. The letter itself is deep earth brown (#3B2F2F). The botanicals grow from and intertwine with the letter's strokes. Illuminated manuscript style meets vintage naturalist.
 ```
 - **Weavy Image Size:** `Square` → Figma frame 180×180
 
 **`divider-fallen-log.png`:**
+**Used on:** About screen — rich chapter divider between the story sections (wider and more detailed than the standard dividers).
 ```
 [STYLE ANCHOR] Wide panoramic illustration of mushrooms growing along a fallen log lying horizontally. Ferns and moss cover the log. Small wildflowers grow beside it. The log stretches across the full width of the image. Horizontal composition — wider than it is tall. A natural chapter divider.
 ```
@@ -478,6 +555,7 @@ Use the same format as Divider 1.2 above, replacing the subject:
 ### Blog Screen
 
 **`blog-pull-quote-frame.png`:**
+**Used on:** Blog detail screen — decorative botanical frame behind pull quotes / highlighted text in blog articles. The quote text appears inside the frame.
 ```
 [STYLE ANCHOR] A delicate rectangular frame made of ink-drawn vines and tiny toadstools. The interior is completely empty — nothing inside the frame. The botanical elements form only the border — thin vines along the edges with small mushrooms and leaves at the corners. Very delicate linework, not heavy. The frame is wider than it is tall.
 ```
@@ -486,6 +564,7 @@ Use the same format as Divider 1.2 above, replacing the subject:
 ### FAQ Screen
 
 **`faq-contact-border.png`:**
+**Used on:** FAQ screen — decorative botanical frame around the "Still curious? Get in touch" contact callout card at the bottom of the FAQ page.
 ```
 [STYLE ANCHOR] A rectangular frame made of ferns and wildflowers. The interior is completely empty. Fern fronds line the sides, wildflower blooms cluster at the corners and top. The frame is wider than it is tall. Delicate but visible. Full palette watercolor in the botanical elements.
 ```
@@ -498,6 +577,7 @@ Use the same format as Divider 1.2 above, replacing the subject:
 ### Splash
 
 **`splash-bloom-elements.png`:**
+**Used on:** App splash/loading screen — radiating botanical growth elements that sit behind the centered Wildenflower logo while the app loads. Creates the feeling of nature blooming from the brand.
 ```
 [STYLE ANCHOR] Radiating botanical growth elements spreading outward from a central empty point in all directions, like a time-lapse of nature growing from a single seed. Thin stems reaching outward, fern fiddleheads uncurling, leaf buds opening, tiny root tendrils spreading. The elements are dense near the center and fade, thin, and dissolve toward the edges. Deep earth brown (#3B2F2F) ink near the center, transitioning to terracotta and sage green at the tips. The very center is empty (logo goes here). Radially symmetrical. Centered.
 ```
@@ -507,17 +587,22 @@ Use the same format as Divider 1.2 above, replacing the subject:
 
 ### Brand Pillar Icons
 
+These appear on the About screen alongside the brand's three core values. Also note that `icon-sunburst` doubles as the "Artwork" category icon.
+
 **`icon-sunburst.png`:**
+**Used on:** "Artwork" category icon (Home, Browse). Also "Freedom & Joy" brand pillar (About screen).
 ```
 [STYLE ANCHOR] Sunburst rays radiating outward through wildflower silhouettes. Warm gold watercolor with ink lines. Simple, iconic, readable at small sizes. Circular composition. Isolated, centered.
 ```
 
 **`icon-vines-circle.png`:**
+**Used on:** About screen — "Connection" brand pillar icon.
 ```
 [STYLE ANCHOR] Two vine tendrils growing from opposite sides, curving toward each other and intertwining to form a complete circle. Sage green watercolor. Simple, iconic. Circular composition. Isolated, centered.
 ```
 
 **`icon-seedling.png`:**
+**Used on:** About screen — "Intentional Living" brand pillar icon.
 ```
 [STYLE ANCHOR] A single small seedling with two leaves and a short stem, planted in a tiny mound of soil. Simple, hopeful, minimal. Sage green watercolor leaves, earth brown stem and soil. Isolated, centered.
 ```
@@ -586,9 +671,9 @@ For the active versions of tab icons, don't regenerate — just color-shift in F
 
 ---
 
-## React Native File Naming
+## File Organization
 
-When you export from Figma, name files to match your project structure:
+### Mobile (React Native)
 
 ```
 assets/images/
@@ -660,7 +745,114 @@ assets/images/
     └── faq-contact-border.png
 ```
 
-Since you're exporting at the pixel dimensions already (@3x equivalent), React Native will use them directly. If you want to support @1x and @2x as well (smaller file sizes on older devices), export three versions from Figma by adding multiple export settings at different scales.
+### Web (Shopify / Marketing Site)
+
+The web folder mirrors mobile but with key differences: no tab icons or splash, and headers/dividers are exported at wider dimensions for desktop viewports.
+
+```
+assets/web/
+├── headers/
+│   ├── botanical-header-large.png      ← 2880×800  (wider than mobile)
+│   ├── botanical-header-small.png      ← 2880×480
+│   ├── botanical-header-blog.png       ← 2880×640
+│   └── botanical-header-faq.png        ← 2880×540
+├── dividers/
+│   ├── divider-fern-mushroom.png       ← 2880×96   (wider than mobile)
+│   ├── divider-wildflower.png          ← 2880×96
+│   ├── divider-vine-trail.png          ← 2880×96
+│   ├── divider-mushroom-cluster.png    ← 2880×96
+│   └── divider-fern-spiral.png         ← 2880×96
+├── corners/
+│   ├── card-corner-topleft.png         ← same as mobile
+│   └── card-corner-bottomright.png
+├── icons/
+│   └── categories/                     ← same as mobile (no tabs folder)
+│       ├── icon-mushroom.png
+│       ├── icon-vine.png
+│       ├── icon-crystal.png
+│       ├── icon-wildflower.png
+│       ├── icon-fern.png
+│       ├── icon-sunburst.png
+│       ├── icon-vines-circle.png
+│       └── icon-seedling.png
+├── ui/
+│   ├── fern-expand.png                 ← same as mobile
+│   ├── fern-collapse.png
+│   ├── button-wreath.png
+│   ├── parcel-illustration.png
+│   ├── progress-vine-segment.png
+│   └── progress-vine-segment-inactive.png
+├── empty-states/                       ← same as mobile
+│   ├── empty-state-botanical.png
+│   ├── empty-cart.png
+│   ├── empty-favorites.png
+│   └── empty-search.png
+├── logo/                               ← same as mobile
+│   ├── logo-full.png
+│   ├── logo-mark.png
+│   └── logo-mark-cream.png
+├── about/                              ← same as mobile
+│   ├── cartouche-frame.png
+│   ├── drop-cap-A.png
+│   └── divider-fallen-log.png
+├── blog/
+│   └── blog-pull-quote-frame.png
+├── checkout/
+│   ├── checkout-garland.png
+│   ├── fern-border-vertical.png
+│   └── parcel-illustration.png
+└── faq/
+    └── faq-contact-border.png
+```
+
+> **Shortcut:** For all shared assets (icons, corners, empty states, UI elements, screen-specific, logo), just copy the mobile exports into the web folder. They're already high-resolution enough. You only need to re-export headers and dividers at the wider web dimensions.
+
+Since you're exporting at the pixel dimensions already (@3x equivalent for mobile), React Native will use them directly. For web, the @2x retina dimensions ensure crisp rendering on high-DPI desktop and laptop screens.
+
+---
+
+## Web Exports — Headers & Dividers at Desktop Width
+
+For web, you need wider versions of headers and dividers. You have two options:
+
+### Option A: Scale Up the Mobile Generation (Quick & Easy)
+
+If your mobile header generation looks good and has enough detail:
+1. In Figma, create the web-sized frame (e.g., 2880×800 for `botanical-header-large`)
+2. Paste the same generated image you used for mobile
+3. Scale it up to fill the wider frame — Figma will stretch it proportionally
+4. If it looks soft or pixelated, use Option B instead
+
+This works well for **dividers** (since they're simple and thin) but may look soft for **headers** (since you're scaling a 1170px image up to 2880px).
+
+### Option B: Regenerate at Higher Resolution (Best Quality)
+
+Use the exact same Weavy prompts from the guide, but generate at a higher resolution:
+
+**For web headers:**
+- Use Weavy Image Size: `Landscape 16 9` (same as mobile)
+- If Weavy's output is large enough (1920px+ wide), it will scale cleanly to 2880px in Figma
+- If Weavy's output is too small, try generating with `Square HD` and cropping the top/bottom in Figma to get a wider landscape from a higher-res source
+
+**For web dividers:**
+- The mobile generation at Landscape 16:9 is usually wide enough — just create the wider 2880×96 frame in Figma and center/stretch the botanical elements
+- Dividers are thin and simple, so slight upscaling looks fine
+
+### Web-Specific Figma Frames to Create
+
+Add these to your Figma file alongside the mobile frames:
+
+| Frame Name | Width | Height |
+|---|---|---|
+| `botanical-header-large-web` | 2880 | 800 |
+| `botanical-header-small-web` | 2880 | 480 |
+| `botanical-header-blog-web` | 2880 | 640 |
+| `botanical-header-faq-web` | 2880 | 540 |
+| `divider-fern-mushroom-web` | 2880 | 96 |
+| `divider-wildflower-web` | 2880 | 96 |
+| `divider-vine-trail-web` | 2880 | 96 |
+| `divider-mushroom-cluster-web` | 2880 | 96 |
+| `divider-fern-spiral-web` | 2880 | 96 |
 
 ---
 
@@ -716,16 +908,29 @@ Since you're exporting at the pixel dimensions already (@3x equivalent), React N
 - [ ] `faq-contact-border.png`
 
 ### Priority 6 — Splash & Brand Pillars
-- [ ] `splash-bloom-elements.png`
-- [ ] `icon-sunburst.png`
-- [ ] `icon-vines-circle.png`
-- [ ] `icon-seedling.png`
+- [ ] `splash-bloom-elements.png` 📱
+- [ ] `icon-sunburst.png` 📱🖥️
+- [ ] `icon-vines-circle.png` 📱🖥️
+- [ ] `icon-seedling.png` 📱🖥️
+
+### Priority 8 — Web Exports (do after mobile assets are complete)
+- [ ] `botanical-header-large-web.png` 🖥️
+- [ ] `botanical-header-small-web.png` 🖥️
+- [ ] `botanical-header-blog-web.png` 🖥️
+- [ ] `botanical-header-faq-web.png` 🖥️
+- [ ] `divider-fern-mushroom-web.png` 🖥️
+- [ ] `divider-wildflower-web.png` 🖥️
+- [ ] `divider-vine-trail-web.png` 🖥️
+- [ ] `divider-mushroom-cluster-web.png` 🖥️
+- [ ] `divider-fern-spiral-web.png` 🖥️
+- [ ] Copy all shared assets (icons, corners, UI, empty states, screen-specific, logo) from mobile exports into `assets/web/`
 
 ### Priority 7 — Logo (you may already have these from earlier)
 
 If you already generated your Wildenflower logo in earlier sessions, you can skip these and just export what you have at the correct sizes through Figma. If you need to generate fresh:
 
 **`logo-full.png`:**
+**Used on:** About screen hero, marketing materials — full logo with circular mark and "Wildenflower" wordmark below.
 ```
 [STYLE ANCHOR] A circular emblem containing a mushroom, a wildflower, and a fern frond arranged harmoniously within the circle. Below the circular emblem, the word "Wildenflower" in an elegant decorative serif font. The emblem and text are rendered in deep earth brown (#3B2F2F) ink with subtle watercolor accents in terracotta and sage green. Centered composition on the parchment background. Logo design quality — clean, balanced, and iconic.
 ```
@@ -733,6 +938,7 @@ If you already generated your Wildenflower logo in earlier sessions, you can ski
 - **Post-process:** remove.bg → Figma frame `logo-full` (600×600) → export
 
 **`logo-mark.png`:**
+**Used on:** Nav bar, tab bar center, app icon, favicon — compact circular mark without the wordmark. Shows up anywhere space is tight.
 ```
 [STYLE ANCHOR] A circular emblem containing a mushroom, a wildflower, and a fern frond arranged harmoniously within the circle. No text, no words — just the circular mark by itself. Rendered in deep earth brown (#3B2F2F) ink with subtle watercolor accents in terracotta and sage green. Centered on the parchment background. Clean, balanced, iconic.
 ```
@@ -740,6 +946,7 @@ If you already generated your Wildenflower logo in earlier sessions, you can ski
 - **Post-process:** remove.bg → Figma frame `logo-mark` (300×300) → export
 
 **`logo-mark-cream.png`:**
+**Used on:** Dark background sections (forest green footer, dark hero overlays) — same mark but in cream/parchment for visibility on dark surfaces.
 - **Don't regenerate.** Duplicate the `logo-mark` frame in Figma.
 - Invert or recolor the image to cream/parchment tones (#F5EDD6) for use on dark backgrounds (forest green sections).
 - In Figma: select the image → add a fill layer on top set to parchment cream (#F5EDD6) with blend mode **Color** → export as `logo-mark-cream`.
@@ -756,10 +963,14 @@ If you already generated your Wildenflower logo in earlier sessions, you can ski
 
 **2. Test icons at real phone size.** In Figma, create a 390×844 frame (iPhone 14) and place your icons at their actual display size (24pt for tab icons, 72pt for category icons). If they're illegible, simplify.
 
-**3. Headers don't need background removal.** The parchment background in the generation matches the app background (#F5EDD6). Just drop them straight into the sized frame.
+**3. Test headers at desktop width too.** Create a 1440×900 frame in Figma and place your web headers at full width. Make sure the botanical elements don't look sparse or stretched at that scale.
 
-**4. For frames with empty centers** (cartouche, pull quote frame, FAQ border), make sure remove.bg strips the background from the center too. If it doesn't, use Figma's pen tool to manually cut out the center area.
+**4. Headers don't need background removal.** The parchment background in the generation matches the app background (#F5EDD6). Just drop them straight into the sized frame. This applies to both mobile and web.
 
-**5. Color consistency.** If a generated asset's colors feel slightly off, select the image in Figma → adjust with the image settings (Exposure, Saturation, Temperature, Tint) in the right sidebar. Small adjustments go a long way.
+**5. For frames with empty centers** (cartouche, pull quote frame, FAQ border), make sure remove.bg strips the background from the center too. If it doesn't, use Figma's pen tool to manually cut out the center area.
 
-**6. You can also extract from your existing mockups.** If there's a botanical element in your Weavy mockups that you love, import the mockup into Figma, use the Slice tool (press S) to draw a rectangle around that specific element, and export it. This works great for headers especially.
+**6. Color consistency.** If a generated asset's colors feel slightly off, select the image in Figma → adjust with the image settings (Exposure, Saturation, Temperature, Tint) in the right sidebar. Small adjustments go a long way.
+
+**7. You can also extract from your existing mockups.** If there's a botanical element in your Weavy mockups that you love, import the mockup into Figma, use the Slice tool (press S) to draw a rectangle around that specific element, and export it. This works great for headers especially.
+
+**8. Do mobile first, web second.** Complete all mobile assets first — that's your app launch priority. Web exports for headers and dividers can come later since most assets are shared. When you're ready for web, you'll already have 90% of the assets done.

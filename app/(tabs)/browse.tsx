@@ -22,6 +22,7 @@ import {
   ScrollView,
   ActivityIndicator,
   StyleSheet,
+  Image,
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 
@@ -201,6 +202,11 @@ export default function BrowseScreen() {
 
         {showEmpty && (
           <View style={styles.stateContainer}>
+            <Image
+              source={require('../../assets/images/empty-states/empty-search.png')}
+              style={styles.emptyIllustration}
+              resizeMode="contain"
+            />
             <Text style={styles.stateText}>Nothing has wandered here yet.</Text>
           </View>
         )}
@@ -283,6 +289,10 @@ const styles = StyleSheet.create({
     color: colors.sage,
     textAlign: 'center',
     lineHeight: fontSizes.bodyLarge * 1.6,
+  },
+  emptyIllustration: {
+    width: 200,
+    height: 200,
   },
 
   // Discover more button
