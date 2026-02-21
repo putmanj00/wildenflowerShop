@@ -5,14 +5,15 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
-**Current focus:** Phase 7 — Cart + Checkout (COMPLETE) — Beginning Phase 8 planning
+**Current focus:** Phase 8 — Favorites + Maker Profile (4 plans created — ready to execute)
 
 ## Current Position
 
-Phase: 7 of 10 (Cart + Checkout) — COMPLETE
-Plan: 2 of 2 in current phase — COMPLETE
-Status: Phase 7 Complete — Cart screen human-verified; COMM-04 satisfied; end-to-end browse-to-checkout flow confirmed
-Last activity: 2026-02-20 — 07-02: Phase 7 closed — Cart screen human-verified on Expo Web
+Phase: 8 of 10 (Favorites + Maker Profile) — PLANNED, not yet started
+Plan: 0 of 4 in current phase
+Status: Phase 8 plans created — 08-01 through 08-04 — ready for /execute 8
+Last activity: 2026-02-20 — Phase 8 planned: 4 plans created (discovery level 0, pure UI + context upgrade)
+
 
 
 

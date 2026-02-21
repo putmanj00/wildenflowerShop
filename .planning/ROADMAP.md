@@ -156,7 +156,13 @@ Plans:
   4. Maker Profile screen shows maker name, bio, location, and their products — data sourced from mock-data.ts keyed by Shopify vendor name
   5. Tapping a maker badge on a product card or product detail navigates to the correct Maker Profile screen
   6. Both screens render correctly on Expo Web
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 08-01-PLAN.md — Foundation: upgrade FavoritesContext (AsyncStorage snapshots) + add Ashley Sifford to mock-data
+- [ ] 08-02-PLAN.md — Wire heart toggles + MakerBadge navigation + build Maker Profile screen
+- [ ] 08-03-PLAN.md — Build Favorites screen (flat grid, FavoriteCard sub-component, empty state)
+- [ ] 08-04-PLAN.md — Human verification: Favorites persistence, grid, and Maker Profile brand fidelity checkpoint
 
 ### Phase 9: Content Screens + Assets
 **Goal**: The full brand experience is complete — Blog, About, and FAQ screens are implemented; all botanical illustrated assets and tab icons are wired in; web deep links and tab navigation work
@@ -198,6 +204,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 5. Home Screen | 3/3 | Complete | 2026-02-20 |
 | 6. Browse + Product Detail | 4/4 | Complete   | 2026-02-20 |
 | 7. Cart + Checkout | 2/2 | Complete | 2026-02-20 |
-| 8. Favorites + Maker Profile | 0/TBD | Not started | - |
+| 8. Favorites + Maker Profile | 0/4 | Not started | - |
 | 9. Content Screens + Assets | 0/TBD | Not started | - |
 | 10. Customer Authentication | 0/TBD | Not started | - |
