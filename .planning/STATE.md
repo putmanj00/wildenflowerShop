@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
-**Current focus:** Phase 8 — Favorites + Maker Profile (4 plans created — ready to execute)
+**Current focus:** Phase 8 — Favorites + Maker Profile (3/4 plans complete — awaiting 08-04 checkpoint)
 
 ## Current Position
 
-Phase: 8 of 10 (Favorites + Maker Profile) — PLANNED, not yet started
-Plan: 0 of 4 in current phase
-Status: Phase 8 plans created — 08-01 through 08-04 — ready for /execute 8
-Last activity: 2026-02-20 — Phase 8 planned: 4 plans created (discovery level 0, pure UI + context upgrade)
+Phase: 8 of 10 (Favorites + Maker Profile) — IN PROGRESS
+Plan: 3 of 4 in current phase
+Status: 08-01, 08-02, 08-03 complete — awaiting human verification checkpoint (08-04)
+Last activity: 2026-02-20 — 08-03: Favorites screen built; all screens TypeScript-clean
 
 
 

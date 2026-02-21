@@ -1,52 +1,110 @@
 /**
  * Wildenflower — Favorites Context
  * ==================================
- * Memory-only favorites state. Product IDs are stored in a string array.
+ * AsyncStorage-persisted favorites using FavoriteSnapshot objects.
+ * Each snapshot captures all display data needed to render a favorited product
+ * without a network call (title, image, price, vendor, handle).
  *
- * Persistence (AsyncStorage) is intentionally deferred to Phase 8.
+ * Persistence key: 'wildenflower_favorites'
+ * Pattern mirrors CartContext snapshot strategy.
+ *
  * FavoritesContext is separate from CartContext — they are independent concerns.
  */
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+export interface FavoriteSnapshot {
+  /** Shopify product GID, e.g. "gid://shopify/Product/123" */
+  id: string;
+  /** Product handle for navigation, e.g. "silk-scarf" */
+  handle: string;
+  /** Product title */
+  title: string;
+  /** Featured image URL, or null if no images */
+  imageUrl: string | null;
+  /** Formatted price amount, e.g. "52.00" */
+  price: string;
+  /** Currency code, e.g. "USD" */
+  currencyCode: string;
+  /** Shopify vendor string, e.g. "Ashley Sifford" */
+  vendor: string;
+}
 
 interface FavoritesContextType {
-  /** Product IDs currently favorited (memory-only, resets on app restart until Phase 8) */
-  favorites: string[];
-  /** Toggle a product ID in or out of favorites */
-  toggleFavorite: (productId: string) => void;
+  /** Saved products as snapshots — persisted to AsyncStorage */
+  favorites: FavoriteSnapshot[];
+  /** Total number of favorited items */
+  favoritesCount: number;
+  /** Toggle a product's saved state — adds snapshot if not present, removes if present */
+  toggleFavorite: (snapshot: FavoriteSnapshot) => void;
   /** Returns true if the given product ID is currently favorited */
   isFavorite: (productId: string) => boolean;
 }
 
-// ─── Context ─────────────────────────────────────────────────────────────────
+// ─── Storage ──────────────────────────────────────────────────────────────────
+
+const STORAGE_KEY = 'wildenflower_favorites';
+
+async function loadFromStorage(): Promise<FavoriteSnapshot[]> {
+  try {
+    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+async function saveToStorage(snapshots: FavoriteSnapshot[]): Promise<void> {
+  try {
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(snapshots));
+  } catch {
+    // Storage errors are non-fatal; favorites still work in-session
+  }
+}
+
+// ─── Context ──────────────────────────────────────────────────────────────────
 
 const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
 
-// ─── Provider ────────────────────────────────────────────────────────────────
+// ─── Provider ─────────────────────────────────────────────────────────────────
 
 export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [favorites, setFavorites] = useState<string[]>([]);
+  const [favorites, setFavorites] = useState<FavoriteSnapshot[]>([]);
 
-  const toggleFavorite = (productId: string) => {
-    setFavorites((prev) =>
-      prev.includes(productId)
-        ? prev.filter((id) => id !== productId)
-        : [...prev, productId]
-    );
+  // Load persisted favorites on mount
+  useEffect(() => {
+    loadFromStorage().then(setFavorites);
+  }, []);
+
+  const toggleFavorite = (snapshot: FavoriteSnapshot) => {
+    setFavorites((prev) => {
+      const alreadySaved = prev.some((f) => f.id === snapshot.id);
+      const next = alreadySaved
+        ? prev.filter((f) => f.id !== snapshot.id)
+        : [snapshot, ...prev]; // prepend so newest appears first
+      saveToStorage(next);
+      return next;
+    });
   };
 
-  const isFavorite = (productId: string): boolean => favorites.includes(productId);
+  const isFavorite = (productId: string): boolean =>
+    favorites.some((f) => f.id === productId);
+
+  const favoritesCount = favorites.length;
 
   return (
-    <FavoritesContext.Provider value={{ favorites, toggleFavorite, isFavorite }}>
+    <FavoritesContext.Provider value={{ favorites, favoritesCount, toggleFavorite, isFavorite }}>
       {children}
     </FavoritesContext.Provider>
   );
 };
 
-// ─── Hook ────────────────────────────────────────────────────────────────────
+// ─── Hook ─────────────────────────────────────────────────────────────────────
 
 export const useFavorites = (): FavoritesContextType => {
   const context = useContext(FavoritesContext);

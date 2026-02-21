@@ -159,9 +159,9 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 08-01-PLAN.md — Foundation: upgrade FavoritesContext (AsyncStorage snapshots) + add Ashley Sifford to mock-data
-- [ ] 08-02-PLAN.md — Wire heart toggles + MakerBadge navigation + build Maker Profile screen
-- [ ] 08-03-PLAN.md — Build Favorites screen (flat grid, FavoriteCard sub-component, empty state)
+- [x] 08-01-PLAN.md — Foundation: upgrade FavoritesContext (AsyncStorage snapshots) + add Ashley Sifford to mock-data
+- [x] 08-02-PLAN.md — Wire heart toggles + MakerBadge navigation + build Maker Profile screen
+- [x] 08-03-PLAN.md — Build Favorites screen (flat grid, FavoriteCard sub-component, empty state)
 - [ ] 08-04-PLAN.md — Human verification: Favorites persistence, grid, and Maker Profile brand fidelity checkpoint
 
 ### Phase 9: Content Screens + Assets
@@ -204,6 +204,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 5. Home Screen | 3/3 | Complete | 2026-02-20 |
 | 6. Browse + Product Detail | 4/4 | Complete   | 2026-02-20 |
 | 7. Cart + Checkout | 2/2 | Complete | 2026-02-20 |
-| 8. Favorites + Maker Profile | 0/4 | Not started | - |
+| 8. Favorites + Maker Profile | 3/4 | In progress | - |
 | 9. Content Screens + Assets | 0/TBD | Not started | - |
 | 10. Customer Authentication | 0/TBD | Not started | - |

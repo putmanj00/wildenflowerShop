@@ -31,6 +31,8 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { colors, fonts, fontSizes, radii, spacing } from '../../constants/theme';
 import { useProduct } from '../../hooks/useProduct';
 import { useCart } from '../../context/CartContext';
+import { useFavorites } from '../../context/FavoritesContext';
+import type { FavoriteSnapshot } from '../../context/FavoritesContext';
 import type { ShopifyProductVariant } from '../../types/shopify';
 import Screen from '../../components/layout/Screen';
 import BotanicalDivider from '../../components/BotanicalDivider';
@@ -104,6 +106,7 @@ export default function ProductDetailScreen() {
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const [buttonState, setButtonState] = useState<'idle' | 'adding' | 'added'>('idle');
   const { addToCart } = useCart();
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   // ─── Loading state ────────────────────────────────────────────────────────
   if (loading) {
@@ -153,8 +156,8 @@ export default function ProductDetailScreen() {
   const selectedVariant = isSingleVariantProduct
     ? variants[0]
     : allOptionsSelected
-    ? findVariant(variants, selectedOptions)
-    : null;
+      ? findVariant(variants, selectedOptions)
+      : null;
 
   // ─── Gallery navigation (web) ─────────────────────────────────────────────
   function handlePrev() {
@@ -195,6 +198,21 @@ export default function ProductDetailScreen() {
 
   // ─── Price display ────────────────────────────────────────────────────────
   const displayPrice = `$${parseFloat(product.priceRange.minVariantPrice.amount).toFixed(2)}`;
+
+  // ─── Favorite toggle handler ──────────────────────────────────────────────
+  function handleFavoriteToggle() {
+    if (!product) return;
+    const snapshot: FavoriteSnapshot = {
+      id: product.id,
+      handle: Array.isArray(handle) ? (handle[0] ?? '') : (handle ?? ''),
+      title: product.title,
+      imageUrl: product.images[0]?.url ?? null,
+      price: product.priceRange.minVariantPrice.amount,
+      currencyCode: product.priceRange.minVariantPrice.currencyCode,
+      vendor: product.vendor,
+    };
+    toggleFavorite(snapshot);
+  }
 
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
@@ -267,9 +285,38 @@ export default function ProductDetailScreen() {
 
         {/* Product info */}
         <View style={styles.info}>
-          <Text style={styles.productTitle}>{product.title}</Text>
+          <View style={styles.titleRow}>
+            <Text style={[styles.productTitle, styles.titleFlex]} numberOfLines={3}>
+              {product.title}
+            </Text>
+            {/* Favorite heart */}
+            <TouchableOpacity
+              style={styles.heartButton}
+              onPress={handleFavoriteToggle}
+              accessibilityRole="button"
+              accessibilityLabel={
+                isFavorite(product.id) ? 'Remove from favorites' : 'Add to favorites'
+              }
+            >
+              <Text style={styles.heartIcon}>
+                {isFavorite(product.id) ? '♥' : '♡'}
+              </Text>
+            </TouchableOpacity>
+          </View>
           {product.vendor ? (
-            <Text style={styles.makerName}>by {product.vendor}</Text>
+            <TouchableOpacity
+              onPress={() =>
+                router.push(
+                  `/maker/${encodeURIComponent(product.vendor)}` as `/${string}`
+                )
+              }
+              accessibilityRole="button"
+              accessibilityLabel={`View ${product.vendor}'s profile`}
+            >
+              <Text style={[styles.makerName, styles.makerNameTappable]}>
+                by {product.vendor} ›
+              </Text>
+            </TouchableOpacity>
           ) : null}
         </View>
 
@@ -479,6 +526,35 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.body,
     color: colors.sage,
   },
+  makerNameTappable: {
+    color: colors.terracotta,
+    textDecorationLine: 'underline' as const,
+  },
+
+  // Title row (title + heart button side by side)
+  titleRow: {
+    flexDirection: 'row' as const,
+    alignItems: 'flex-start' as const,
+    gap: spacing.sm,
+  },
+  titleFlex: {
+    flex: 1,
+  },
+  heartButton: {
+    width: 40,
+    height: 40,
+    alignItems: 'center' as const,
+    justifyContent: 'center' as const,
+    borderRadius: radii.round,
+    backgroundColor: 'rgba(245, 237, 214, 0.0)', // transparent; tappable hit area
+    marginTop: 2,
+  },
+  heartIcon: {
+    fontSize: 26,
+    color: colors.terracotta,
+    lineHeight: 30,
+  },
+
 
   // Variant selector
   optionGroup: {

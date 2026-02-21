@@ -11,7 +11,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { spacing } from '../constants/theme';
-import { useFavorites } from '../context/FavoritesContext';
+import { useFavorites, FavoriteSnapshot } from '../context/FavoritesContext';
 import { Product } from '../types';
 import ProductCard from './ProductCard';
 
@@ -20,9 +20,9 @@ import ProductCard from './ProductCard';
 interface ProductGridProps {
   products: Product[];
   onProductPress: (product: Product) => void;
-  /** Called when the favorite heart is tapped; receives the product id. */
-  onFavoriteToggle?: (productId: string) => void;
-  /** If provided, the grid uses this list instead of the CartContext favorites. */
+  /** Called when the favorite heart is tapped; receives a full FavoriteSnapshot. */
+  onFavoriteToggle?: (snapshot: FavoriteSnapshot) => void;
+  /** If provided, the grid uses this list instead of the FavoritesContext. */
   favorites?: string[];
 }
 
@@ -46,11 +46,22 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       ? favorites.includes(product.id)
       : isFavorite(product.id);
 
+    // Build a FavoriteSnapshot from the Product shape for context persistence.
+    const buildSnapshot = (): FavoriteSnapshot => ({
+      id: product.id,
+      handle: product.id, // id === handle (set by mapAppProductToProduct)
+      title: product.name,
+      imageUrl: product.images[0] ?? null,
+      price: product.price.toFixed(2),
+      currencyCode: 'USD',
+      vendor: product.maker.name,
+    });
+
     const handleFavoriteToggle = () => {
       if (onFavoriteToggle) {
-        onFavoriteToggle(product.id);
+        onFavoriteToggle(buildSnapshot());
       } else {
-        toggleFavorite(product.id);
+        toggleFavorite(buildSnapshot());
       }
     };
 

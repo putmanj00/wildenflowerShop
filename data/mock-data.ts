@@ -10,6 +10,14 @@ import { Product, Maker, BlogPost, FAQItem } from '../types';
 
 export const makers: Maker[] = [
   {
+    id: 'maker-ashley',
+    name: 'Ashley Sifford',
+    bio: 'Hand-crafted with intention in every stitch, stone, and brushstroke. Ashley makes tie-dye, leather goods, jewelry, and original artwork — each piece a small act of devotion to the handmade life.',
+    location: 'Wildenflower Studio',
+    specialties: ['Artwork', 'Jewelry', 'Leatherwork', 'Tie-Dye'],
+    productCount: 0, // live count driven by Shopify
+  },
+  {
     id: 'maker-1',
     name: 'River Clay Studio',
     bio: 'Hand-thrown ceramics from a sun-filled studio in the hills. Every piece carries the warmth of the kiln and the calm of the river.',
@@ -58,6 +66,18 @@ export const makers: Maker[] = [
     productCount: 28,
   },
 ];
+
+/**
+ * Look up a maker profile by their Shopify vendor name (case-insensitive).
+ * Returns undefined for unrecognised vendor strings — callers should handle gracefully.
+ */
+export function getMakerByVendor(vendorName: string): Maker | undefined {
+  return makers.find(
+    (m) => m.name.toLowerCase() === vendorName.toLowerCase()
+  );
+}
+
+
 
 // ─── Products ───────────────────────────────
 
