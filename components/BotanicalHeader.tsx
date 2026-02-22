@@ -1,17 +1,17 @@
 import React from 'react';
-import { Image, View, StyleSheet } from 'react-native';
-import { spacing } from '../constants/theme';
+import { View, StyleSheet, Image } from 'react-native';
+import { colors, spacing } from '../constants/theme';
 
-const HEADER_ASSETS = {
+interface BotanicalHeaderProps {
+  variant?: 'large' | 'small' | 'faq' | 'blog';
+}
+
+const HEADER_ASSETS: Record<string, ReturnType<typeof require>> = {
   large: require('../assets/images/headers/botanical-header-large.png'),
   small: require('../assets/images/headers/botanical-header-small.png'),
   faq: require('../assets/images/headers/botanical-header-faq.png'),
   blog: require('../assets/images/headers/botanical-header-blog.png'),
 };
-
-interface BotanicalHeaderProps {
-  variant?: 'large' | 'small' | 'faq' | 'blog';
-}
 
 export default function BotanicalHeader({ variant = 'large' }: BotanicalHeaderProps) {
   let height = spacing.headerHeight;
@@ -32,6 +32,7 @@ export default function BotanicalHeader({ variant = 'large' }: BotanicalHeaderPr
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    backgroundColor: colors.parchmentDark,
     overflow: 'hidden',
   },
 });

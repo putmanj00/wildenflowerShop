@@ -137,7 +137,7 @@ export default function FaqScreen() {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <BotanicalHeader variant="faq" />
+        <BotanicalHeader variant="small" />
 
         {/* Header */}
         <View style={styles.header}>

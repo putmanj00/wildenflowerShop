@@ -1,86 +1,100 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import Screen from '../../components/layout/Screen';
 import BotanicalDivider from '../../components/BotanicalDivider';
+import BotanicalHeader from '../../components/BotanicalHeader';
 import { colors, fonts, fontSizes, spacing } from '../../constants/theme';
+
+const VINE_ARROW = require('../../assets/images/icons/ui/vine-arrow-right.png');
+
+interface MenuLinkProps {
+  label: string;
+  onPress?: () => void;
+  disabled?: boolean;
+  comingSoon?: boolean;
+}
+
+const MenuLink = ({ label, onPress, disabled, comingSoon }: MenuLinkProps) => (
+  <TouchableOpacity
+    onPress={onPress}
+    style={[styles.linkRow, disabled && styles.linkRowDisabled]}
+    disabled={disabled}
+    activeOpacity={0.7}
+  >
+    <View style={styles.linkTextContainer}>
+      <Text style={[styles.linkText, disabled && styles.disabledText]}>{label}</Text>
+      {comingSoon && <Text style={styles.comingSoonTag}>Coming soon</Text>}
+    </View>
+    <Image source={VINE_ARROW} style={styles.arrowIcon} resizeMode="contain" />
+  </TouchableOpacity>
+);
 
 export default function MenuScreen() {
   const router = useRouter();
 
   return (
     <Screen>
-      <View style={styles.container}>
-        <Text style={styles.heading}>Discover</Text>
-        <BotanicalDivider variant="fern-spiral" />
+      <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+        <BotanicalHeader variant="small" />
 
-        <View style={styles.linkList}>
-          {/* Active Links */}
-          <TouchableOpacity onPress={() => router.push('/about')} style={styles.linkRow}>
-            <Text style={styles.linkText}>Our Story</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push('/faq')} style={styles.linkRow}>
-            <Text style={styles.linkText}>Questions & Curiosities (FAQ)</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push('/blog')} style={styles.linkRow}>
-            <Text style={styles.linkText}>Field Notes (Blog)</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => { }} style={styles.linkRow}>
-            <Text style={styles.linkText}>Contact Us</Text>
-          </TouchableOpacity>
+        <View style={styles.container}>
+          <BotanicalDivider variant="fern-spiral" />
+
+          <View style={styles.linkList}>
+            <MenuLink label="Our Story" onPress={() => router.push('/about')} />
+            <MenuLink label="Questions & Curiosities (FAQ)" onPress={() => router.push('/faq')} />
+            <MenuLink label="Field Notes (Blog)" onPress={() => router.push('/blog')} />
+            <MenuLink label="Contact Us" onPress={() => { }} />
+          </View>
+
+          <BotanicalDivider variant="fern-mushroom" />
+
+          <View style={styles.linkList}>
+            <Text style={styles.sectionTitle}>Your Account</Text>
+            <MenuLink label="Sign In / Register" disabled comingSoon />
+            <MenuLink label="Order History" disabled />
+            <MenuLink label="Saved Items" disabled />
+          </View>
         </View>
-
-        <BotanicalDivider variant="fern-mushroom" />
-
-        <View style={styles.linkList}>
-          <Text style={styles.sectionTitle}>Your Account</Text>
-          {/* Coming Soon Links */}
-          <TouchableOpacity disabled style={styles.linkRow}>
-            <Text style={[styles.linkText, styles.disabledText]}>Sign In / Register</Text>
-            <Text style={styles.comingSoonTag}>Coming soon</Text>
-          </TouchableOpacity>
-          <TouchableOpacity disabled style={styles.linkRow}>
-            <Text style={[styles.linkText, styles.disabledText]}>Order History</Text>
-          </TouchableOpacity>
-          <TouchableOpacity disabled style={styles.linkRow}>
-            <Text style={[styles.linkText, styles.disabledText]}>Saved Items</Text>
-          </TouchableOpacity>
-        </View>
-
-      </View>
+      </ScrollView>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingHorizontal: spacing.screenPadding,
-    paddingTop: spacing.xxl,
-  },
-  heading: {
-    fontFamily: 'PlayfairDisplay_700Bold',
-    fontSize: fontSizes.h1,
-    color: colors.terracotta,
-    textAlign: 'center',
-    marginBottom: spacing.lg,
+    paddingTop: spacing.lg,
+    paddingBottom: spacing.xxl,
   },
   linkList: {
-    marginVertical: spacing.xl,
+    marginVertical: spacing.lg,
     gap: spacing.lg,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.sm,
   },
   sectionTitle: {
     fontFamily: fonts.accent,
     fontSize: fontSizes.h3,
     color: colors.sage,
     marginBottom: spacing.sm,
+    marginTop: spacing.md,
   },
   linkRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: spacing.xs,
+    paddingVertical: spacing.md,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+  },
+  linkRowDisabled: {
+    opacity: 0.7,
+  },
+  linkTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
   },
   linkText: {
     fontFamily: fonts.body,
@@ -89,7 +103,11 @@ const styles = StyleSheet.create({
   },
   disabledText: {
     color: colors.sage,
-    opacity: 0.7,
+  },
+  arrowIcon: {
+    width: 24,
+    height: 24,
+    tintColor: colors.earth,
   },
   comingSoonTag: {
     fontFamily: fonts.body,

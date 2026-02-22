@@ -140,7 +140,7 @@ export default function BlogScreen() {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <BotanicalHeader variant="blog" />
+        <BotanicalHeader variant="small" />
 
         {/* Header */}
         <View style={styles.header}>

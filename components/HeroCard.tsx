@@ -1,16 +1,14 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { colors, fonts, fontSizes, spacing, radii, shadows, copy } from '../constants/theme';
 import PrimaryButton from './PrimaryButton';
+
+const HERO_IMAGE = require('../assets/images/headers/botanical-header-small.png');
 
 interface HeroCardProps {
   tagline?: string;
   onExplorePress?: () => void;
 }
-
-// The right column of the hero card uses the compact botanical header —
-// same illustration family as the top banner, cropped into the card.
-const HERO_IMAGE = require('../assets/images/headers/botanical-header-small.png');
 
 export default function HeroCard({ tagline = copy.tagline, onExplorePress }: HeroCardProps) {
   return (

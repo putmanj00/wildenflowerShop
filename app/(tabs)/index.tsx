@@ -15,7 +15,7 @@
  */
 
 import React from 'react';
-import { View, Text, RefreshControl, StyleSheet, Platform, Image } from 'react-native';
+import { View, Text, RefreshControl, StyleSheet, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
 
 import { colors, copy, fonts, fontSizes, productCategories, spacing } from '../../constants/theme';
@@ -193,11 +193,6 @@ export default function HomeScreen() {
 
       {!isLoading && !hasError && displayProducts.length === 0 && (
         <View style={styles.emptyContainer}>
-          <Image
-            source={require('../../assets/images/empty-states/empty-state-botanical.png')}
-            style={styles.emptyIllustration}
-            resizeMode="contain"
-          />
           <Text style={styles.emptyText}>
             Nothing here yet — but the best things take time.
           </Text>
@@ -235,11 +230,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.screenPadding,
     paddingVertical: spacing.xxl,
     alignItems: 'center',
-  },
-  emptyIllustration: {
-    width: 200,
-    height: 200,
-    marginBottom: spacing.md,
   },
   emptyText: {
     fontFamily: fonts.accent,

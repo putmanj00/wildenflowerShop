@@ -6,7 +6,7 @@ interface BotanicalDividerProps {
   variant?: 'fern-mushroom' | 'wildflower' | 'vine-trail' | 'mushroom-cluster' | 'fern-spiral';
 }
 
-const DIVIDER_ASSETS = {
+const DIVIDER_ASSETS: Record<string, ReturnType<typeof require>> = {
   'fern-mushroom': require('../assets/images/dividers/divider-fern-mushroom.png'),
   'wildflower': require('../assets/images/dividers/divider-wildflower.png'),
   'vine-trail': require('../assets/images/dividers/divider-vine-trail.png'),
@@ -17,7 +17,11 @@ const DIVIDER_ASSETS = {
 export default function BotanicalDivider({ variant = 'fern-mushroom' }: BotanicalDividerProps) {
   return (
     <View style={styles.container}>
-      <Image source={DIVIDER_ASSETS[variant]} style={styles.image} resizeMode="contain" />
+      <Image
+        source={DIVIDER_ASSETS[variant]}
+        style={styles.image}
+        resizeMode="contain"
+      />
     </View>
   );
 }
@@ -31,7 +35,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: '80%',
+    width: '100%',
     height: '100%',
-  }
+  },
 });
