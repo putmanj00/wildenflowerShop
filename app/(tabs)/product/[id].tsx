@@ -488,12 +488,12 @@ export default function ProductDetailScreen() {
               <Text style={[styles.stepperButtonText, (product.inventoryQuantity ? quantity >= product.inventoryQuantity : false) && styles.stepperButtonTextDisabled]}>+</Text>
             </TouchableOpacity>
           </View>
-          {product.inventoryQuantity && product.inventoryQuantity > 1 && quantity >= product.inventoryQuantity && (
+          {product.inventoryQuantity && product.inventoryQuantity > 1 && quantity >= product.inventoryQuantity ? (
             <Text style={styles.stockWarningText}>Last one in stock!</Text>
-          )}
-          {product.inventoryQuantity === 1 && (
+          ) : null}
+          {product.inventoryQuantity === 1 ? (
             <Text style={styles.stockWarningText}>Only 1 available!</Text>
-          )}
+          ) : null}
         </View>
         <TouchableOpacity
           style={[
