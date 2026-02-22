@@ -63,13 +63,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <Text style={styles.imagePlaceholderLabel}>{product.category}</Text>
         )}
 
-        {/* Corner overlays — botanical decoration */}
-        <View style={styles.cornerTopLeft}>
-          {/* ASSET: card-corner-topleft.png — small botanical vine/fern corner detail */}
-        </View>
-        <View style={styles.cornerBottomRight}>
-          {/* ASSET: card-corner-bottomright.png — small botanical mushroom/flower corner detail */}
-        </View>
+        {/* Decorative Corners */}
+        <Image
+          source={require('../assets/images/corners/card-corner-topleft.png')}
+          style={styles.cornerTopLeft}
+        />
+        <Image
+          source={require('../assets/images/corners/card-corner-bottomright.png')}
+          style={styles.cornerBottomRight}
+        />
 
         {/* Favorite button */}
         <TouchableOpacity
@@ -105,13 +107,37 @@ const styles = StyleSheet.create({
     backgroundColor: colors.parchmentDark,
     borderRadius: radii.card,
     ...shadows.md,
-    overflow: 'hidden',
+    // Disable overflow: 'hidden' to allow the border to "bloom" over the edges
+    zIndex: 1,
+  },
+
+  // Decorative border overlay
+  cornerTopLeft: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: 48,
+    height: 48,
+    resizeMode: 'contain',
+    zIndex: 15,
+  },
+  cornerBottomRight: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    width: 48,
+    height: 48,
+    resizeMode: 'contain',
+    zIndex: 15,
   },
 
   // Image area
   imageArea: {
     height: spacing.productCardImageHeight,
     backgroundColor: colors.parchmentDark,
+    borderTopLeftRadius: radii.card,
+    borderTopRightRadius: radii.card,
+    overflow: 'hidden', // Keep image contained
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -123,39 +149,19 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
   },
 
-  // Botanical corner accents
-  cornerTopLeft: {
-    position: 'absolute',
-    top: 8,
-    left: 8,
-    width: 24,
-    height: 24,
-    backgroundColor: colors.sage,
-    borderRadius: 12,
-    pointerEvents: 'none',
-  },
-  cornerBottomRight: {
-    position: 'absolute',
-    bottom: 8,
-    right: 8,
-    width: 24,
-    height: 24,
-    backgroundColor: colors.terracotta,
-    borderRadius: 12,
-    pointerEvents: 'none',
-  },
-
   // Favorite button
   favoriteButton: {
     position: 'absolute',
-    top: 8,
-    right: 8,
+    top: 10,
+    right: 10,
     width: 32,
     height: 32,
-    backgroundColor: 'rgba(250, 245, 238, 0.9)', // colors.parchmentLight (#FAF5EE) at 0.9 opacity
+    backgroundColor: 'rgba(250, 245, 238, 0.9)',
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 20,
+    ...shadows.sm,
   },
   heartIcon: {
     fontSize: 16,
@@ -168,13 +174,16 @@ const styles = StyleSheet.create({
 
   // Content area
   contentArea: {
-    padding: spacing.cardPadding,
+    padding: spacing.cardPadding, // Standard padding without overlay clearance
+    backgroundColor: colors.parchmentDark,
+    borderBottomLeftRadius: radii.card,
+    borderBottomRightRadius: radii.card,
   },
   productName: {
     fontFamily: fonts.bodyBold,
     fontSize: fontSizes.body,
     color: colors.earth,
-    minHeight: 44, // Enforce 2-line height for horizontal row alignment
+    minHeight: 44,
   },
   price: {
     fontFamily: fonts.bodyBold,

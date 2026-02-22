@@ -29,6 +29,7 @@ const dropCapA = require('../../assets/images/about/drop-cap-A.png');
 const fallenLog = require('../../assets/images/about/divider-fallen-log.png');
 
 import BotanicalHeader from '../../components/BotanicalHeader';
+
 import TopNav from '../../components/layout/TopNav';
 
 // ─── Brand Pillar Card ───────────────────────

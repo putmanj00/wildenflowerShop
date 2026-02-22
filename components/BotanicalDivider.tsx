@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { colors, spacing } from '../constants/theme';
+import { spacing } from '../constants/theme';
 
 interface BotanicalDividerProps {
   variant?: 'fern-mushroom' | 'wildflower' | 'vine-trail' | 'mushroom-cluster' | 'fern-spiral';

@@ -24,6 +24,7 @@ export interface ShopifyProductVariant {
   id: string;
   title: string;
   availableForSale: boolean;
+  quantityAvailable?: number;
   price: ShopifyMoneyV2;
   compareAtPrice: ShopifyMoneyV2 | null;
   selectedOptions: ShopifySelectedOption[];
@@ -42,11 +43,19 @@ export interface ShopifyProduct {
   availableForSale: boolean;
   featuredImage: ShopifyImage | null;
   images: { nodes: ShopifyImage[] };
+  rating?: { value: string } | null;
+  reviewCount?: { value: string } | null;
+  makerName?: { value: string } | null;
   priceRange: {
     minVariantPrice: ShopifyMoneyV2;
     maxVariantPrice: ShopifyMoneyV2;
   };
   variants: { nodes: ShopifyProductVariant[] };
+}
+
+export interface ShopifyShop {
+  shippingPolicy?: { title: string; body: string } | null;
+  refundPolicy?: { title: string; body: string } | null;
 }
 
 export interface ShopifyCollection {
@@ -83,6 +92,7 @@ export interface ShopifyCartLine {
       featuredImage: ShopifyImage | null;
     };
     selectedOptions: ShopifySelectedOption[];
+    quantityAvailable: number;
   };
   cost: {
     totalAmount: ShopifyMoneyV2;
@@ -120,4 +130,74 @@ export interface CartUserError {
   code: string;
   field: string[] | null;
   message: string;
+}
+
+// ─── Customer Authentication ──────────────────────────────────────────────────
+
+export interface ShopifyCustomerAccessToken {
+  accessToken: string;
+  expiresAt: string;
+}
+
+export interface ShopifyCustomerError {
+  code: string;
+  field: string[] | null;
+  message: string;
+}
+
+export interface ShopifyCustomer {
+  id: string;
+  firstName: string | null;
+  lastName: string | null;
+  email: string | null;
+  phone: string | null;
+  orders: {
+    nodes: ShopifyOrder[];
+  };
+}
+
+export interface ShopifyOrder {
+  id: string;
+  orderNumber: number;
+  processedAt: string;
+  financialStatus: string;
+  fulfillmentStatus: string;
+  totalPrice: ShopifyMoneyV2;
+  lineItems: {
+    nodes: ShopifyOrderLineItem[];
+  };
+}
+
+export interface ShopifyOrderLineItem {
+  title: string;
+  quantity: number;
+  variant: {
+    image: ShopifyImage | null;
+  } | null;
+}
+
+export interface ShopifyCustomerCreateInput {
+  firstName?: string;
+  lastName?: string;
+  email: string;
+  password: string;
+  phone?: string;
+}
+
+export interface ShopifyCustomerCreateResponse {
+  customerCreate: {
+    customer: ShopifyCustomer | null;
+    customerUserErrors: ShopifyCustomerError[];
+  };
+}
+
+export interface ShopifyCustomerAccessTokenCreateResponse {
+  customerAccessTokenCreate: {
+    customerAccessToken: ShopifyCustomerAccessToken | null;
+    customerUserErrors: ShopifyCustomerError[];
+  };
+}
+
+export interface ShopifyCustomerResponse {
+  customer: ShopifyCustomer | null;
 }

@@ -10,8 +10,15 @@ interface CategoryChipProps {
 }
 
 const CATEGORY_ICONS: Record<string, ReturnType<typeof require>> = {
+  mushroom: require('../assets/images/icons/categories/icon-mushroom.png'),
+  sunburst: require('../assets/images/icons/categories/icon-sunburst.png'),
+  vines: require('../assets/images/icons/categories/icon-vines-circle.png'),
   'vines-circle': require('../assets/images/icons/categories/icon-vines-circle.png'),
   seedling: require('../assets/images/icons/categories/icon-seedling.png'),
+  fern: require('../assets/images/icons/categories/icon-fern.png'),
+  crystal: require('../assets/images/icons/categories/icon-crystal.png'),
+  wildflower: require('../assets/images/icons/categories/icon-wildflower.png'),
+  vine: require('../assets/images/icons/categories/icon-vine.png'),
 };
 
 export default function CategoryChip({ category, onPress, isActive = false }: CategoryChipProps) {

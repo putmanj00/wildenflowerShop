@@ -15,14 +15,7 @@
  */
 
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 
 import { colors, fonts, fontSizes, radii, spacing } from '../../../constants/theme';
@@ -40,7 +33,8 @@ import TopNav from '../../../components/layout/TopNav';
 // Same pattern as browse.tsx — bridges AppProduct → Product UI shape.
 function mapAppProductToProduct(p: AppProduct): Product {
   return {
-    id: p.handle,
+    id: p.id,
+    handle: p.handle,
     name: p.title,
     price: parseFloat(p.priceRange.minVariantPrice.amount),
     description: p.description,
@@ -135,7 +129,7 @@ export default function MakerProfileScreen() {
             <ProductGrid
               products={makerProducts}
               onProductPress={(product) =>
-                router.push(`/product/${product.id}`)
+                router.push(`/product/${product.handle}`)
               }
             />
           )}

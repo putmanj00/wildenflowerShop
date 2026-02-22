@@ -33,6 +33,7 @@ import {
 import { useFonts } from 'expo-font';
 import { CartProvider } from '../context/CartContext';
 import { FavoritesProvider } from '../context/FavoritesContext';
+import { AuthProvider } from '../context/AuthContext';
 import { colors } from '../constants/theme';
 import FontErrorScreen from '../components/layout/FontErrorScreen';
 
@@ -82,19 +83,21 @@ export default function RootLayout() {
   return (
     // key={retryKey} ensures the CartProvider tree remounts on retry,
     // which re-triggers useFonts inside this same RootLayout component.
-    <CartProvider key={retryKey}>
-      <FavoritesProvider>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: colors.parchment },
-            animation: 'fade',
-          }}
-        >
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="checkout" />
-        </Stack>
-      </FavoritesProvider>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider key={retryKey}>
+        <FavoritesProvider>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              contentStyle: { backgroundColor: colors.parchment },
+              animation: 'fade',
+            }}
+          >
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="checkout" />
+          </Stack>
+        </FavoritesProvider>
+      </CartProvider>
+    </AuthProvider>
   );
 }

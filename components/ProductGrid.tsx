@@ -49,7 +49,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     // Build a FavoriteSnapshot from the Product shape for context persistence.
     const buildSnapshot = (): FavoriteSnapshot => ({
       id: product.id,
-      handle: product.id, // id === handle (set by mapAppProductToProduct)
+      handle: product.handle,
       title: product.name,
       imageUrl: product.images[0] ?? null,
       price: product.price.toFixed(2),

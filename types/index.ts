@@ -6,7 +6,8 @@
 // ─── Products ───────────────────────────────
 
 export interface Product {
-  id: string;
+  id: string; // The Shopify GID
+  handle: string; // The URL-friendly identifier
   name: string;
   price: number;
   description: string;
@@ -18,6 +19,9 @@ export interface Product {
   careInstructions?: string;
   isFavorite?: boolean;
   createdAt: string;
+  rating?: number;
+  reviewCount?: number;
+  inventoryQuantity?: number;
 }
 
 export interface CartItem {

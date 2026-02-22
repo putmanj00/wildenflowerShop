@@ -5,11 +5,12 @@ import { colors, fonts, fontSizes, spacing } from '../constants/theme';
 interface SectionTitleProps {
   title: string;
   action?: { label: string; onPress: () => void };
+  centered?: boolean;
 }
 
-export default function SectionTitle({ title, action }: SectionTitleProps) {
+export default function SectionTitle({ title, action, centered }: SectionTitleProps) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, centered && styles.containerCentered]}>
       <Text style={styles.title}>{title}</Text>
       {action && (
         <TouchableOpacity
@@ -31,6 +32,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: spacing.screenPadding,
     marginBottom: spacing.lg,
+  },
+  containerCentered: {
+    justifyContent: 'center',
+    marginHorizontal: 0,
   },
   title: {
     fontFamily: fonts.heading,

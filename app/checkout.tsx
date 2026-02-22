@@ -5,7 +5,7 @@
  */
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { spacing, fontSizes, fonts, colors, radii, shadows } from '../constants/theme';
 import ScrollScreen from '../components/layout/ScrollScreen';
 import TopNav from '../components/layout/TopNav';
@@ -15,7 +15,7 @@ const ASSET_FERN_BORDER = require('../assets/images/checkout/fern-border-vertica
 const ASSET_PARCEL = require('../assets/images/checkout/parcel-illustration.png');
 
 export default function CheckoutScreen() {
-  const router = useRouter();
+  // const router = useRouter(); // TODO: Use for navigation to cart/home on success
 
   return (
     <ScrollScreen>

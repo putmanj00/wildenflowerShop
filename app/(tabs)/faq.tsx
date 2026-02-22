@@ -13,7 +13,6 @@
 import React, { useCallback, useState } from 'react';
 import {
   Image,
-  LayoutAnimation,
   Platform,
   Pressable,
   ScrollView,
@@ -32,6 +31,9 @@ import { faqItems } from '../../data/mock-data';
 import { colors, fonts, fontSizes, spacing } from '../../constants/theme';
 import { FAQItem } from '../../types';
 
+import BotanicalHeader from '../../components/BotanicalHeader';
+import TopNav from '../../components/layout/TopNav';
+
 // Enable LayoutAnimation on Android
 if (Platform.OS === 'android') {
   UIManager.setLayoutAnimationEnabledExperimental?.(true);
@@ -41,9 +43,6 @@ if (Platform.OS === 'android') {
 const faqContactBorder = require('../../assets/images/faq/faq-contact-border.png');
 const fernExpand = require('../../assets/images/icons/ui/fern-expand.png');
 const fernCollapse = require('../../assets/images/icons/ui/fern-collapse.png');
-
-import BotanicalHeader from '../../components/BotanicalHeader';
-import TopNav from '../../components/layout/TopNav';
 
 // ─── Category filter config ─────────────────
 

@@ -12,6 +12,7 @@ import type { AppProduct } from '../lib/shopify-mappers';
 
 interface UseProductResult {
   product: AppProduct | null;
+  shop: import('../types/shopify').ShopifyShop | null;
   loading: boolean;
   isRefetching: boolean;
   error: string | null;
@@ -32,10 +33,10 @@ export function useProduct(handle: string): UseProductResult {
     [handle]
   );
 
-  const { data, loading, isRefetching, error, refetch } = useShopifyQuery<AppProduct | null>(
+  const { data, loading, isRefetching, error, refetch } = useShopifyQuery<{ product: AppProduct | null; shop: import('../types/shopify').ShopifyShop | null } | null>(
     queryFn,
     [handle]
   );
 
-  return { product: data ?? null, loading, isRefetching, error, refetch };
+  return { product: data?.product ?? null, shop: data?.shop ?? null, loading, isRefetching, error, refetch };
 }

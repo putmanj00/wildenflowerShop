@@ -37,7 +37,9 @@ interface CartLineRowProps {
 function CartLineRow({ line, onRemove, onDecrement, onIncrement, disabled }: CartLineRowProps) {
   const { product, title: variantTitle, price, selectedOptions } = line.merchandise;
   const linePrice = parseFloat(line.cost.totalAmount.amount).toFixed(2);
+  const qtyAvailable = line.merchandise.quantityAvailable ?? Infinity; // from cart lines query update
   const isAtMinQty = line.quantity <= 1;
+  const isAtMaxQty = line.quantity >= qtyAvailable;
 
   // Build human-readable variant label: skip "Default Title" for single-variant products
   const variantLabel =
@@ -109,16 +111,22 @@ function CartLineRow({ line, onRemove, onDecrement, onIncrement, disabled }: Car
 
           <TouchableOpacity
             onPress={() => onIncrement(line.id, line.quantity)}
-            disabled={disabled}
+            disabled={disabled || isAtMaxQty}
             style={rowStyles.stepperButton}
             accessibilityLabel="Increase quantity"
             accessibilityRole="button"
           >
-            <Text style={[rowStyles.stepperText, disabled && rowStyles.stepperTextDisabled]}>
+            <Text style={[rowStyles.stepperText, (disabled || isAtMaxQty) && rowStyles.stepperTextDisabled]}>
               +
             </Text>
           </TouchableOpacity>
         </View>
+        {(qtyAvailable && qtyAvailable > 1 && line.quantity >= qtyAvailable) ? (
+          <Text style={rowStyles.stockWarningText}>Last one in stock!</Text>
+        ) : null}
+        {qtyAvailable === 1 && (
+          <Text style={rowStyles.stockWarningText}>Only 1 available!</Text>
+        )}
       </View>
     </View>
   );
@@ -208,6 +216,13 @@ const rowStyles = StyleSheet.create({
     minWidth: 24,
     textAlign: 'center',
     lineHeight: fontSizes.body * 1.2,
+  },
+  stockWarningText: {
+    fontSize: 12,
+    color: '#D84315',
+    fontFamily: fonts.bodyItalic,
+    marginTop: 4,
+    textAlign: 'center',
   },
 });
 

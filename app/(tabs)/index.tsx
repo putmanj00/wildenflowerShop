@@ -15,7 +15,7 @@
  */
 
 import React from 'react';
-import { View, Text, RefreshControl, StyleSheet, Platform } from 'react-native';
+import { View, Text, RefreshControl, StyleSheet, Platform, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 
 import { colors, copy, fonts, fontSizes, productCategories, spacing } from '../../constants/theme';
@@ -39,7 +39,8 @@ import PrimaryButton from '../../components/PrimaryButton';
 // Screen-local until a future phase consolidates types.
 function mapAppProductToProduct(p: AppProduct): Product {
   return {
-    id: p.handle,  // handle used as route param; useProduct(handle) expects this
+    id: p.id,      // Shopify GID used for favorites
+    handle: p.handle, // URL handle for routing
     name: p.title,
     price: parseFloat(p.priceRange.minVariantPrice.amount),
     description: p.description,
@@ -109,16 +110,14 @@ export default function HomeScreen() {
   const isLoading =
     featuredHook.loading ||
     (!featuredHook.loading && featuredHook.products.length === 0 && allHook.loading);
-  const isRefreshing = featuredHook.isRefetching || allHook.isRefetching;
   const hasError = !isLoading && activeHook.error !== null;
   const displayProducts: Product[] = activeHook.products.map(mapAppProductToProduct);
   const favoritedIds = displayProducts.map((p) => p.id).filter((id) => isFavorite(id));
 
   // ─── Handlers ──────────────────────────────────────────────────────────────
   function handleProductPress(product: Product) {
-    // product.id holds the Shopify handle (set in mapAppProductToProduct above).
-    // The [id] route param is named "id" but useProduct() treats it as a handle.
-    router.push(`/product/${product.id}`);
+    // Navigate via handle which useProduct() expects as [id]
+    router.push(`/product/${product.handle}`);
   }
 
   function handleCategoryPress(id: string) {
@@ -135,84 +134,137 @@ export default function HomeScreen() {
     router.push('/(tabs)/browse');
   }
 
-  function handleRefresh() {
-    featuredHook.refetch();
-    allHook.refetch();
-  }
-
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
-    <ScrollScreen
-      refreshControl={
-        <RefreshControl
-          refreshing={isRefreshing}
-          onRefresh={handleRefresh}
-          tintColor={colors.terracotta}
-          colors={[colors.terracotta]}
+    <View style={styles.container}>
+      {/* ─── Fixed Side Borders ─── */}
+      <View style={styles.fixedLeftBorder} pointerEvents="none">
+        <Image
+          source={require('../../assets/images/checkout/fern-border-vertical.png')}
+          style={styles.borderImage}
         />
-      }
-    >
-      <BotanicalHeader variant="large" />
+      </View>
+      <View style={styles.fixedRightBorder} pointerEvents="none">
+        <Image
+          source={require('../../assets/images/checkout/fern-border-vertical.png')}
+          style={styles.borderImageFlipped}
+        />
+      </View>
 
-      <HeroCard onExplorePress={handleExplorePress} />
+      <ScrollScreen
+        contentContainerStyle={styles.scrollContentWrapper}
+      >
+        <BotanicalHeader variant="large" />
 
-      <SectionTitle
-        title={copy.categories}
-        action={Platform.OS === 'web' ? { label: 'Refresh', onPress: handleRefresh } : undefined}
-      />
-      <CategoryRow
-        categories={productCategories}
-        activeCategory={null}
-        onCategoryPress={handleCategoryPress}
-      />
+        <HeroCard onExplorePress={handleExplorePress} />
 
-      <BotanicalDivider variant="fern-mushroom" />
-
-      <SectionTitle
-        title={copy.featured}
-        action={{
-          label: copy.viewAll,
-          onPress: handleExplorePress,
-        }}
-      />
-
-      {isLoading && <SkeletonGrid />}
-
-      {hasError && (
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>
-            The shop is resting.{'\n'}Try again soon.
-          </Text>
-          <PrimaryButton
-            label="Try Again"
-            onPress={handleRefresh}
-            variant="terracotta"
+        <SectionTitle
+          title={copy.categories}
+          centered
+        />
+        {/* ─── Oval Category Navigation ─── */}
+        <View style={styles.ovalContainer}>
+          <CategoryRow
+            categories={productCategories}
+            activeCategory={null}
+            onCategoryPress={handleCategoryPress}
           />
         </View>
-      )}
 
-      {!isLoading && !hasError && displayProducts.length === 0 && (
-        <View style={styles.emptyContainer}>
-          <Text style={styles.emptyText}>
-            Nothing here yet — but the best things take time.
-          </Text>
-        </View>
-      )}
+        <BotanicalDivider variant="fern-mushroom" />
 
-      {!isLoading && !hasError && displayProducts.length > 0 && (
-        <ProductGrid
-          products={displayProducts}
-          onProductPress={handleProductPress}
-          onFavoriteToggle={toggleFavorite}
-          favorites={favoritedIds}
+        <SectionTitle
+          title={copy.featured}
+          action={{
+            label: copy.viewAll,
+            onPress: handleExplorePress,
+          }}
         />
-      )}
 
-    </ScrollScreen>
+        {isLoading && <SkeletonGrid />}
+
+        {hasError && (
+          <View style={styles.errorContainer}>
+            <Text style={styles.errorText}>
+              The shop is resting.{'\n'}Try again soon.
+            </Text>
+            <PrimaryButton
+              label="Try Again"
+              onPress={() => {
+                featuredHook.refetch();
+                allHook.refetch();
+              }}
+              variant="terracotta"
+            />
+          </View>
+        )}
+
+        {!isLoading && !hasError && displayProducts.length === 0 && (
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>
+              Nothing here yet — but the best things take time.
+            </Text>
+          </View>
+        )}
+
+        {!isLoading && !hasError && displayProducts.length > 0 && (
+          <ProductGrid
+            products={displayProducts}
+            onProductPress={handleProductPress}
+            onFavoriteToggle={toggleFavorite}
+            favorites={favoritedIds}
+          />
+        )}
+      </ScrollScreen>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.parchment,
+  },
+  scrollContentWrapper: {
+    paddingHorizontal: 36, // Ensure content isn't squished by the 36px side borders
+  },
+  fixedLeftBorder: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    width: 36,
+    zIndex: 10,
+  },
+  fixedRightBorder: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    width: 36,
+    zIndex: 10,
+  },
+  borderImage: {
+    width: 36,
+    height: '100%',
+    resizeMode: 'repeat',
+  },
+  borderImageFlipped: {
+    width: 36,
+    height: '100%',
+    resizeMode: 'repeat',
+    transform: [{ scaleX: -1 }],
+  },
+  ovalContainer: {
+    backgroundColor: '#F3E8D6', // slightly darker contrasting parchment tone
+    borderRadius: 160,          // forms a rounded oval bounds for the row
+    paddingVertical: spacing.xs, // Slimmer oval
+    marginVertical: spacing.md,
+    borderWidth: 1,
+    borderColor: 'rgba(59, 47, 47, 0.1)', // Subtle earth border
+    overflow: 'hidden', // crop category shadows to oval
+    marginHorizontal: spacing.sm,
+  },
   errorContainer: {
     paddingHorizontal: spacing.screenPadding,
     paddingVertical: spacing.xxl,

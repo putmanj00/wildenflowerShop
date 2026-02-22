@@ -15,13 +15,13 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Prerequisites** - Fix font loading, SafeAreaView imports, and validate Expo Web baseline before any feature work
 - [x] **Phase 2: Shopify Service Layer** - Port Shopify client, GraphQL queries, TypeScript types, and env var configuration from shopSite
 - [x] **Phase 3: CartContext Upgrade** - Replace mock CartContext with Shopify cart mutations and AsyncStorage cart ID persistence
-- [ ] **Phase 4: Data Hooks + Checkout Wiring** - Build useProducts/useCollections/useProduct hooks and pre-fetch checkoutUrl into cart state
-- [ ] **Phase 5: Home Screen** - Implement Home screen against projectVision mockup with live Shopify featured products
+- [x] **Phase 4: Data Hooks + Checkout Wiring** - Build useProducts/useCollections/useProduct hooks and pre-fetch checkoutUrl into cart state
+- [x] **Phase 5: Home Screen** - Implement Home screen against projectVision mockup with live Shopify featured products
 - [x] **Phase 6: Browse + Product Detail** - Implement Browse screen with collection filtering and Product Detail with variant selection and image carousel (completed 2026-02-20)
-- [ ] **Phase 7: Cart + Checkout** - Implement Cart screen with live Shopify cart lines and checkout redirect to Shopify checkoutUrl
-- [ ] **Phase 8: Favorites + Maker Profile** - Implement Favorites screen with AsyncStorage persistence and Maker Profile screen
-- [ ] **Phase 9: Content Screens + Assets** - Implement Blog, About, FAQ screens; wire all botanical assets and tab icons; validate deep links and web navigation
-- [ ] **Phase 10: Customer Authentication** - Implement sign up, sign in, sign out, and order history via Shopify Classic Customer API
+- [x] **Phase 7: Cart + Checkout** - Implement Cart screen with live Shopify cart lines and checkout redirect to Shopify checkoutUrl
+- [x] **Phase 8: Favorites + Maker Profile** - Implement Favorites screen with AsyncStorage persistence and Maker Profile screen
+- [x] **Phase 9: Content Screens + Assets** - Implement Blog, About, FAQ screens; wire all botanical assets and tab icons; validate deep links and web navigation
+- [x] **Phase 10: Customer Authentication** - Implement sign up, sign in, sign out, and order history via Shopify Classic Customer API
 
 ## Phase Details
 
@@ -123,10 +123,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 06-01-PLAN.md — Upgrade useProducts cursor pagination + fix productCategories handles
-- [ ] 06-02-PLAN.md — Build Browse screen (FilterChipRow, ProductGrid, skeleton loading, pagination)
-- [ ] 06-03-PLAN.md — Build Product Detail screen (gallery, variant selector, sticky Add to Cart bar)
-- [ ] 06-04-PLAN.md — Human verification: Browse + Product Detail brand fidelity checkpoint
+- [x] 06-01-PLAN.md — Upgrade useProducts cursor pagination + fix productCategories handles
+- [x] 06-02-PLAN.md — Build Browse screen (FilterChipRow, ProductGrid, skeleton loading, pagination)
+- [x] 06-03-PLAN.md — Build Product Detail screen (gallery, variant selector, sticky Add to Cart bar)
+- [x] 06-04-PLAN.md — Human verification: Browse + Product Detail brand fidelity checkpoint
 
 ### Phase 7: Cart + Checkout
 **Goal**: A finder can view their cart with live Shopify line items, adjust quantities, and reach Shopify checkout — completing the end-to-end purchase path
@@ -176,7 +176,10 @@ Plans:
   5. All placeholder Views that represent botanical illustrated assets are replaced with `<Image>` sources from `assets/images/` (or confirmed wired where assets exist); tab bar uses botanical icon illustrations from `assets/images/icons/tabs/`
   6. Tab navigation works on Expo Web without broken gestures or native-only API errors
   7. Deep links for `/product/[id]`, `/maker/[id]`, and `/blog/[id]` resolve correctly in a web browser
-**Plans**: TBD
+**Plans**: 
+- [x] 09-01-PLAN.md — Build Blog & About screens
+- [x] 09-02-PLAN.md — Build FAQ screen with Reanimated accordions
+- [x] 09-03-PLAN.md — Asset wiring & deep link validation
 
 ### Phase 10: Customer Authentication
 **Goal**: Finders can create an account, sign in, and view their order history — auth is an additive layer on a complete guest experience, not a gate
@@ -188,7 +191,13 @@ Plans:
   3. The access token persists across app restarts — a signed-in finder remains signed in without re-entering credentials
   4. Sign out deletes the token from storage and returns the finder to the unauthenticated state; all screens remain fully functional in guest mode
   5. The Profile screen shows order history fetched from Shopify using the access token when signed in; shows a "Sign In" prompt when unauthenticated
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [x] 10-01-PLAN.md — Auth service layer (customerCreate, customerAccessTokenCreate, customerAccessTokenDelete)
+- [x] 10-02-PLAN.md — AuthContext (sign up, sign in, sign out, persist token)
+- [x] 10-03-PLAN.md — Build Profile screen (auth forms, order history)
+- [x] 10-04-PLAN.md — Human verification: Auth flow and order history checkpoint
 
 ## Progress
 
@@ -202,8 +211,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 3. CartContext Upgrade | 3/3 | Complete | 2026-02-20 |
 | 4. Data Hooks + Checkout Wiring | 2/2 | Complete | 2026-02-20 |
 | 5. Home Screen | 3/3 | Complete | 2026-02-20 |
-| 6. Browse + Product Detail | 4/4 | Complete   | 2026-02-20 |
+| 6. Browse + Product Detail | 4/4 | Complete | 2026-02-20 |
 | 7. Cart + Checkout | 2/2 | Complete | 2026-02-20 |
 | 8. Favorites + Maker Profile | 4/4 | Complete | 2026-02-20 |
 | 9. Content Screens + Assets | 4/4 | Complete | 2026-02-20 |
-| 10. Customer Authentication | 0/TBD | Not started | - |
+| 10. Customer Authentication | 4/4 | Complete | 2026-02-21 |

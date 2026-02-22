@@ -92,9 +92,6 @@ function getUnavailableValues(
 export default function ProductDetailScreen() {
   const { id: handle } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const { product, loading, error } = useProduct(
-    Array.isArray(handle) ? handle[0] : handle ?? ''
-  );
 
   // ─── Gallery state ────────────────────────────────────────────────────────
   const { width } = useWindowDimensions();
@@ -106,8 +103,18 @@ export default function ProductDetailScreen() {
   // ─── Variant state ────────────────────────────────────────────────────────
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const [buttonState, setButtonState] = useState<'idle' | 'adding' | 'added'>('idle');
+  const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
   const { toggleFavorite, isFavorite } = useFavorites();
+
+  // ─── Derived variant data ─────────────────────────────────────────────────
+  const { product, shop, loading, error } = useProduct(
+    Array.isArray(handle) ? handle[0] : handle ?? ''
+  );
+
+  // Dropdown states for policies
+  const [shippingOpen, setShippingOpen] = useState(false);
+  const [returnsOpen, setReturnsOpen] = useState(false);
 
   // ─── Loading state ────────────────────────────────────────────────────────
   if (loading) {
@@ -136,9 +143,8 @@ export default function ProductDetailScreen() {
     );
   }
 
-  // ─── Derived variant data ─────────────────────────────────────────────────
-  const variants = product.variants ?? [];
-  const images = product.images ?? [];
+  const variants = product?.variants ?? [];
+  const images = product?.images ?? [];
 
   // Derive option names from variants since ShopifyProduct.options is not in our type.
   // Preserves original insertion order across all variants.
@@ -179,10 +185,13 @@ export default function ProductDetailScreen() {
   async function handleAddToCart() {
     if (!selectedVariant || buttonState !== 'idle') return;
     setButtonState('adding');
-    const success = await addToCart(selectedVariant.id);
+    const success = await addToCart(selectedVariant.id, quantity);
     if (success) {
       setButtonState('added');
-      setTimeout(() => setButtonState('idle'), 1500);
+      setTimeout(() => {
+        setButtonState('idle');
+        setQuantity(1); // Reset quantity
+      }, 1500);
     } else {
       setButtonState('idle');
       // No persistent error state — CartContext returns boolean; screen shows nothing on failure
@@ -305,21 +314,42 @@ export default function ProductDetailScreen() {
               </Text>
             </TouchableOpacity>
           </View>
-          {product.vendor ? (
-            <TouchableOpacity
-              onPress={() =>
-                router.push(
-                  `/maker/${encodeURIComponent(product.vendor)}` as `/${string}`
-                )
-              }
-              accessibilityRole="button"
-              accessibilityLabel={`View ${product.vendor}'s profile`}
-            >
-              <Text style={[styles.makerName, styles.makerNameTappable]}>
-                by {product.vendor} ›
-              </Text>
-            </TouchableOpacity>
-          ) : null}
+
+          {/* Ratings & Maker */}
+          <View style={styles.metaRow}>
+            {product.vendor || product.makerName ? (
+              <TouchableOpacity
+                onPress={() => {
+                  const maker = product.vendor || product.makerName;
+                  if (maker) {
+                    router.push(`/maker/${encodeURIComponent(maker)}` as `/${string}`);
+                  }
+                }}
+                accessibilityRole="button"
+                accessibilityLabel={`View maker profile`}
+              >
+                <Text style={[styles.makerName, styles.makerNameTappable]}>
+                  by {product.vendor || product.makerName} ›
+                </Text>
+              </TouchableOpacity>
+            ) : null}
+
+            {product.rating !== undefined && product.reviewCount !== undefined && (
+              <View style={styles.reviewBadge}>
+                <Text style={styles.starIcon}>★</Text>
+                <Text style={styles.reviewText}>
+                  {product.rating.toFixed(1)} ({product.reviewCount})
+                </Text>
+              </View>
+            )}
+          </View>
+
+          {/* Inventory Status */}
+          {product.inventoryQuantity !== undefined && product.inventoryQuantity > 0 && product.inventoryQuantity <= 5 && (
+            <Text style={styles.lowInventoryText}>
+              Only {product.inventoryQuantity} left!
+            </Text>
+          )}
         </View>
 
         <BotanicalDivider variant="fern-spiral" />
@@ -390,13 +420,81 @@ export default function ProductDetailScreen() {
           )}
         </View>
 
+        {/* Shop Policies (Accordion style) */}
+        {shop && (
+          <View style={styles.policiesSection}>
+            <BotanicalDivider variant="fern-spiral" />
+
+            {/* Shipping */}
+            {shop.shippingPolicy && (
+              <View style={styles.policyItem}>
+                <TouchableOpacity
+                  style={styles.policyHeader}
+                  onPress={() => setShippingOpen(!shippingOpen)}
+                  accessibilityRole="button"
+                  accessibilityState={{ expanded: shippingOpen }}
+                >
+                  <Text style={styles.policyTitle}>{shop.shippingPolicy.title || 'Shipping'}</Text>
+                  <Text style={styles.policyIcon}>{shippingOpen ? '−' : '+'}</Text>
+                </TouchableOpacity>
+                {shippingOpen && (
+                  <Text style={styles.policyBody}>{shop.shippingPolicy.body}</Text>
+                )}
+              </View>
+            )}
+
+            {/* Returns */}
+            {shop.refundPolicy && (
+              <View style={styles.policyItem}>
+                <TouchableOpacity
+                  style={styles.policyHeader}
+                  onPress={() => setReturnsOpen(!returnsOpen)}
+                  accessibilityRole="button"
+                  accessibilityState={{ expanded: returnsOpen }}
+                >
+                  <Text style={styles.policyTitle}>{shop.refundPolicy.title || 'Returns'}</Text>
+                  <Text style={styles.policyIcon}>{returnsOpen ? '−' : '+'}</Text>
+                </TouchableOpacity>
+                {returnsOpen && (
+                  <Text style={styles.policyBody}>{shop.refundPolicy.body}</Text>
+                )}
+              </View>
+            )}
+          </View>
+        )}
+
         {/* Bottom breathing room — ensures content scrolls above sticky bar */}
         <View style={{ height: spacing.xxxl }} />
       </ScrollView>
 
       {/* Sticky bottom bar — lives outside ScrollView */}
       <View style={styles.stickyBar}>
-        <Text style={styles.stickyPrice}>{displayPrice}</Text>
+        <View style={styles.stickyBarLeft}>
+          <Text style={styles.stickyPrice}>{displayPrice}</Text>
+          <View style={styles.quantityStepper}>
+            <TouchableOpacity
+              style={styles.stepperButton}
+              onPress={() => setQuantity(Math.max(1, quantity - 1))}
+              disabled={quantity <= 1}
+            >
+              <Text style={[styles.stepperButtonText, quantity <= 1 && styles.stepperButtonTextDisabled]}>−</Text>
+            </TouchableOpacity>
+            <Text style={styles.quantityText}>{quantity}</Text>
+            <TouchableOpacity
+              style={styles.stepperButton}
+              onPress={() => setQuantity(quantity + 1)}
+              disabled={product.inventoryQuantity ? quantity >= product.inventoryQuantity : false}
+            >
+              <Text style={[styles.stepperButtonText, (product.inventoryQuantity ? quantity >= product.inventoryQuantity : false) && styles.stepperButtonTextDisabled]}>+</Text>
+            </TouchableOpacity>
+          </View>
+          {product.inventoryQuantity && product.inventoryQuantity > 1 && quantity >= product.inventoryQuantity && (
+            <Text style={styles.stockWarningText}>Last one in stock!</Text>
+          )}
+          {product.inventoryQuantity === 1 && (
+            <Text style={styles.stockWarningText}>Only 1 available!</Text>
+          )}
+        </View>
         <TouchableOpacity
           style={[
             styles.addButton,
@@ -632,6 +730,78 @@ const styles = StyleSheet.create({
     lineHeight: fontSizes.body * 1.7,
   },
 
+  // Rating & Meta Row
+  metaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.lg,
+    marginTop: spacing.xs,
+  },
+  reviewBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: 'rgba(208, 139, 122, 0.1)',
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 2,
+    borderRadius: radii.round,
+  },
+  starIcon: {
+    color: colors.gold,
+    fontSize: fontSizes.bodySmall,
+  },
+  reviewText: {
+    fontFamily: fonts.bodyBold,
+    fontSize: fontSizes.bodySmall,
+    color: colors.earth,
+  },
+
+  // Inventory
+  lowInventoryText: {
+    fontFamily: fonts.bodyBold,
+    fontSize: fontSizes.bodySmall,
+    color: colors.terracotta,
+    marginTop: spacing.sm,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+
+  // Policies
+  policiesSection: {
+    paddingHorizontal: spacing.screenPadding,
+    paddingBottom: spacing.xl,
+  },
+  policyItem: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.borderLight,
+    paddingVertical: spacing.md,
+  },
+  policyHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  policyTitle: {
+    fontFamily: fonts.bodyBold,
+    fontSize: fontSizes.body,
+    color: colors.earth,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  policyIcon: {
+    fontFamily: fonts.heading,
+    fontSize: fontSizes.h3,
+    color: colors.terracotta,
+  },
+  policyBody: {
+    fontFamily: fonts.body,
+    fontSize: fontSizes.bodySmall,
+    color: colors.sage,
+    lineHeight: fontSizes.bodySmall * 1.6,
+    marginTop: spacing.sm,
+    paddingRight: spacing.lg,
+  },
+
   // Sticky bottom bar
   stickyBar: {
     borderTopWidth: 1,
@@ -643,10 +813,44 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: colors.parchment,
   },
+  stickyBarLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.lg,
+  },
   stickyPrice: {
     fontFamily: fonts.heading,
     fontSize: fontSizes.priceLarge,
     color: colors.gold,
+  },
+  quantityStepper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+    backgroundColor: colors.parchmentDark,
+    borderRadius: radii.button,
+    paddingHorizontal: spacing.xs,
+    paddingVertical: 2,
+  },
+  stepperButton: {
+    width: 28,
+    height: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: radii.round,
+    backgroundColor: colors.parchmentLight,
+  },
+  stepperButtonText: {
+    fontFamily: fonts.bodyBold,
+    fontSize: fontSizes.body,
+    color: colors.earth,
+  },
+  quantityText: {
+    fontFamily: fonts.bodyBold,
+    fontSize: fontSizes.body,
+    color: colors.earth,
+    minWidth: 16,
+    textAlign: 'center',
   },
   addButton: {
     backgroundColor: colors.gold,

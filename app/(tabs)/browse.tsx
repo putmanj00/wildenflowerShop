@@ -30,11 +30,13 @@ import { colors, fonts, fontSizes, productCategories, spacing, radii } from '../
 import { useFavorites } from '../../context/FavoritesContext';
 import { useProducts } from '../../hooks/useProducts';
 import type { AppProduct } from '../../lib/shopify-mappers';
-import type { Product } from '../../types';
+import type { Product, Category } from '../../types';
 
 import Screen from '../../components/layout/Screen';
 import BotanicalHeader from '../../components/BotanicalHeader';
 import SectionTitle from '../../components/SectionTitle';
+import CategoryRow from '../../components/CategoryRow';
+import BotanicalDivider from '../../components/BotanicalDivider';
 import ProductGrid from '../../components/ProductGrid';
 import SkeletonProductCard from '../../components/SkeletonProductCard';
 import PrimaryButton from '../../components/PrimaryButton';
@@ -45,7 +47,8 @@ import PrimaryButton from '../../components/PrimaryButton';
 // routes to /product/[handle] which useProduct() in [id].tsx expects.
 function mapAppProductToProduct(p: AppProduct): Product {
   return {
-    id: p.handle, // handle — [id].tsx reads this as the Shopify handle
+    id: p.id, // Shopify GID
+    handle: p.handle, // Used for routing
     name: p.title,
     price: parseFloat(p.priceRange.minVariantPrice.amount),
     description: p.description,
@@ -60,10 +63,10 @@ function mapAppProductToProduct(p: AppProduct): Product {
 }
 
 // ─── Chip Data ────────────────────────────────────────────────────────────────
-// "All" chip uses null collection (unfiltered); category chips use their Shopify handle.
-const allChips: Array<{ id: string | null; label: string }> = [
-  { id: null, label: 'All' },
-  ...productCategories.map((c) => ({ id: c.id, label: c.label })),
+// "All" chip uses empty string (unfiltered); category chips use their Shopify handle.
+const browseCategories: Category[] = [
+  { id: '', label: 'All', icon: 'vines' },
+  ...productCategories,
 ];
 
 // ─── Skeleton Grid ────────────────────────────────────────────────────────────
@@ -109,8 +112,8 @@ export default function BrowseScreen() {
   // Pre-filter support: Home screen's CategoryRow passes a category param.
   // Per STATE.md: category id matches Shopify collection handle 1:1.
   const { category } = useLocalSearchParams<{ category?: string | string[] }>();
-  const initialCategory = Array.isArray(category) ? (category[0] ?? null) : (category ?? null);
-  const [activeCollection, setActiveCollection] = useState<string | null>(initialCategory);
+  const initialCategory = Array.isArray(category) ? (category[0] ?? '') : (category ?? '');
+  const [activeCollection, setActiveCollection] = useState<string>(initialCategory);
 
   // ─── Data ──────────────────────────────────────────────────────────────────
   const {
@@ -121,7 +124,7 @@ export default function BrowseScreen() {
     loadMore,
     refetch,
   } = useProducts({
-    collection: activeCollection ?? undefined,
+    collection: activeCollection || undefined,
     limit: 20,
   });
 
@@ -141,11 +144,11 @@ export default function BrowseScreen() {
 
   // ─── Handlers ──────────────────────────────────────────────────────────────
   function handleProductPress(product: Product) {
-    // product.id holds the Shopify handle (see mapAppProductToProduct above)
-    router.push(`/product/${product.id}`);
+    // Navigate via handle which useProduct() expects as [id]
+    router.push(`/product/${product.handle}`);
   }
 
-  function handleChipPress(chipId: string | null) {
+  function handleChipPress(chipId: string) {
     setActiveCollection(chipId);
   }
 
@@ -163,30 +166,13 @@ export default function BrowseScreen() {
         <SectionTitle title="Wander the Shop" />
 
         {/* Filter chip row — single-select collection filter */}
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.chips}
-        >
-          {allChips.map((chip) => {
-            const isActive = activeCollection === chip.id;
-            return (
-              <TouchableOpacity
-                key={chip.id ?? '__all__'}
-                onPress={() => handleChipPress(chip.id)}
-                activeOpacity={0.75}
-                style={[styles.chip, isActive ? styles.chipActive : styles.chipInactive]}
-                accessibilityRole="button"
-                accessibilityState={{ selected: isActive }}
-                accessibilityLabel={`Filter by ${chip.label}`}
-              >
-                <Text style={[styles.chipText, isActive ? styles.chipTextActive : styles.chipTextInactive]}>
-                  {chip.label}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
-        </ScrollView>
+        <CategoryRow
+          categories={browseCategories}
+          activeCategory={activeCollection}
+          onCategoryPress={handleChipPress}
+        />
+
+        <BotanicalDivider variant="vine-trail" />
 
         {/* Content area: skeleton, error, empty, or product grid */}
         {showSkeleton && <SkeletonGrid />}

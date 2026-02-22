@@ -12,7 +12,6 @@
 
 import React, { useState } from 'react';
 import {
-  FlatList,
   Image,
   Pressable,
   ScrollView,
@@ -20,6 +19,7 @@ import {
   Text,
   View,
 } from 'react-native';
+
 import { useRouter } from 'expo-router';
 import { blogPosts } from '../../../data/mock-data';
 import { colors, fonts, fontSizes, spacing } from '../../../constants/theme';

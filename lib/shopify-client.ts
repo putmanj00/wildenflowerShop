@@ -12,6 +12,7 @@ import type {
   ShopifyCart,
   CartLineSnapshot,
   CartUserError,
+  ShopifyShop,
 } from '../types/shopify';
 import type { AppProduct } from './shopify-mappers';
 import { mapProduct, mapCollection, mapCollectionWithProducts } from './shopify-mappers';
@@ -80,7 +81,7 @@ interface GraphQLResponse<T> {
   errors?: Array<{ message: string; locations?: unknown; path?: unknown }>;
 }
 
-async function shopifyFetch<T>(
+export async function shopifyFetch<T>(
   query: string,
   variables?: Record<string, unknown>
 ): Promise<T> {
@@ -133,12 +134,15 @@ export async function getProducts(
   };
 }
 
-export async function getProductByHandle(handle: string): Promise<AppProduct | null> {
-  const data = await shopifyFetch<{ product: ShopifyProduct | null }>(
+export async function getProductByHandle(handle: string): Promise<{ product: AppProduct | null; shop: ShopifyShop | null }> {
+  const data = await shopifyFetch<{ product: ShopifyProduct | null; shop: ShopifyShop | null }>(
     GET_PRODUCT_BY_HANDLE_QUERY,
     { handle }
   );
-  return data.product ? mapProduct(data.product) : null;
+  return { 
+    product: data.product ? mapProduct(data.product) : null,
+    shop: data.shop ?? null
+  };
 }
 
 export async function getCollections(

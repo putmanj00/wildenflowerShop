@@ -6,19 +6,16 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
-**Current focus:** Phase 9 — Content Screens + Assets — **COMPLETE** — Beginning Phase 10 planning
+**Current focus:** Project fully complete and polished.
 
 ## Current Position
 
-Phase: 9 of 10 (Content Screens + Assets) — COMPLETE
-Plan: 4 of 4 in current phase — COMPLETE
-Status: Phase 9 Complete — all content screens human-verified; CONT-02/03/04/05 + ASSET-02/03 + PLAT-03/04 satisfied
-Last activity: 2026-02-20 — 09-04: Phase 9 closed — all 21 verification items approved
+Phase: 10 of 10 (Customer Authentication) — COMPLETE
+Plan: 4 of 4 in current phase
+Status: Project finalized. Customer Authentication, Order History, and all core shop features implemented and verified.
+Last activity: 2026-02-21 — Home Screen UI refinements (centered "Explore", simplified header, slimmed navigation) and final validation. Project 100% complete.
 
-
-
-
-Progress: [████████░░] 80%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -125,6 +122,9 @@ Recent decisions affecting current work:
 - [Phase 06-browse-product-detail]: GET_COLLECTION_BY_HANDLE_QUERY must use ...ProductFragment — minimal inline product shape caused mapProduct to throw at runtime; all product-fetching queries must spread the shared fragment
 - [Phase 09-content-screens-assets]: Navigation redesign implemented. Content screens (about, faq, blog, product, maker) are moved inside `(tabs)` but hidden from bottom bar (`href: null`). They use a new `<TopNav />` component for consistent back navigation.
 - [Phase 09-content-screens-assets]: Profile tab renamed to Menu tab, acting as a standalone directory of links instead of a direct profile page.
+- [Home Screen Refinements]: Centered "Explore" title outside the category oval to prioritize section headers; removed "Refresh" logic for an unhurried user experience.
+- [Home Screen Refinements]: Slimmed the category oval container (vertical padding) for a more elegant, botanical feel.
+- [Layout Consistency]: Enabled horizontal scroll indicators in CategoryRow to improve discovery of additional categories.
 
 ### Pending Todos
 

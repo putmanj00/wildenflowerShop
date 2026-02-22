@@ -12,9 +12,13 @@ import type {
 } from '../types/shopify';
 
 // Flattened app product type — no connection wrappers
-export interface AppProduct extends Omit<ShopifyProduct, 'images' | 'variants'> {
+export interface AppProduct extends Omit<ShopifyProduct, 'images' | 'variants' | 'rating' | 'reviewCount' | 'makerName'> {
   images: ShopifyProduct['images']['nodes'];
   variants: ShopifyProduct['variants']['nodes'];
+  rating?: number;
+  reviewCount?: number;
+  inventoryQuantity?: number;
+  makerName?: string;
 }
 
 // Flattened app collection-with-products type
@@ -26,10 +30,23 @@ export interface AppCollectionWithProducts extends ShopifyCollection {
 }
 
 export function mapProduct(raw: ShopifyProduct): AppProduct {
+  const rating = raw.rating ? parseFloat(raw.rating.value) : undefined;
+  const reviewCount = raw.reviewCount ? parseInt(raw.reviewCount.value, 10) : 0;
+  const makerName = raw.makerName ? raw.makerName.value : undefined;
+  
+  const inventoryQuantity = raw.variants.nodes.reduce(
+    (total, variant) => total + (variant.quantityAvailable || 0), 
+    0
+  );
+
   return {
     ...raw,
     images: raw.images.nodes,
     variants: raw.variants.nodes,
+    rating,
+    reviewCount,
+    inventoryQuantity,
+    makerName,
   };
 }
 

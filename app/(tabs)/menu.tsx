@@ -5,6 +5,7 @@ import Screen from '../../components/layout/Screen';
 import BotanicalDivider from '../../components/BotanicalDivider';
 import BotanicalHeader from '../../components/BotanicalHeader';
 import { colors, fonts, fontSizes, spacing } from '../../constants/theme';
+import { useAuth } from '../../context/AuthContext';
 
 const VINE_ARROW = require('../../assets/images/icons/ui/vine-arrow-right.png');
 
@@ -32,6 +33,7 @@ const MenuLink = ({ label, onPress, disabled, comingSoon }: MenuLinkProps) => (
 
 export default function MenuScreen() {
   const router = useRouter();
+  const { isAuthenticated, logout } = useAuth();
 
   return (
     <Screen>
@@ -52,9 +54,15 @@ export default function MenuScreen() {
 
           <View style={styles.linkList}>
             <Text style={styles.sectionTitle}>Your Account</Text>
-            <MenuLink label="Sign In / Register" disabled comingSoon />
-            <MenuLink label="Order History" disabled />
-            <MenuLink label="Saved Items" disabled />
+            {isAuthenticated ? (
+              <>
+                <MenuLink label="Order History" onPress={() => router.push('/orders')} />
+                <MenuLink label="Saved Items" disabled comingSoon />
+                <MenuLink label="Sign Out" onPress={logout} />
+              </>
+            ) : (
+              <MenuLink label="Sign In / Register" onPress={() => router.push('/login')} />
+            )}
           </View>
         </View>
       </ScrollView>

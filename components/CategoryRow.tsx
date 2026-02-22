@@ -14,7 +14,7 @@ export default function CategoryRow({ categories, activeCategory, onCategoryPres
   return (
     <ScrollView
       horizontal
-      showsHorizontalScrollIndicator={false}
+      showsHorizontalScrollIndicator={true}
       contentContainerStyle={styles.content}
     >
       {categories.map((category, index) => (

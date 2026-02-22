@@ -25,6 +25,7 @@ const PRODUCT_VARIANT_FRAGMENT = `
     id
     title
     availableForSale
+    quantityAvailable
     price { ...MoneyFragment }
     compareAtPrice { ...MoneyFragment }
     selectedOptions { name value }
@@ -46,6 +47,9 @@ const PRODUCT_FRAGMENT = `
     images(first: 10) {
       nodes { ...ImageFragment }
     }
+    rating: metafield(namespace: "reviews", key: "rating") { value }
+    reviewCount: metafield(namespace: "reviews", key: "rating_count") { value }
+    makerName: metafield(namespace: "custom", key: "maker_name") { value }
     priceRange {
       minVariantPrice { ...MoneyFragment }
       maxVariantPrice { ...MoneyFragment }
@@ -101,12 +105,25 @@ export const GET_PRODUCT_BY_HANDLE_QUERY = `
       images(first: 10) {
         nodes { ...ImageFragment }
       }
+      rating: metafield(namespace: "reviews", key: "rating") { value }
+      reviewCount: metafield(namespace: "reviews", key: "rating_count") { value }
+      makerName: metafield(namespace: "custom", key: "maker_name") { value }
       priceRange {
         minVariantPrice { ...MoneyFragment }
         maxVariantPrice { ...MoneyFragment }
       }
       variants(first: 20) {
         nodes { ...ProductVariantFragment }
+      }
+    }
+    shop {
+      shippingPolicy {
+        title
+        body
+      }
+      refundPolicy {
+        title
+        body
       }
     }
   }
@@ -201,6 +218,7 @@ const CART_LINES_FRAGMENT = `
               featuredImage { url altText width height }
             }
             selectedOptions { name value }
+            quantityAvailable
           }
         }
         cost {
@@ -273,3 +291,92 @@ export const GET_CART_QUERY = `
 `;
 // Returns: { cart: ShopifyCart } or { cart: null } when cart is expired/not found.
 // null is NOT a GraphQL error — check data.cart === null to trigger recovery.
+
+// ─── Customer Authentication ──────────────────────────────────────────────────
+
+export const CUSTOMER_CREATE_MUTATION = `
+  mutation customerCreate($input: CustomerCreateInput!) {
+    customerCreate(input: $input) {
+      customer {
+        id
+        firstName
+        lastName
+        email
+        phone
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`;
+
+export const CUSTOMER_ACCESS_TOKEN_CREATE_MUTATION = `
+  mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
+    customerAccessTokenCreate(input: $input) {
+      customerAccessToken {
+        accessToken
+        expiresAt
+      }
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`;
+
+export const CUSTOMER_ACCESS_TOKEN_DELETE_MUTATION = `
+  mutation customerAccessTokenDelete($customerAccessToken: String!) {
+    customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
+      deletedAccessToken
+      deletedCustomerAccessTokenId
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`;
+
+export const GET_CUSTOMER_QUERY = `
+  query getCustomer($customerAccessToken: String!) {
+    customer(customerAccessToken: $customerAccessToken) {
+      id
+      firstName
+      lastName
+      email
+      phone
+      orders(first: 10, sortKey: PROCESSED_AT, reverse: true) {
+        nodes {
+          id
+          orderNumber
+          processedAt
+          financialStatus
+          fulfillmentStatus
+          totalPrice {
+            amount
+            currencyCode
+          }
+          lineItems(first: 10) {
+            nodes {
+              title
+              quantity
+              variant {
+                image {
+                  url
+                  altText
+                  width
+                  height
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
