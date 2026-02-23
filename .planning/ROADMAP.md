@@ -22,7 +22,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 8: Favorites + Maker Profile** - Implement Favorites screen with AsyncStorage persistence and Maker Profile screen
 - [x] **Phase 9: Content Screens + Assets** - Implement Blog, About, FAQ screens; wire all botanical assets and tab icons; validate deep links and web navigation
 - [x] **Phase 10: Customer Authentication** - Implement sign up, sign in, sign out, and order history via Shopify Classic Customer API
-- [ ] **Phase 11: UI/UX Overhaul** - Wire unused botanical assets (button-wreath) into CTA components for full thematic alignment
+- [x] **Phase 11: UI/UX Overhaul** - Wire unused botanical assets (button-wreath) into CTA components for full thematic alignment
+- [ ] **Phase 12: Web UI Polish** - Fix layout issues specific to web viewports identified during audit (product cards scaling, gallery width, horizontal divider cropping)
 
 ## Phase Details
 
@@ -214,6 +215,17 @@ Plans:
 Plans:
 - [x] 11-01-PLAN.md — PrimaryButton wreath variant + HeroCard integration
 
+### Phase 12: Web UI Polish
+**Goal**: Address visual debt and layout scaling issues specific to the web desktop viewport discovered during the visual image audit.
+**Depends on**: Phase 11
+**Requirements**: ASSET-03 (web compatibility), PLAT-04 (responsive layout)
+**Success Criteria** (what must be TRUE):
+  1. Product images with transparency do not show checkered backgrounds on product cards.
+  2. The main product gallery image on the Product Detail screen scales appropriately on wide desktop screens without pushing navigation arrows off-screen.
+  3. Widescreen horizontal dividers and headers (e.g., Menu header, Cartouche framing) scale or crop elegantly without breaking the layout.
+**Plans**: 
+- [ ] 12-01-PLAN.md — Web Desktop Viewport Polish
+
 ## Progress
 
 **Execution Order:**
@@ -232,3 +244,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 9. Content Screens + Assets | 4/4 | Complete | 2026-02-20 |
 | 10. Customer Authentication | 4/4 | Complete | 2026-02-21 |
 | 11. UI/UX Overhaul | 1/1 | Complete | 2026-02-22 |
+| 12. Web UI Polish | 0/0 | Not Started | - |
