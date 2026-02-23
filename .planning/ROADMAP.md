@@ -22,6 +22,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 8: Favorites + Maker Profile** - Implement Favorites screen with AsyncStorage persistence and Maker Profile screen
 - [x] **Phase 9: Content Screens + Assets** - Implement Blog, About, FAQ screens; wire all botanical assets and tab icons; validate deep links and web navigation
 - [x] **Phase 10: Customer Authentication** - Implement sign up, sign in, sign out, and order history via Shopify Classic Customer API
+- [ ] **Phase 11: UI/UX Overhaul** - Wire unused botanical assets (button-wreath) into CTA components for full thematic alignment
 
 ## Phase Details
 
@@ -199,6 +200,20 @@ Plans:
 - [x] 10-03-PLAN.md — Build Profile screen (auth forms, order history)
 - [x] 10-04-PLAN.md — Human verification: Auth flow and order history checkpoint
 
+### Phase 11: UI/UX Overhaul
+**Goal**: Wire unused botanical assets into CTA components — the button-wreath asset gets integrated into PrimaryButton and HeroCard for full thematic alignment with the Weavy design vision
+**Depends on**: Phase 10
+**Requirements**: ASSET-02 (botanical assets wired into screens)
+**Success Criteria** (what must be TRUE):
+  1. `PrimaryButton` supports a `variant="wreath"` option that renders `button-wreath.png` as a background behind the label text
+  2. HeroCard "Wander the Shop" CTA uses the wreath variant and the wreath image scales correctly at mobile and desktop viewports
+  3. Existing `gold` and `terracotta` button variants render identically to before — no regressions
+  4. No TypeScript errors (`npx tsc --noEmit` passes)
+**Plans**: 1 plan
+
+Plans:
+- [x] 11-01-PLAN.md — PrimaryButton wreath variant + HeroCard integration
+
 ## Progress
 
 **Execution Order:**
@@ -216,3 +231,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 8. Favorites + Maker Profile | 4/4 | Complete | 2026-02-20 |
 | 9. Content Screens + Assets | 4/4 | Complete | 2026-02-20 |
 | 10. Customer Authentication | 4/4 | Complete | 2026-02-21 |
+| 11. UI/UX Overhaul | 1/1 | Complete | 2026-02-22 |

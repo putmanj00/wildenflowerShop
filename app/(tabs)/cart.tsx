@@ -5,7 +5,7 @@
  * order summary, and Shopify checkout redirect. COMM-04.
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
+  TextInput,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { colors, fonts, fontSizes, spacing, radii, shadows } from '../../constants/theme';
@@ -30,12 +31,20 @@ interface CartLineRowProps {
   onRemove: (lineId: string) => void;
   onDecrement: (lineId: string, currentQty: number) => void;
   onIncrement: (lineId: string, currentQty: number) => void;
+  onUpdateQuantity: (lineId: string, newQty: number) => void;
+  onThumbnailPress: (handle: string) => void;
   /** Block all controls during any in-flight mutation */
   disabled: boolean;
 }
 
-function CartLineRow({ line, onRemove, onDecrement, onIncrement, disabled }: CartLineRowProps) {
-  const { product, title: variantTitle, price, selectedOptions } = line.merchandise;
+function CartLineRow({ line, onRemove, onDecrement, onIncrement, onUpdateQuantity, onThumbnailPress, disabled }: CartLineRowProps) {
+  const [localQty, setLocalQty] = useState(line.quantity.toString());
+
+  useEffect(() => {
+    setLocalQty(line.quantity.toString());
+  }, [line.quantity]);
+
+  const { product, title: variantTitle, selectedOptions } = line.merchandise;
   const linePrice = parseFloat(line.cost.totalAmount.amount).toFixed(2);
   const qtyAvailable = line.merchandise.quantityAvailable ?? Infinity; // from cart lines query update
   const isAtMinQty = line.quantity <= 1;
@@ -50,18 +59,20 @@ function CartLineRow({ line, onRemove, onDecrement, onIncrement, disabled }: Car
   return (
     <View style={rowStyles.container}>
       {/* Thumbnail */}
-      {product.featuredImage ? (
-        <Image
-          source={{ uri: product.featuredImage.url }}
-          style={rowStyles.thumbnail}
-          resizeMode="cover"
-          accessibilityLabel={product.featuredImage.altText ?? product.title}
-        />
-      ) : (
-        <View style={rowStyles.thumbnailPlaceholder}>
-          {/* ASSET: product-placeholder-thumb.png — Small botanical placeholder thumbnail */}
-        </View>
-      )}
+      <TouchableOpacity onPress={() => onThumbnailPress(product.handle)}>
+        {product.featuredImage ? (
+          <Image
+            source={{ uri: product.featuredImage.url }}
+            style={rowStyles.thumbnail}
+            resizeMode="cover"
+            accessibilityLabel={product.featuredImage.altText ?? product.title}
+          />
+        ) : (
+          <View style={rowStyles.thumbnailPlaceholder}>
+            {/* ASSET: product-placeholder-thumb.png — Small botanical placeholder thumbnail */}
+          </View>
+        )}
+      </TouchableOpacity>
 
       {/* Text column */}
       <View style={rowStyles.textColumn}>
@@ -107,7 +118,24 @@ function CartLineRow({ line, onRemove, onDecrement, onIncrement, disabled }: Car
             </Text>
           </TouchableOpacity>
 
-          <Text style={rowStyles.stepperQty}>{line.quantity}</Text>
+          <TextInput
+            style={rowStyles.stepperQty}
+            keyboardType="number-pad"
+            value={localQty}
+            onChangeText={(text) => {
+              const sanitized = text.replace(/[^0-9]/g, '');
+              setLocalQty(sanitized);
+            }}
+            onBlur={() => {
+              let num = parseInt(localQty, 10);
+              if (isNaN(num) || num < 1) num = 1;
+              setLocalQty(num.toString());
+              if (num !== line.quantity) {
+                onUpdateQuantity(line.id, num);
+              }
+            }}
+            editable={!disabled}
+          />
 
           <TouchableOpacity
             onPress={() => onIncrement(line.id, line.quantity)}
@@ -116,7 +144,12 @@ function CartLineRow({ line, onRemove, onDecrement, onIncrement, disabled }: Car
             accessibilityLabel="Increase quantity"
             accessibilityRole="button"
           >
-            <Text style={[rowStyles.stepperText, (disabled || isAtMaxQty) && rowStyles.stepperTextDisabled]}>
+            <Text
+              style={[
+                rowStyles.stepperText,
+                (disabled || isAtMaxQty) && rowStyles.stepperTextDisabled,
+              ]}
+            >
               +
             </Text>
           </TouchableOpacity>
@@ -214,8 +247,11 @@ const rowStyles = StyleSheet.create({
     fontSize: fontSizes.body,
     color: colors.earth,
     minWidth: 24,
+    width: 40,
     textAlign: 'center',
     lineHeight: fontSizes.body * 1.2,
+    padding: 0,
+    margin: 0,
   },
   stockWarningText: {
     fontSize: 12,
@@ -248,6 +284,14 @@ export default function CartScreen() {
 
   function handleIncrement(lineId: string, currentQty: number) {
     updateQuantity(lineId, currentQty + 1);
+  }
+
+  function handleUpdateQuantity(lineId: string, newQty: number) {
+    updateQuantity(lineId, newQty);
+  }
+
+  function handleThumbnailPress(handle: string) {
+    router.push(`/product/${handle}`);
   }
 
   // ─── Loading State ───────────────────────────────────────────────────────────
@@ -310,6 +354,8 @@ export default function CartScreen() {
               onRemove={handleRemove}
               onDecrement={handleDecrement}
               onIncrement={handleIncrement}
+              onUpdateQuantity={handleUpdateQuantity}
+              onThumbnailPress={handleThumbnailPress}
               disabled={isLoading}
             />
             {/* Divider between rows (not after last item) */}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useNavigation } from 'expo-router';
 import { colors, fonts, fontSizes, spacing, radii } from '../../constants/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -12,13 +12,20 @@ interface TopNavProps {
 
 export default function TopNav({ title }: TopNavProps) {
     const router = useRouter();
+    const navigation = useNavigation();
     const insets = useSafeAreaInsets();
 
     return (
         <View style={[styles.container, { paddingTop: insets.top || spacing.md }]}>
             <TouchableOpacity
                 style={styles.backButton}
-                onPress={() => router.back()}
+                onPress={() => {
+                    if (navigation.canGoBack()) {
+                        navigation.goBack();
+                    } else {
+                        router.back();
+                    }
+                }}
                 accessibilityLabel="Go back"
                 accessibilityRole="button"
             >

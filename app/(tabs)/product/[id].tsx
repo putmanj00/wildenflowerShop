@@ -26,6 +26,7 @@ import {
   Platform,
   useWindowDimensions,
   ActivityIndicator,
+  TextInput,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { colors, fonts, fontSizes, radii, spacing } from '../../../constants/theme';
@@ -103,7 +104,9 @@ export default function ProductDetailScreen() {
   // ─── Variant state ────────────────────────────────────────────────────────
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const [buttonState, setButtonState] = useState<'idle' | 'adding' | 'added'>('idle');
-  const [quantity, setQuantity] = useState(1);
+  const [quantityStr, setQuantityStr] = useState('1');
+  const quantity = parseInt(quantityStr, 10) || 1;
+  const setQuantity = (num: number) => setQuantityStr(num.toString());
   const { addToCart } = useCart();
   const { toggleFavorite, isFavorite } = useFavorites();
 
@@ -270,12 +273,20 @@ export default function ProductDetailScreen() {
             <>
               {currentIndex > 0 && (
                 <TouchableOpacity style={styles.prevButton} onPress={handlePrev}>
-                  <Text style={styles.arrowText}>&#8249;</Text>
+                  <Image
+                    source={require('../../../assets/images/icons/ui/vine-arrow-left.png')}
+                    style={styles.arrowIcon}
+                    resizeMode="contain"
+                  />
                 </TouchableOpacity>
               )}
               {currentIndex < images.length - 1 && (
                 <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-                  <Text style={styles.arrowText}>&#8250;</Text>
+                  <Image
+                    source={require('../../../assets/images/icons/ui/vine-arrow-right.png')}
+                    style={styles.arrowIcon}
+                    resizeMode="contain"
+                  />
                 </TouchableOpacity>
               )}
             </>
@@ -479,13 +490,34 @@ export default function ProductDetailScreen() {
             >
               <Text style={[styles.stepperButtonText, quantity <= 1 && styles.stepperButtonTextDisabled]}>−</Text>
             </TouchableOpacity>
-            <Text style={styles.quantityText}>{quantity}</Text>
+            <TextInput
+              style={styles.quantityText}
+              keyboardType="number-pad"
+              value={quantityStr}
+              onChangeText={(text) => {
+                const sanitized = text.replace(/[^0-9]/g, '');
+                setQuantityStr(sanitized);
+              }}
+              onBlur={() => {
+                let num = parseInt(quantityStr, 10);
+                if (isNaN(num) || num < 1) num = 1;
+                setQuantityStr(num.toString());
+              }}
+            />
             <TouchableOpacity
               style={styles.stepperButton}
-              onPress={() => setQuantity(quantity + 1)}
-              disabled={product.inventoryQuantity ? quantity >= product.inventoryQuantity : false}
+              onPress={() => {
+                const maxQty = selectedVariant?.quantityAvailable ?? product.inventoryQuantity ?? Infinity;
+                if (quantity < maxQty) {
+                  setQuantity(quantity + 1);
+                }
+              }}
+              disabled={quantity >= (selectedVariant?.quantityAvailable ?? product.inventoryQuantity ?? Infinity)}
             >
-              <Text style={[styles.stepperButtonText, (product.inventoryQuantity ? quantity >= product.inventoryQuantity : false) && styles.stepperButtonTextDisabled]}>+</Text>
+              <Text style={[
+                styles.stepperButtonText,
+                quantity >= (selectedVariant?.quantityAvailable ?? product.inventoryQuantity ?? Infinity) && styles.stepperButtonTextDisabled
+              ]}>+</Text>
             </TouchableOpacity>
           </View>
           {product.inventoryQuantity && product.inventoryQuantity > 1 && quantity >= product.inventoryQuantity ? (
@@ -583,12 +615,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  arrowText: {
-    fontFamily: fonts.heading,
-    fontSize: 32,
-    color: colors.earth,
-    lineHeight: 36,
-    textAlign: 'center',
+  arrowIcon: {
+    width: 32,
+    height: 32,
+    tintColor: colors.earth,
   },
 
   // Dot indicators
@@ -826,31 +856,34 @@ const styles = StyleSheet.create({
   quantityStepper: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.md,
-    backgroundColor: colors.parchmentDark,
-    borderRadius: radii.button,
-    paddingHorizontal: spacing.xs,
-    paddingVertical: 2,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radii.chip,
+    overflow: 'hidden',
   },
   stepperButton: {
-    width: 28,
-    height: 28,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: radii.round,
-    backgroundColor: colors.parchmentLight,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
   },
   stepperButtonText: {
-    fontFamily: fonts.bodyBold,
+    fontFamily: fonts.heading,
     fontSize: fontSizes.body,
     color: colors.earth,
+    lineHeight: fontSizes.body * 1.2,
+  },
+  stepperButtonTextDisabled: {
+    opacity: 0.3,
   },
   quantityText: {
-    fontFamily: fonts.bodyBold,
+    fontFamily: fonts.heading,
     fontSize: fontSizes.body,
     color: colors.earth,
-    minWidth: 16,
+    minWidth: 24,
+    width: 40,
     textAlign: 'center',
+    lineHeight: fontSizes.body * 1.2,
+    padding: 0,
+    margin: 0,
   },
   addButton: {
     backgroundColor: colors.gold,
@@ -868,5 +901,12 @@ const styles = StyleSheet.create({
     fontFamily: fonts.heading,
     fontSize: fontSizes.button,
     color: colors.earth,
+  },
+  stockWarningText: {
+    fontSize: 12,
+    color: '#D84315',
+    fontFamily: fonts.bodyItalic,
+    marginTop: 4,
+    textAlign: 'center',
   },
 });

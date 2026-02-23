@@ -1,0 +1,14 @@
+{
+    "name": "shopify-test-data-seeder",
+    "version": "1.0.0",
+    "description": "Script to sanitize, update, and populate test data for all products in a Shopify development store.",
+    "main": "seed.js",
+    "type": "module",
+    "scripts": {
+        "start": "node seed.js"
+    },
+    "dependencies": {
+        "@faker-js/faker": "^8.4.1",
+        "dotenv": "^16.4.5"
+    }
+}

@@ -48,6 +48,7 @@ export default function CheckoutScreen() {
           <View style={styles.summaryContent}>
             <Text style={styles.sectionTitle}>Order Summary</Text>
             <View style={styles.summaryRow}>
+              {/* Product links intentionally disabled for checkout isolation per requirements */}
               <Text style={styles.summaryText}>Items (mock)</Text>
               <Text style={styles.summaryText}>$0.00</Text>
             </View>

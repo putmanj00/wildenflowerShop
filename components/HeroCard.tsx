@@ -20,7 +20,7 @@ export default function HeroCard({ tagline = copy.tagline, onExplorePress }: Her
             <PrimaryButton
               label="Wander the Shop"
               onPress={onExplorePress}
-              variant="gold"
+              variant="wreath"
             />
           </View>
         )}
