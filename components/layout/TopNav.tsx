@@ -55,6 +55,9 @@ const styles = StyleSheet.create({
         paddingBottom: spacing.sm,
         backgroundColor: colors.parchment,
         zIndex: 10,
+        alignSelf: 'center',
+        width: '100%',
+        maxWidth: 800,
     },
     backButton: {
         padding: spacing.sm,

@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
     marginVertical: spacing.dividerMargin,
     alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'center',
+    maxWidth: 800,
   },
   image: {
     width: '100%',

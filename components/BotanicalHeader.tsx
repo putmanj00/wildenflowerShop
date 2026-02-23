@@ -34,5 +34,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: colors.parchmentDark,
     overflow: 'hidden',
+    alignSelf: 'center',
+    maxWidth: 800,
   },
 });

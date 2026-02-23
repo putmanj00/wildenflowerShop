@@ -96,7 +96,7 @@ export default function ProductDetailScreen() {
 
   // ─── Gallery state ────────────────────────────────────────────────────────
   const { width } = useWindowDimensions();
-  const galleryWidth = Math.min(width, 600); // cap at 600px for web desktop
+  const galleryWidth = Math.min(width, Platform.OS === 'web' ? 480 : 600); // Tighter cap for web desktop
   const galleryHeight = galleryWidth * (5 / 4); // 4:5 portrait ratio
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollRef = useRef<ScrollView>(null);
@@ -256,7 +256,7 @@ export default function ProductDetailScreen() {
                 <Image
                   key={i}
                   source={{ uri: img.url }}
-                  style={{ width: galleryWidth, height: galleryHeight }}
+                  style={[{ width: galleryWidth, height: galleryHeight }, { backgroundColor: colors.parchmentDark }]}
                   resizeMode="cover"
                 />
               ))
@@ -579,12 +579,16 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
+    alignSelf: 'center',
+    width: '100%',
+    maxWidth: 800,
   },
 
   // Gallery
   galleryContainer: {
     position: 'relative',
     backgroundColor: colors.parchmentDark,
+    alignItems: 'center',
   },
   imagePlaceholder: {
     backgroundColor: colors.parchmentDark,
@@ -842,6 +846,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: colors.parchment,
+    alignSelf: 'center',
+    width: '100%',
+    maxWidth: 800,
   },
   stickyBarLeft: {
     flexDirection: 'row',

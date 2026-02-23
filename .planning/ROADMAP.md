@@ -224,7 +224,7 @@ Plans:
   2. The main product gallery image on the Product Detail screen scales appropriately on wide desktop screens without pushing navigation arrows off-screen.
   3. Widescreen horizontal dividers and headers (e.g., Menu header, Cartouche framing) scale or crop elegantly without breaking the layout.
 **Plans**: 
-- [ ] 12-01-PLAN.md — Web Desktop Viewport Polish
+- [x] 12-01-PLAN.md — Web Desktop Viewport Polish
 
 ## Progress
 
@@ -244,4 +244,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 9. Content Screens + Assets | 4/4 | Complete | 2026-02-20 |
 | 10. Customer Authentication | 4/4 | Complete | 2026-02-21 |
 | 11. UI/UX Overhaul | 1/1 | Complete | 2026-02-22 |
-| 12. Web UI Polish | 0/0 | Not Started | - |
+| 12. Web UI Polish | 1/1 | Complete | 2026-02-22 |

@@ -75,6 +75,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.screenPadding,
     paddingTop: spacing.lg,
     paddingBottom: spacing.xxl,
+    alignSelf: 'center',
+    width: '100%',
+    maxWidth: 800,
   },
   linkList: {
     marginVertical: spacing.lg,

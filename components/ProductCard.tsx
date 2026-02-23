@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  productImage: { width: '100%', height: spacing.productCardImageHeight },
+  productImage: { width: '100%', height: spacing.productCardImageHeight, backgroundColor: colors.parchmentDark },
   imagePlaceholderLabel: {
     fontFamily: fonts.body,
     fontSize: 11,

@@ -149,6 +149,9 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingBottom: spacing.xxl,
+    alignSelf: 'center',
+    width: '100%',
+    maxWidth: 800,
   },
 
   // Not found
@@ -248,6 +251,9 @@ const styles = StyleSheet.create({
   pullQuoteContainer: {
     marginVertical: spacing.lg,
     marginHorizontal: -spacing.md,
+    alignSelf: 'center',
+    width: '100%',
+    maxWidth: 600,
   },
   pullQuoteFrame: {
     paddingVertical: spacing.xl,
