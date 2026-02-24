@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { colors, fonts, fontSizes, spacing } from '../../constants/theme';
 import AuthInput from '../../components/forms/AuthInput';
@@ -92,6 +92,13 @@ export default function LoginScreen() {
                             isPassword
                         />
 
+                        <TouchableOpacity
+                            onPress={() => router.replace('/forgot-password')}
+                            style={styles.forgotPasswordLink}
+                        >
+                            <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+                        </TouchableOpacity>
+
                         <View style={styles.buttonContainer}>
                             {isLoading ? (
                                 <ActivityIndicator color={colors.terracotta} />
@@ -119,6 +126,10 @@ const styles = StyleSheet.create({
     scrollContent: {
         paddingTop: spacing.lg,
         paddingBottom: spacing.xxl,
+        paddingHorizontal: spacing.lg,
+        width: '100%',
+        maxWidth: 480,
+        alignSelf: 'center',
     },
     title: {
         fontFamily: fonts.heading,
@@ -148,14 +159,27 @@ const styles = StyleSheet.create({
     buttonContainer: {
         marginTop: spacing.md,
         alignItems: 'center',
+        alignSelf: 'center',
     },
     footer: {
         marginTop: spacing.xxl,
         alignItems: 'center',
+        alignSelf: 'center',
     },
     footerText: {
         fontFamily: fonts.body,
         fontSize: fontSizes.body,
         color: colors.textSecondary,
+    },
+    forgotPasswordLink: {
+        alignSelf: 'flex-end',
+        marginTop: spacing.xs,
+        paddingHorizontal: spacing.sm,
+    },
+    forgotPasswordText: {
+        fontFamily: fonts.body,
+        fontSize: fontSizes.bodySmall,
+        color: colors.terracotta,
+        textDecorationLine: 'underline',
     },
 });

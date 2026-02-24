@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
 import { useRouter, useNavigation } from 'expo-router';
 import { colors, fonts, fontSizes, spacing, radii } from '../../constants/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -18,7 +18,7 @@ export default function TopNav({ title }: TopNavProps) {
     return (
         <View style={[styles.container, { paddingTop: insets.top || spacing.md }]}>
             <TouchableOpacity
-                style={styles.backButton}
+                style={Platform.OS === 'web' ? styles.breadcrumbButton : styles.backButton}
                 onPress={() => {
                     if (navigation.canGoBack()) {
                         navigation.goBack();
@@ -29,7 +29,14 @@ export default function TopNav({ title }: TopNavProps) {
                 accessibilityLabel="Go back"
                 accessibilityRole="button"
             >
-                <Image source={ASSET_BACK_ARROW} style={styles.backIcon} resizeMode="contain" />
+                {Platform.OS === 'web' ? (
+                    <View style={styles.breadcrumbContent}>
+                        <Text style={styles.breadcrumbArrow}>←</Text>
+                        <Text style={styles.breadcrumbText}>Back</Text>
+                    </View>
+                ) : (
+                    <Image source={ASSET_BACK_ARROW} style={styles.backIcon} resizeMode="contain" />
+                )}
             </TouchableOpacity>
 
             {title ? (
@@ -62,6 +69,26 @@ const styles = StyleSheet.create({
     backButton: {
         padding: spacing.sm,
         borderRadius: radii.round,
+    },
+    breadcrumbButton: {
+        paddingVertical: spacing.sm,
+        paddingHorizontal: spacing.sm,
+    },
+    breadcrumbContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    breadcrumbArrow: {
+        fontFamily: fonts.body,
+        fontSize: fontSizes.body,
+        color: colors.terracotta,
+        marginRight: 4,
+    },
+    breadcrumbText: {
+        fontFamily: fonts.body,
+        fontSize: fontSizes.bodySmall,
+        color: colors.terracotta,
+        textDecorationLine: 'underline',
     },
     backIcon: {
         width: 32,

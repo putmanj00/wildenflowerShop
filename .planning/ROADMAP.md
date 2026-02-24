@@ -24,6 +24,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 10: Customer Authentication** - Implement sign up, sign in, sign out, and order history via Shopify Classic Customer API
 - [x] **Phase 11: UI/UX Overhaul** - Wire unused botanical assets (button-wreath) into CTA components for full thematic alignment
 - [ ] **Phase 12: Web UI Polish** - Fix layout issues specific to web viewports identified during audit (product cards scaling, gallery width, horizontal divider cropping)
+- [ ] **Phase 13: Web Navigation** - Implement responsive DesktopHeader and side navigation for wide viewports
+- [x] **Phase 14: Login Process Updates** - Add "Forgot Password" capability to the login flow (completed 2026-02-23)
+
 
 ## Phase Details
 
@@ -226,6 +229,29 @@ Plans:
 **Plans**: 
 - [x] 12-01-PLAN.md — Web Desktop Viewport Polish
 
+### Phase 13: Web UI/UX Polish (Desktop Navigation)
+**Goal**: Address visual debt and UI paradigms specific to the web desktop viewport by implementing responsive navigation.
+**Depends on**: Phase 12
+**Requirements**: PLAT-04 (responsive layout)
+**Success Criteria** (what must be TRUE):
+  1. Wide web viewports display a Desktop Header navigation bar instead of a Mobile Bottom Tab Bar.
+  2. Deep screens on web display a Breadcrumb "Back" button instead of a mobile back arrow icon.
+  3. Narrow mobile web viewports continue to use the Bottom Tab Bar.
+**Plans**: 
+- [x] 13-01-PLAN.md — Desktop Navigation Polish
+
+### Phase 14: Login Process Updates
+**Goal**: Update the existing login flow to include a "Forgot Password" capability, enhancing user experience and reducing login friction.
+**Depends on**: Phase 10
+**Requirements**: AUTH-05
+**Success Criteria** (what must be TRUE):
+  1. A "Forgot Password?" link is present on the login screen (`app/(auth)/login.tsx`).
+  2. Tapping the link navigates to `/forgot-password`.
+  3. The forgot password flow calls the Shopify `customerRecover` mutation.
+  4. Success state confirms the password reset email was sent.
+**Plans**:
+- [x] 14-01-PLAN.md — Forgot Password Flow 
+
 ## Progress
 
 **Execution Order:**
@@ -245,3 +271,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 10. Customer Authentication | 4/4 | Complete | 2026-02-21 |
 | 11. UI/UX Overhaul | 1/1 | Complete | 2026-02-22 |
 | 12. Web UI Polish | 1/1 | Complete | 2026-02-22 |
+| 13. Web Navigation | 1/1 | Complete | 2026-02-22 |
+| 14. Login Updates | 1/1 | Complete | 2026-02-23 |

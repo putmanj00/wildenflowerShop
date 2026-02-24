@@ -18,6 +18,7 @@ import {
   StyleSheet,
   Text,
   View,
+  useWindowDimensions,
 } from 'react-native';
 import { brandPillars } from '../../data/mock-data';
 import { colors, fonts, fontSizes, spacing } from '../../constants/theme';
@@ -46,6 +47,10 @@ function PillarCard({ pillar }: { pillar: BrandPillar }) {
 // ─── Screen ──────────────────────────────────
 
 export default function AboutScreen() {
+  const { width: windowWidth } = useWindowDimensions();
+  // The log image is 1170x180. We use its aspect ratio (6.5) to keep it fully visible.
+  const logHeight = windowWidth / 6.5;
+
   return (
     <View style={styles.screen}>
       <TopNav />
@@ -101,7 +106,7 @@ export default function AboutScreen() {
         {/* Fallen Log Divider */}
         <Image
           source={fallenLog}
-          style={styles.fallenLogDivider}
+          style={[styles.fallenLogDivider, { height: logHeight }]}
           resizeMode="cover"
         />
 
@@ -205,7 +210,6 @@ const styles = StyleSheet.create({
   // Fallen log divider
   fallenLogDivider: {
     width: '100%',
-    height: 80,
     marginBottom: spacing.xl,
   },
 

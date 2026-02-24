@@ -162,6 +162,9 @@ const styles = StyleSheet.create({
     scrollContent: {
         paddingHorizontal: spacing.lg,
         paddingBottom: spacing.xxl,
+        width: '100%',
+        maxWidth: 480,
+        alignSelf: 'center',
     },
     title: {
         fontFamily: fonts.heading,
@@ -195,10 +198,12 @@ const styles = StyleSheet.create({
     buttonContainer: {
         marginTop: spacing.md,
         alignItems: 'center',
+        alignSelf: 'center',
     },
     footer: {
         marginTop: spacing.xl,
         alignItems: 'center',
+        alignSelf: 'center',
     },
     footerText: {
         fontFamily: fonts.body,

@@ -6,14 +6,14 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
 **Core value:** Every screen faithfully matches the Weavy mockups with live Shopify data — enchanted artisan shopping experience on web first, then native.
-**Current focus:** Phase 12: Web UI Polish
+**Current focus:** Phase 13: Web UI/UX Polish (Desktop Nav)
 
 ## Current Position
 
-Phase: 12 of 12 (Web UI Polish) — COMPLETE
+Phase: 13 of 13 (Web Navigation) — COMPLETE
 Plan: 1 of 1 in current phase
-Status: Phase 12 complete. Applied max-width constraints to app/(tabs)/product/[id].tsx, app/(tabs)/blog/[id].tsx, components/BotanicalHeader.tsx, components/BotanicalDivider.tsx, components/layout/TopNav.tsx, and app/(tabs)/menu.tsx. Fixed image checkering with solid backgrounds.
-Last activity: 2026-02-22 — Phase 12 UI changes implemented and verified.
+Status: Phase 13 complete. Integrated responsive DesktopHeader and hidden the Bottom Tab bar on wide web screens. Converted TopNav back button into a Breadcrumb for web.
+Last activity: 2026-02-22 — Phase 13 Web Navigation implemented.
 
 Progress: [█████████░] 92%
 
@@ -139,5 +139,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-22
-Stopped at: Phase 12 planned and executed. Web UI polish complete.
+Stopped at: Phase 13 planned and executed. Web Desktop Navigation (Header & Breadcrumbs) complete.
 Resume file: None

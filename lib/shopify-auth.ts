@@ -1,13 +1,14 @@
 // lib/shopify-auth.ts
 // Service layer for Shopify Customer Authentication.
 
-import { shopifyFetch, ShopifyError } from './shopify-client';
+import { shopifyFetch } from './shopify-client';
 import { getToken, setToken, removeToken } from './auth-storage';
 import {
   CUSTOMER_CREATE_MUTATION,
   CUSTOMER_ACCESS_TOKEN_CREATE_MUTATION,
   GET_CUSTOMER_QUERY,
   CUSTOMER_ACCESS_TOKEN_DELETE_MUTATION,
+  CUSTOMER_RECOVER_MUTATION,
 } from './shopify-queries';
 import {
   ShopifyCustomer,
@@ -33,7 +34,7 @@ export async function loginCustomer(email: string, password: string): Promise<Sh
     input: { email, password },
   });
 
-  const { customerAccessToken, customerUserErrors } = data.customerAccessTokenCreate;
+  const { customerAccessToken } = data.customerAccessTokenCreate;
 
   if (customerAccessToken?.accessToken) {
     await setToken(customerAccessToken.accessToken);
@@ -88,4 +89,22 @@ export async function logoutCustomer(): Promise<void> {
   }
 
   await removeToken();
+}
+
+/**
+ * Sends a password recovery email to the provided email address.
+ */
+export async function recoverCustomer(email: string): Promise<{ customerUserErrors: any[] }> {
+  try {
+    const data = await shopifyFetch<{ customerRecover: { customerUserErrors: any[] } }>(
+      CUSTOMER_RECOVER_MUTATION,
+      { email }
+    );
+    return data.customerRecover;
+  } catch (error) {
+    console.error('[ShopifyAuth] Error recovering customer:', error);
+    return {
+      customerUserErrors: [{ message: error instanceof Error ? error.message : 'Unknown error during recovery' }]
+    };
+  }
 }

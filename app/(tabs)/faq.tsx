@@ -187,7 +187,7 @@ export default function FaqScreen() {
           <Image
             source={faqContactBorder}
             style={styles.contactBorderImage}
-            resizeMode="stretch"
+            resizeMode="contain"
           />
           <View style={styles.contactContent}>
             <Text style={styles.contactTitle}>Still curious?</Text>
@@ -345,6 +345,9 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'center',
+    maxWidth: 800,
+    width: '100%',
   },
   contactBorderImage: {
     width: '100%',
@@ -353,7 +356,8 @@ const styles = StyleSheet.create({
   contactContent: {
     position: 'absolute',
     alignItems: 'center',
-    paddingHorizontal: spacing.xl,
+    width: '65%', // ensure text stays between the fern graphics
+    paddingHorizontal: spacing.md,
   },
   contactTitle: {
     fontFamily: fonts.heading,

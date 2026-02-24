@@ -8,7 +8,9 @@
     "android": "expo start --android",
     "web": "expo start --web",
     "lint": "expo lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build": "npx expo export -p web",
+    "serve": "npx serve dist"
   },
   "dependencies": {
     "@expo-google-fonts/lora": "^0.4.2",

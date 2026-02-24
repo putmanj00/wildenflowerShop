@@ -380,3 +380,15 @@ export const GET_CUSTOMER_QUERY = `
     }
   }
 `;
+
+export const CUSTOMER_RECOVER_MUTATION = `
+  mutation customerRecover($email: String!) {
+    customerRecover(email: $email) {
+      customerUserErrors {
+        code
+        field
+        message
+      }
+    }
+  }
+`;
